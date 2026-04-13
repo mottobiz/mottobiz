@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 120" width="400" height="120">
+  <defs>
+    <linearGradient id="textGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#6366f1;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#a855f7;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f59e0b;stop-opacity:1" />
+    </linearGradient>
+    
+    <filter id="textGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Logo icon on the left -->
+  <g transform="translate(20, 20) scale(0.7)">
+    <circle cx="40" cy="40" r="38" fill="none" stroke="url(#textGradient)" stroke-width="2" opacity="0.6" filter="url(#textGlow)"/>
+    <circle cx="40" cy="40" r="32" fill="#0a0a0b" stroke="url(#textGradient)" stroke-width="1"/>
+    
+    <path d="M 18 55 L 18 32 L 28 42 L 40 25 L 52 42 L 62 32 L 62 55" 
+          fill="none" 
+          stroke="url(#textGradient)" 
+          stroke-width="4" 
+          stroke-linecap="round" 
+          stroke-linejoin="round"
+          filter="url(#textGlow)"/>
+    
+    <circle cx="18" cy="32" r="3" fill="#6366f1" filter="url(#textGlow)"/>
+    <circle cx="28" cy="42" r="2.5" fill="#8b5cf6" filter="url(#textGlow)"/>
+    <circle cx="40" cy="25" r="3.5" fill="#a855f7" filter="url(#textGlow)"/>
+    <circle cx="52" cy="42" r="2.5" fill="#8b5cf6" filter="url(#textGlow)"/>
+    <circle cx="62" cy="32" r="3" fill="#f59e0b" filter="url(#textGlow)"/>
+  </g>
+  
+  <!-- Mottobiz text -->
+  <text x="100" y="72" 
+        font-family="'Space Grotesk', system-ui, sans-serif" 
+        font-size="48" 
+        font-weight="700" 
+        fill="url(#textGradient)"
+        filter="url(#textGlow)">
+    Mottobiz
+  </text>
+  
+  <!-- Tagline -->
+  <text x="102" y="92" 
+        font-family="'Inter', system-ui, sans-serif" 
+        font-size="12" 
+        font-weight="400" 
+        fill="rgba(250,250,250,0.5)"
+        letter-spacing="2">
+    AI AUTOMATION STUDIO
+  </text>
+</svg>
