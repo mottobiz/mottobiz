@@ -24,7 +24,7 @@ export function Hero() {
         <motion.div variants={staggerItem} className="flex justify-center mb-10">
           <span className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-semibold tracking-wider uppercase bg-indigo-500/10 border border-indigo-500/20 text-indigo-300">
             <span className="w-2 h-2 rounded-full bg-indigo-400 animate-pulse" />
-            Surat's First AI Automation Studio
+            Surat's First AI Automation Studio — Auto-Deployed 🚀
           </span>
         </motion.div>
 
