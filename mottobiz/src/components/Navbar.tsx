@@ -34,7 +34,7 @@ export function Navbar() {
             className="w-10 h-10 transition-transform duration-300 group-hover:scale-110"
           />
           <span className="font-display font-semibold text-xl tracking-tight text-white">
-            motto<span className="text-indigo-400">biz</span>
+            Motto<span className="text-indigo-400">Biz</span>
           </span>
         </a>
 

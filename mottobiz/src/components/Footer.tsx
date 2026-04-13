@@ -15,7 +15,7 @@ export function Footer() {
                 className="w-10 h-10"
               />
               <span className="font-display font-semibold text-xl text-white">
-                motto<span className="text-indigo-400">biz</span>
+                Motto<span className="text-indigo-400">Biz</span>
               </span>
             </div>
             <p className="text-white/40 text-sm leading-relaxed max-w-xs mx-auto">

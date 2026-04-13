@@ -58,7 +58,7 @@ export function SEOHead() {
       <meta property="og:url" content={SITE_URL} />
       <meta property="og:title" content="Business Automation & Web Design in Surat | MottoBiz" />
       <meta property="og:description" content="We build the digital system Surat's sharpest small businesses run on — so you grow without the chaos." />
-      <meta property="og:image" content={`${SITE_URL}/og-image.png`} />
+      <meta property="og:image" content={`${SITE_URL}/logo-wordmark.svg`} />
       <meta property="og:locale" content="en_IN" />
 
       {/* Twitter */}
