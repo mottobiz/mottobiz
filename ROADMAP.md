@@ -14,14 +14,14 @@ MottoBiz aims to become the go-to business automation partner for small business
 - [x] WhatsApp integration
 - [x] SEO optimization with LocalBusiness schema
 - [x] Mobile-responsive design
-- [x] Automated deployment pipeline
-- [x] Production deployment
+- [x] Automated deployment pipeline (Hostinger Git)
+- [x] Production deployment (https://mottobiz.com)
 
 ### Known Limitations
-- No webhook endpoint configured
-- Missing brand assets (logo, OG image)
-- No analytics tracking
+- No webhook endpoint configured (graceful fallback to WhatsApp)
+- Missing analytics tracking (GA4, GTM)
 - No content/blog section
+- Google Business Profile not yet claimed
 
 ---
 
@@ -157,12 +157,20 @@ MottoBiz aims to become the go-to business automation partner for small business
 ### Infrastructure
 
 #### Current
-- Static hosting (Hostinger)
-- Manual webhook setup
+- **Hosting:** Hostinger (shared hosting, Git deployment)
+- **Deployment:** Hostinger Git Integration (auto-deploy on push to main)
+- **Build:** Local build, commit dist/ folder
+- **Scripts:** deploy.ps1 / deploy.bat for one-click deployment
+
+**Deployment Learnings:**
+1. Hostinger Git > GitHub Actions FTP - more reliable, faster
+2. Committing dist/ is required for Hostinger's Git integration
+3. PowerShell script provides better Windows DX than batch alone
+4. Environment variables should NEVER be committed (use .env, add to .gitignore)
 
 #### Phase 1 (Q3 2026)
 - Consider Vercel/Netlify for better DX
-- Edge functions for form handling
+- Edge functions for form handling (eliminate webhook dependency)
 - Automatic deployments
 
 #### Phase 2 (Q4 2026)

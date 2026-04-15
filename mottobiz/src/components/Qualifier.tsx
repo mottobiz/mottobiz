@@ -22,7 +22,7 @@ export function Qualifier() {
   const inView = useInView(ref, { once: true, margin: '-100px' })
 
   return (
-    <section id="who" className="relative py-28 sm:py-40 px-6">
+    <section id="who" className="relative py-16 sm:py-24 lg:py-40 px-6">
       <div className="section-divider absolute top-0 left-0 right-0" />
 
       <div className="max-w-5xl mx-auto text-center">
@@ -59,7 +59,7 @@ export function Qualifier() {
             </div>            
             <ul className="space-y-5">
               {forItems.map((item, i) => (
-                <li key={i} className="flex items-center justify-center lg:justify-start gap-4 text-white/70 text-base sm:text-lg">
+                <li key={i} className="flex items-center justify-center lg:justify-start gap-4 text-white/80 text-base sm:text-lg" style={{ color: 'rgba(255,255,255,0.8)' }}>
                   <span className="w-2 h-2 rounded-full bg-indigo-400 flex-shrink-0" />
                   {item}
                 </li>
@@ -74,11 +74,11 @@ export function Qualifier() {
                   <path d="M2 2l6 6M8 2l-6 6" stroke="#ef4444" strokeWidth="1.5" strokeLinecap="round"/>
                 </svg>
               </div>
-              <span className="font-semibold text-white/50 text-lg">Not for you if...</span>
+              <span className="font-semibold text-white/80 text-lg" style={{ color: 'rgba(255,255,255,0.8)' }}>Not for you if...</span>
             </div>
             <ul className="space-y-5">
               {notForItems.map((item, i) => (
-                <li key={i} className="flex items-center justify-center lg:justify-start gap-4 text-white/40 text-base sm:text-lg">
+                <li key={i} className="flex items-center justify-center lg:justify-start gap-4 text-white/80 text-base sm:text-lg" style={{ color: 'rgba(255,255,255,0.8)' }}>
                   <span className="w-2 h-2 rounded-full bg-red-400/60 flex-shrink-0" />
                   {item}
                 </li>

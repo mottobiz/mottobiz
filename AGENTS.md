@@ -12,6 +12,7 @@ This file provides guidance to Verdent when working with code in this repository
 - `npm run dev` — Start Vite dev server (port auto-increments if 5173 in use)
 - `npm run build` — TypeScript check + Vite production build
 - `npm run preview` — Preview production build locally
+- `..\deploy.bat` — Deploy to production (from repo root)
 
 ## Architecture
 
@@ -121,6 +122,8 @@ graph TD
 
 | Document | Purpose |
 |----------|---------|
+| `CONTEXT.md` | **⭐ START HERE** - Current project state, execution memory, troubleshooting |
+| `CHANGELOG.md` | Version history and release notes |
 | `PRD.md` | Product requirements and feature specifications |
 | `TASKS.md` | Task tracking and backlog management |
 | `TECHSTACK.md` | Technology stack details and decisions |

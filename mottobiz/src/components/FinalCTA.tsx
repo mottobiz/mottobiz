@@ -3,46 +3,110 @@ import { motion, useInView } from 'framer-motion'
 import { staggerContainer, staggerItem } from '@/lib/animations'
 import { WHATSAPP_LINK } from '@/lib/config'
 
+// Social proof data
+const finalCTAProof = {
+  spotsLeft: 2,
+  totalSpots: 8,
+  businessesHelped: '25+',
+  avgResponseTime: '2 hours',
+}
+
 export function FinalCTA() {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-100px' })
 
   return (
-    <section id="cta" className="relative py-28 sm:py-40 px-6">
+    <section id="cta" className="relative py-16 sm:py-24 lg:py-40 px-6">
       <div className="section-divider absolute top-0 left-0 right-0" />
       <div className="absolute inset-0 pointer-events-none"
         style={{ background: 'radial-gradient(ellipse 70% 60% at 50% 50%, rgba(99,102,241,0.1) 0%, transparent 70%)' }}
       />
 
-      <div className="max-w-3xl mx-auto text-center relative z-10">
+      <div className="max-w-4xl mx-auto text-center relative z-10">
         <motion.div
           ref={ref}
           variants={staggerContainer}
           initial="hidden"
           animate={inView ? 'visible' : 'hidden'}
         >
-          <motion.div variants={staggerItem} className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full text-xs font-semibold mb-10 sm:mb-12 bg-red-500/10 border border-red-500/20 text-red-300"
+          {/* Urgency Badge - Scarcity Principle */}
+          <motion.div variants={staggerItem} className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full text-xs font-semibold mb-6 bg-red-500/10 border border-red-500/20 text-red-300"
           >
-            <span className="w-2 h-2 rounded-full bg-red-400" />
-            Limited client spots available
+            <span className="w-2 h-2 rounded-full bg-red-400 animate-pulse" />
+            Only {finalCTAProof.spotsLeft} of {finalCTAProof.totalSpots} client spots left this month
           </motion.div>
 
-          <motion.h2 variants={staggerItem} className="font-display text-5xl sm:text-6xl md:text-7xl font-bold mb-8 sm:mb-10"
+          {/* Social Proof Bar */}
+          <motion.div variants={staggerItem} className="flex flex-wrap justify-center gap-6 mb-10 text-sm">
+            <div className="flex items-center gap-2 text-white/60">
+              <span className="text-emerald-400 font-semibold">{finalCTAProof.businessesHelped}</span>
+              <span>Surat businesses automated</span>
+            </div>
+            <div className="flex items-center gap-2 text-white/60">
+              <span className="text-indigo-400 font-semibold">{finalCTAProof.avgResponseTime}</span>
+              <span>average response time</span>
+            </div>
+          </motion.div>
+
+          <motion.h2 variants={staggerItem} className="font-display text-4xl sm:text-5xl md:text-6xl font-bold mb-6"
           >
-            Your Business.
-            <span className="text-gradient"> Automated.</span>
+            Every Day You Wait,
+            <br />
+            <span className="text-gradient">You Lose Money.</span>
           </motion.h2>
 
-          <motion.p variants={staggerItem} className="text-white/50 text-lg sm:text-xl mb-12 sm:mb-14 max-w-xl mx-auto leading-relaxed"
-          >
-            The longer you wait, the longer you're doing it manually.
-            Start with a free audit — 30 minutes that could change everything.
-          </motion.p>
+          {/* Loss Aversion Messaging */}
+          <motion.div variants={staggerItem} className="max-w-2xl mx-auto mb-10">
+            <p className="text-white/50 text-lg sm:text-xl leading-relaxed mb-4">
+              While you're reading this, your competitors are capturing the leads 
+              that should be yours. Every hour of delay costs you <strong className="text-white">₹500-2,000</strong> in lost opportunities.
+            </p>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-amber-500/10 border border-amber-500/20 text-amber-400 text-sm">
+              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+              </svg>
+              Don't let another lead slip away
+            </div>
+          </motion.div>
 
-          <motion.div variants={staggerItem} className="flex flex-col sm:flex-row gap-5 justify-center">
-            <a href="#audit" className="btn-primary inline-flex items-center justify-center gap-2.5">
-              Claim Your Free Audit
+          {/* Value Stack (Anchoring) */}
+          <motion.div variants={staggerItem} className="card p-6 mb-10 max-w-lg mx-auto">
+            <h3 className="text-sm font-semibold text-white/70 uppercase tracking-wider mb-4">What You Get Today</h3>
+            <ul className="space-y-3 text-left mb-6">
+              <li className="flex items-center justify-between text-sm">
+                <span className="text-white/60">Free 30-Minute Automation Audit</span>
+                <span className="text-emerald-400 font-medium">₹5,000 Value</span>
+              </li>
+              <li className="flex items-center justify-between text-sm">
+                <span className="text-white/60">Custom ROI Analysis</span>
+                <span className="text-emerald-400 font-medium">₹3,000 Value</span>
+              </li>
+              <li className="flex items-center justify-between text-sm">
+                <span className="text-white/60">Implementation Roadmap</span>
+                <span className="text-emerald-400 font-medium">₹2,000 Value</span>
+              </li>
+              <li className="flex items-center justify-between text-sm border-t border-white/10 pt-3 mt-3">
+                <span className="text-white font-medium">Total Value</span>
+                <span className="text-white font-bold">₹10,000</span>
+              </li>
+              <li className="flex items-center justify-between text-lg">
+                <span className="text-white font-semibold">Your Investment</span>
+                <span className="text-emerald-400 font-bold">FREE</span>
+              </li>
+            </ul>
+            <p className="text-xs text-white/40">No credit card required. No obligation. Just pure value.</p>
+          </motion.div>
+
+          <motion.div variants={staggerItem} className="flex flex-col sm:flex-row gap-5 justify-center mb-8">
+            {/* Primary CTA - Commitment + Loss Aversion */}
+            <a href="#audit" className="btn-primary inline-flex items-center justify-center gap-2.5 text-base px-8 py-4">
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              Book My Free Audit Now
             </a>
+            
+            {/* Secondary CTA */}
             <a
               href={WHATSAPP_LINK}
               target="_blank"
@@ -54,6 +118,28 @@ export function FinalCTA() {
               </svg>
               Chat on WhatsApp
             </a>
+          </motion.div>
+
+          {/* Trust Badges */}
+          <motion.div variants={staggerItem} className="flex flex-wrap justify-center gap-6 text-xs text-white/40">
+            <div className="flex items-center gap-2">
+              <svg className="w-4 h-4 text-emerald-400" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+              </svg>
+              100% Free. No Credit Card.
+            </div>
+            <div className="flex items-center gap-2">
+              <svg className="w-4 h-4 text-emerald-400" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+              </svg>
+              Response within 2 hours
+            </div>
+            <div className="flex items-center gap-2">
+              <svg className="w-4 h-4 text-emerald-400" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+              </svg>
+              Secure & Confidential
+            </div>
           </motion.div>
         </motion.div>
       </div>

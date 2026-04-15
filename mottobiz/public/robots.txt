@@ -1,0 +1,41 @@
+# AI-optimized robots.txt for MottoBiz
+# Last updated: 2026-04-13
+
+# Allow all search engines and AI assistants
+User-agent: *
+Allow: /
+
+# Specific AI Search Bots - ALLOW (can cite your content)
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# Training crawlers - DISALLOW (opt-out of training data collection)
+User-agent: CCBot
+Disallow: /
+
+User-agent: FacebookBot
+Disallow: /
+
+# Sitemap location
+Sitemap: https://mottobiz.com/sitemap.xml
+
+# Host
+Host: https://mottobiz.com

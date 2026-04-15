@@ -28,7 +28,7 @@ export function HowItWorks() {
   const inView = useInView(ref, { once: true, margin: '-100px' })
 
   return (
-    <section id="how-it-works" className="relative py-28 sm:py-40 px-6">
+    <section id="how-it-works" className="relative py-16 sm:py-24 lg:py-40 px-6">
       <div className="section-divider absolute top-0 left-0 right-0" />
 
       <div className="max-w-5xl mx-auto text-center">
@@ -63,7 +63,7 @@ export function HowItWorks() {
               <h3 className="font-display text-2xl sm:text-3xl font-semibold mb-4 text-white">
                 {step.title}
               </h3>
-              <p className="text-white/50 text-base sm:text-lg mb-5 leading-relaxed">{step.description}</p>
+              <p className="text-white/80 text-base sm:text-lg mb-5 leading-relaxed" style={{ color: 'rgba(255,255,255,0.8)' }}>{step.description}</p>
               <span className="inline-block px-5 py-2 text-sm font-medium rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400">
                 {step.detail}
               </span>

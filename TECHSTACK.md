@@ -151,19 +151,69 @@ MottoBiz is a modern single-page application built with a focus on performance, 
 ## Deployment Stack
 
 ### Hosting
-- **Provider:** Hostinger
-- **Method:** FTP deployment via GitHub Actions
-- **Domain:** mottobiz.com
+| Component | Provider | Details |
+|-----------|----------|---------|
+| Hosting | Hostinger | Shared hosting, Git deployment |
+| Domain | Hostinger | mottobiz.com |
+| SSL | Let's Encrypt | Auto-renewal |
+| CDN | None currently | CloudFlare considered for future |
 
-### CI/CD
-- **Platform:** GitHub Actions
-- **Trigger:** Push to main branch
-- **Steps:**
-  1. Checkout code
-  2. Setup Node.js 20
-  3. Install dependencies (npm ci)
-  4. Build project (npm run build)
-  5. Deploy via FTP to Hostinger
+### Deployment Architecture
+
+```
+Developer Machine
+    │
+    ├──► npm run build ──► dist/ folder
+    │
+    └──► git push origin main ──► GitHub
+                                        │
+                                        ▼
+                              Hostinger Git Integration
+                                        │
+                                        ▼
+                              Auto-deploy to /public_html/
+```
+
+### CI/CD Pipeline
+
+**Current Method:** Hostinger Git Integration
+- **Trigger:** Push to `main` branch
+- **Process:** Hostinger pulls from GitHub and deploys automatically
+- **Build:** Done locally, `dist/` folder committed to repo
+
+**Deployment Scripts:**
+| Script | Purpose | Usage |
+|--------|---------|-------|
+| `deploy.ps1` | Main deployment script | `.&#96;\deploy.ps1 -Message "Update"` |
+| `deploy.bat` | Windows wrapper | Double-click or run `.&#96;\deploy.bat` |
+
+**Script Features:**
+- Checks for uncommitted changes
+- Builds the project (`npm run build`)
+- Stages `dist/` folder
+- Commits with provided message
+- Pushes to `main` branch
+- Hostinger auto-deploys within 2-3 minutes
+
+**Previous Method (Abandoned):**
+- GitHub Actions → FTP upload
+- **Why Abandoned:** FTP credentials in secrets, flaky connections, slower
+
+### Environment Variables
+
+**Security Rule:** NEVER commit `.env` files
+
+```gitignore
+# Environment variables
+.env
+.env.local
+.env.*.local
+```
+
+**Current Approach:**
+- Config values in `src/lib/config.ts` (safe - no secrets)
+- Webhook URL currently empty (graceful fallback)
+- When webhook configured: use Hostinger's environment variable feature or server-side config
 
 ---
 
@@ -188,39 +238,53 @@ MottoBiz is a modern single-page application built with a focus on performance, 
 ## File Structure
 
 ```
-mottobiz/
+mottobiz/                    # Main project folder
 ├── src/
-│   ├── components/        # React components
-│   │   ├── effects.tsx    # Visual effects
+│   ├── components/          # React components
+│   │   ├── effects.tsx      # Visual effects (CustomCursor, AnimatedBackground)
 │   │   ├── FAQ.tsx
 │   │   ├── FinalCTA.tsx
 │   │   ├── Footer.tsx
 │   │   ├── Hero.tsx
 │   │   ├── HowItWorks.tsx
-│   │   ├── LeadMagnet.tsx
+│   │   ├── LeadMagnet.tsx   # Lead capture form
 │   │   ├── Navbar.tsx
 │   │   ├── Pain.tsx
 │   │   ├── Proof.tsx
 │   │   ├── Qualifier.tsx
-│   │   ├── SEOHead.tsx
+│   │   ├── SEOHead.tsx      # Meta tags + JSON-LD
 │   │   ├── Services.tsx
 │   │   └── SocialProof.tsx
 │   ├── lib/
-│   │   ├── animations.ts  # Framer Motion variants
-│   │   ├── config.ts      # Environment constants
-│   │   └── utils.ts       # Utility functions
-│   ├── assets/            # Static assets
-│   ├── index.css          # Global styles + Tailwind
-│   ├── main.tsx           # App entry point
-│   ├── App.tsx            # Root component
-│   └── vite-env.d.ts      # Vite type declarations
-├── .github/
-│   └── workflows/
-│       └── deploy.yml     # CI/CD pipeline
+│   │   ├── animations.ts    # Framer Motion variants
+│   │   ├── config.ts        # Environment constants ⭐
+│   │   └── utils.ts         # Utility functions
+│   ├── assets/              # Static assets
+│   ├── index.css            # Global styles + Tailwind v4 theme
+│   ├── main.tsx             # App entry point
+│   ├── App.tsx              # Root component
+│   └── vite-env.d.ts        # Vite type declarations
+├── dist/                    # ⭐ COMMITTED for Hostinger deployment
 ├── package.json
-├── tsconfig.json
-├── vite.config.ts
+├── tsconfig.json            # TypeScript 6 config (ignoreDeprecations: 6.0)
+vite.config.ts             # Vite 8 config with path aliases
 └── index.html
+```
+
+**Root Level Files:**
+```
+/
+├── deploy.ps1               # ⭐ PowerShell deployment script
+├── deploy.bat               # ⭐ Windows batch wrapper
+├── CONTEXT.md               # ⭐ Project context & execution memory
+├── AGENTS.md                # Development guidelines for AI assistants
+├── PRD.md                   # Product requirements
+├── ROADMAP.md               # Future development plans
+├── TECHSTACK.md             # This file
+├── ARCHITECTURE.md          # System architecture
+├── DESIGN.md                # Design system
+├── GOOGLE_BUSINESS_PROFILE_GUIDE.md  # Local SEO
+└── LOCAL_CITATION_BUILDING_GUIDE.md  # Local SEO
 ```
 
 ---

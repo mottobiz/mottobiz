@@ -19,7 +19,7 @@ export function FAQ() {
   const inView = useInView(ref, { once: true, margin: '-100px' })
 
   return (
-    <section id="faq" className="relative py-28 sm:py-40 px-6">
+    <section id="faq" className="relative py-16 sm:py-24 lg:py-40 px-6">
       <div className="section-divider absolute top-0 left-0 right-0" />
 
       <div className="max-w-3xl mx-auto text-center">
@@ -55,7 +55,7 @@ export function FAQ() {
                 </Accordion.Trigger>
                 <Accordion.Content className="overflow-hidden data-[state=open]:animate-accordion-down data-[state=closed]:animate-accordion-up"
                 >
-                  <p className="px-6 sm:px-8 pb-5 sm:pb-6 text-white/50 text-base sm:text-lg leading-relaxed">{faq.a}</p>
+                  <p className="px-6 sm:px-8 pb-5 sm:pb-6 text-white/80 text-base sm:text-lg leading-relaxed" style={{ color: 'rgba(255,255,255,0.8)' }}>{faq.a}</p>
                 </Accordion.Content>
               </Accordion.Item>
             ))}

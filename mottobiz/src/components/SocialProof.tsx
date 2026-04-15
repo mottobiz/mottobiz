@@ -26,7 +26,7 @@ export function SocialProof() {
   const [active, setActive] = useState(0)
 
   return (
-    <section id="testimonials" className="relative py-28 sm:py-40 px-6">
+    <section id="testimonials" className="relative py-16 sm:py-24 lg:py-40 px-6">
       <div className="section-divider absolute top-0 left-0 right-0" />
 
       <div className="max-w-4xl mx-auto text-center">
@@ -61,8 +61,8 @@ export function SocialProof() {
               </blockquote>
               
               <div>
-                <p className="font-semibold text-white text-lg">{testimonials[active].name}</p>
-                <p className="text-base text-white/40 mt-2">{testimonials[active].business}</p>
+                <p className="font-semibold text-white text-lg" style={{ color: '#ffffff' }}>{testimonials[active].name}</p>
+                <p className="text-base text-white/80 mt-2" style={{ color: 'rgba(255,255,255,0.8)' }}>{testimonials[active].business}</p>
               </div>
             </motion.div>
           </AnimatePresence>

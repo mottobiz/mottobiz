@@ -4,8 +4,9 @@
 
 **Product Name:** MottoBiz Landing Page  
 **Version:** 1.0.0  
-**Status:** Production Ready  
-**Last Updated:** 2026-04-13
+**Status:** Production Ready (Live at https://mottobiz.com)  
+**Last Updated:** 2026-04-13  
+**Next Review:** See ROADMAP.md for upcoming features
 
 ---
 
@@ -252,8 +253,58 @@ MottoBiz is a business automation studio based in Surat, Gujarat, India. The lan
 - `src/components/SEOHead.tsx` - Meta tags and schema
 - `src/index.css` - Design system tokens
 
+## Appendices
+
+### A. Key Files Reference
+- `src/lib/config.ts` - All configuration constants
+- `src/components/LeadMagnet.tsx` - Form implementation
+- `src/components/SEOHead.tsx` - Meta tags and schema
+- `src/index.css` - Design system tokens
+
 ### B. Related Documents
 - `AGENTS.md` - Development guidelines
+- `CONTEXT.md` - **Project state & execution memory (START HERE)**
 - `TASKS.md` - Task tracking
 - `TECHSTACK.md` - Technology details
 - `ROADMAP.md` - Future development plans
+
+### C. Deployment Notes
+
+**Current Deployment Method:** Hostinger Git Integration
+- Push to `main` branch triggers auto-deployment
+- `dist/` folder is committed to repository (required by Hostinger)
+- Deployment scripts: `deploy.ps1` / `deploy.bat`
+
+**Deployment Process:**
+```powershell
+# From repo root:
+.\deploy.bat
+```
+
+See `CONTEXT.md` for detailed troubleshooting and architecture decisions.
+
+### D. Webhook Configuration Status
+
+The `LEAD_WEBHOOK_URL` in `src/lib/config.ts` is currently **empty**. This is intentional:
+
+1. Site is live and generating traffic
+2. Webhook (n8n/Make) not yet configured
+3. Form shows graceful error with WhatsApp fallback
+4. No leads are lost - users redirected to WhatsApp
+
+**To configure webhook:**
+1. Set up n8n or Make workflow
+2. Create webhook endpoint
+3. Update `LEAD_WEBHOOK_URL` in config.ts
+4. Test form submission end-to-end
+5. Deploy
+
+### E. Recent Changes (v1.0)
+
+| Date | Change | Impact |
+|------|--------|--------|
+| 2026-04-13 | Switched to Hostinger Git deployment | More reliable than FTP Actions |
+| 2026-04-13 | Added deploy.ps1 script | One-click deployment |
+| 2026-04-13 | Added .env to .gitignore | Security improvement |
+| 2026-04-12 | Added Local SEO guides | GBP + citation strategy |
+| 2026-04-10 | Initial production release | Site live at mottobiz.com |

@@ -38,6 +38,25 @@ export function Navbar() {
           </span>
         </a>
 
+        {/* Navigation Links */}
+        <div className="hidden md:flex items-center gap-8">
+          {[
+            { label: 'Services', href: '#services' },
+            { label: 'Process', href: '#how-it-works' },
+            { label: 'Results', href: '#proof' },
+            { label: 'FAQ', href: '#faq' },
+          ].map((link) => (
+            <a
+              key={link.label}
+              href={link.href}
+              className="text-sm font-medium text-white/70 hover:text-white transition-colors duration-300 relative group"
+            >
+              {link.label}
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-indigo-400 group-hover:w-full transition-all duration-300" />
+            </a>
+          ))}
+        </div>
+
         {/* CTA */}
         <a
           href={WHATSAPP_LINK}

@@ -14,7 +14,7 @@ export function Pain() {
   const inView = useInView(ref, { once: true, margin: '-100px' })
 
   return (
-    <section id="pain" className="relative py-28 sm:py-40 px-6">
+    <section id="pain" className="relative py-16 sm:py-24 lg:py-40 px-6">
       <div className="max-w-5xl mx-auto text-center">
         <motion.div
           ref={ref}
@@ -26,11 +26,6 @@ export function Pain() {
           <motion.p variants={staggerItem} className="text-indigo-400 text-sm font-semibold tracking-wider uppercase mb-5">
             Sound Familiar?
           </motion.p>
-          <motion.h2 variants={staggerItem} className="font-display text-4xl sm:text-5xl md:text-6xl font-bold mb-6 leading-tight">
-            You're running your business.
-            <br />
-            <span className="text-white/30">Your business is running you.</span>
-          </motion.h2>
           <motion.p variants={staggerItem} className="text-white/50 text-lg sm:text-xl max-w-2xl mx-auto mb-16 leading-relaxed">
             Every hour on repetitive tasks is an hour not spent on growth. 
             You don't need more hours — you need a system.
@@ -50,7 +45,7 @@ export function Pain() {
               className="card p-7 sm:p-8 text-center group"
             >
               <div className="text-3xl sm:text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">{pain.icon}</div>
-              <p className="text-white/60 text-sm sm:text-base">{pain.text}</p>
+              <p className="text-white/80 text-sm sm:text-base" style={{ color: 'rgba(255,255,255,0.85)' }}>{pain.text}</p>
             </motion.div>
           ))}
         </motion.div>

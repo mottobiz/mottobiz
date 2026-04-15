@@ -30,7 +30,7 @@ export function Proof() {
   const inView = useInView(ref, { once: true, margin: '-100px' })
 
   return (
-    <section id="proof" className="relative py-28 sm:py-40 px-6">
+    <section id="proof" className="relative py-16 sm:py-24 lg:py-40 px-6">
       <div className="section-divider absolute top-0 left-0 right-0" />
 
       <div className="max-w-5xl mx-auto text-center">
@@ -64,7 +64,7 @@ export function Proof() {
             >
               <div className="text-4xl sm:text-5xl mb-5 group-hover:scale-110 transition-transform duration-300">{item.icon}</div>
               <h3 className="font-display text-base sm:text-lg font-semibold mb-3 text-white">{item.title}</h3>
-              <p className="text-white/50 text-sm sm:text-base leading-relaxed">{item.desc}</p>
+              <p className="text-white text-sm sm:text-base leading-relaxed" style={{ color: '#ffffff' }}>{item.desc}</p>
             </motion.div>
           ))}
         </motion.div>

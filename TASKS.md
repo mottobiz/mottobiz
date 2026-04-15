@@ -1,5 +1,7 @@
 # TASKS.md - Development Task Tracking
 
+> **Quick Context:** See `CONTEXT.md` for current project state, recent changes, and troubleshooting.
+
 ## Current Sprint
 
 ### Status Legend
