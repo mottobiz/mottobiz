@@ -1,10 +1,10 @@
-import { useRef, useState } from 'react'
-import { motion, useInView } from 'framer-motion'
+import { useRef, useState, useEffect } from 'react'
+import { motion, useInView, AnimatePresence } from 'framer-motion'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { staggerContainer, staggerItem } from '@/lib/animations'
-import { LEAD_WEBHOOK_URL } from '@/lib/config'
+import { LEAD_WEBHOOK_URL, WHATSAPP_NUMBER } from '@/lib/config'
 
 const schema = z.object({
   name: z.string().min(2, 'Please enter your name'),
@@ -50,28 +50,61 @@ export function LeadMagnet() {
   const inView = useInView(ref, { once: true, margin: '-100px' })
   const [submitted, setSubmitted] = useState(false)
   const [submitError, setSubmitError] = useState<string | null>(null)
+  const [dropdownOpen, setDropdownOpen] = useState(false)
+  const dropdownRef = useRef<HTMLDivElement>(null)
 
-  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<FormValues>({
+  const { register, handleSubmit, formState: { errors, isSubmitting }, watch, setValue } = useForm<FormValues>({
     resolver: zodResolver(schema),
   })
 
+  const selectedBusinessType = watch('businessType')
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setDropdownOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [])
+
+  const handleSelect = (value: string) => {
+    setValue('businessType', value, { shouldValidate: true })
+    setDropdownOpen(false)
+  }
+
   const onSubmit = async (data: FormValues) => {
     setSubmitError(null)
-    if (!LEAD_WEBHOOK_URL) {
-      setSubmitError('Form temporarily unavailable. Please use WhatsApp.')
+
+    // If webhook URL is configured, POST to it
+    if (LEAD_WEBHOOK_URL) {
+      try {
+        const res = await fetch(LEAD_WEBHOOK_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+        })
+        if (!res.ok) throw new Error(`Server error: ${res.status}`)
+        setSubmitted(true)
+      } catch {
+        // Fallback to WhatsApp on error
+        const msg = encodeURIComponent(
+          `Hi MottoBiz, I'd like a free automation audit.\n\nName: ${data.name}\nWhatsApp: ${data.whatsapp}\nEmail: ${data.email}\nBusiness: ${data.businessType}`
+        )
+        window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, '_blank')
+        setSubmitted(true)
+      }
       return
     }
-    try {
-      const res = await fetch(LEAD_WEBHOOK_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
-      })
-      if (!res.ok) throw new Error(`Server error: ${res.status}`)
-      setSubmitted(true)
-    } catch {
-      setSubmitError('Something went wrong. Please try WhatsApp instead.')
-    }
+
+    // No webhook configured — redirect to WhatsApp with form data
+    const msg = encodeURIComponent(
+      `Hi MottoBiz, I'd like a free automation audit.\n\nName: ${data.name}\nWhatsApp: ${data.whatsapp}\nEmail: ${data.email}\nBusiness: ${data.businessType}`
+    )
+    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, '_blank')
+    setSubmitted(true)
   }
 
   return (
@@ -210,18 +243,56 @@ export function LeadMagnet() {
                   {errors.email && <p className="mt-2 text-xs text-red-400">{errors.email.message}</p>}
                 </div>
 
-                <div>
+                <div ref={dropdownRef} className="relative">
                   <label className="block text-xs font-semibold text-white/50 uppercase tracking-wider mb-3">Business Type *</label>
-                  <select
-                    {...register('businessType')}
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-white text-sm sm:text-base focus:border-indigo-500/50 focus:outline-none transition-colors appearance-none"
+                  <button
+                    type="button"
+                    onClick={() => setDropdownOpen(!dropdownOpen)}
+                    className={`w-full bg-white/5 border rounded-xl px-5 py-4 text-left text-sm sm:text-base transition-colors focus:outline-none ${
+                      dropdownOpen ? 'border-indigo-500/50' : 'border-white/10 hover:border-white/20'
+                    } ${selectedBusinessType ? 'text-white' : 'text-white/30'}`}
                   >
-                    <option value="" className="bg-[#121214]">Select your business type...</option>
-                    {businessTypes.map(t => (
-                      <option key={t} value={t} className="bg-[#121214]">{t}</option>
-                    ))}
-                  </select>
+                    <span className="block truncate">
+                      {selectedBusinessType || 'Select your business type...'}
+                    </span>
+                    <span className="absolute right-4 top-[42px] pointer-events-none">
+                      <svg className={`w-5 h-5 text-white/40 transition-transform ${dropdownOpen ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </span>
+                  </button>
+                  
+                  <AnimatePresence>
+                    {dropdownOpen && (
+                      <motion.div
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        transition={{ duration: 0.15 }}
+                        className="absolute z-50 w-full mt-2 bg-[#1a1a2e] border border-white/10 rounded-xl shadow-2xl overflow-hidden max-h-64 overflow-y-auto"
+                      >
+                        {businessTypes.map((type) => (
+                          <button
+                            key={type}
+                            type="button"
+                            onClick={() => handleSelect(type)}
+                            className={`w-full px-5 py-3 text-left text-sm transition-colors hover:bg-indigo-500/20 ${
+                              selectedBusinessType === type 
+                                ? 'bg-indigo-500/20 text-white font-medium' 
+                                : 'text-white/80'
+                            }`}
+                          >
+                            {type}
+                          </button>
+                        ))}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                  
                   {errors.businessType && <p className="mt-2 text-xs text-red-400">{errors.businessType.message}</p>}
+                  
+                  {/* Hidden input for react-hook-form registration */}
+                  <input {...register('businessType')} type="hidden" />
                 </div>
 
                 {/* Submit Button - Loss Aversion + Commitment */}

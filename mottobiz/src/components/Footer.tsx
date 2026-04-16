@@ -96,7 +96,11 @@ export function Footer() {
 
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/30 border-t border-white/5">
           <p>&copy; {new Date().getFullYear()} MottoBiz. Surat, Gujarat, India.</p>
-          <p>Automation · Web Development · AI Workflows</p>
+          <div className="flex items-center gap-4">
+            <a href="/privacy" className="hover:text-white/60 transition-colors">Privacy Policy</a>
+            <span>|</span>
+            <a href="/terms" className="hover:text-white/60 transition-colors">Terms of Service</a>
+          </div>
         </div>
       </div>
 

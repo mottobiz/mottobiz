@@ -317,17 +317,29 @@ const placeSchema = {
   })),
 }
 
-export function SEOHead() {
+interface SEOHeadProps {
+  title?: string
+  description?: string
+  canonicalUrl?: string
+  ogImage?: string
+}
+
+export function SEOHead({ 
+  title = 'Business Automation & Web Design in Surat | MottoBiz',
+  description = "MottoBiz helps solopreneurs and small businesses in Surat automate their daily operations — WhatsApp follow-ups, social media, lead pipelines — without hiring a team. Book a free 30-min audit.",
+  canonicalUrl = SITE_URL,
+  ogImage = `${SITE_URL}/og-image.png`
+}: SEOHeadProps = {}) {
   return (
     <Helmet>
-      <title>Business Automation & Web Design in Surat | MottoBiz</title>
+      <title>{title}</title>
       <meta
         name="description"
-        content="MottoBiz helps solopreneurs and small businesses in Surat automate their daily operations — WhatsApp follow-ups, social media, lead pipelines — without hiring a team. Book a free 30-min audit."
+        content={description}
       />
       <meta name="robots" content="index, follow" />
       <meta name="author" content="MottoBiz" />
-      <link rel="canonical" href={SITE_URL} />
+      <link rel="canonical" href={canonicalUrl} />
 
       {/* AI Search Optimization Meta Tags */}
       <meta name="AI-friendly" content="true" />

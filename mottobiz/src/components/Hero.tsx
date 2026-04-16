@@ -94,15 +94,15 @@ export function Hero() {
         </motion.div>
 
         {/* Rotating Headlines */}
-        <div className="relative h-[280px] sm:h-[320px] md:h-[380px] mb-8 overflow-hidden">
+        <div className="relative min-h-[280px] sm:min-h-[320px] md:min-h-[380px] mb-8 flex flex-col justify-center">
           <AnimatePresence mode="wait" initial={false}>
             <motion.div
               key={currentHeadline}
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -40 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
               transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-              className="absolute inset-0 flex flex-col justify-center"
+              className="w-full"
             >
               <h1
                 className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold leading-[1.1] tracking-tight text-white"
@@ -118,7 +118,7 @@ export function Hero() {
           </AnimatePresence>
           
           {/* Progress indicators */}
-          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 flex gap-2">
+          <div className="flex justify-center gap-2 mt-8">
             {headlines.map((_, index) => (
               <button
                 key={index}

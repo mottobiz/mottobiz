@@ -41,6 +41,6 @@ export const SERVICE_AREAS = [
   { name: 'L P Savani Road', lat: '21.1400', lng: '72.7600', type: 'area' },
 ]
 
-// Webhook — replace with your n8n/Make endpoint before going live
-// For now, submissions will fail gracefully and show an error message
-export const LEAD_WEBHOOK_URL = ''
+// Webhook — configurable via VITE_LEAD_WEBHOOK_URL env variable
+// When empty, form submissions redirect to WhatsApp with form data
+export const LEAD_WEBHOOK_URL = import.meta.env.VITE_LEAD_WEBHOOK_URL ?? ''

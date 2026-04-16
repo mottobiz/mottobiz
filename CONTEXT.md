@@ -4,9 +4,9 @@
 
 This file serves as the **single source of truth** for the current state of the MottoBiz project. It captures recent changes, execution learnings, troubleshooting steps, architectural decisions, and strategic context. Anyone picking up this project should read this file first.
 
-**Last Updated:** 2026-04-13  
-**Project Status:** Production Ready (v1.0)  
-**Current Focus:** Deployment Optimization & Local SEO
+**Last Updated:** 2026-04-16  
+**Project Status:** Production Ready (v2.1)  
+**Current Focus:** Content Expansion & SEO
 
 ---
 
@@ -19,250 +19,268 @@ This file serves as the **single source of truth** for the current state of the 
 | WhatsApp Integration | ✅ Working | Direct wa.me links |
 | SEO Schema | ✅ Implemented | LocalBusiness + ServiceAreas |
 | Deployment | ✅ Automated | Git + Hostinger auto-deploy |
-| Analytics | ❌ Not Setup | GA4 & GTM pending |
-| Webhook | ❌ Not Configured | n8n/Make endpoint needed |
+| Resources Hub | ✅ Live | `/resources` page with article grid |
+| Article Pages | ✅ Live | `/resources/:slug` dynamic routing |
+| Content Framework | ✅ Complete | 1,892-line CONTENT_STRATEGY.md |
+| AI Detection Avoidance | ✅ Implemented | Humanization rules in framework |
+| Proofreading QA | ✅ Implemented | Quality checklist template |
+| Privacy Policy | ✅ Live | `/privacy` page |
+| Terms of Service | ✅ Live | `/terms` page |
+| Article Content | ✅ 29 articles | All 5 pillars + comparisons + guides + locations |
+| Sitemap | ✅ Updated | All 29 articles + static pages |
+| Google Business Profile | ✅ Claimed | Profile created and verified |
+| Google Search Console | ✅ Setup | Property added, sitemap submitted |
+| Webhook | ⬜ Not Configured | n8n/Make endpoint needed |
+| Google Analytics 4 | ⬜ Not Setup | Tracking code not added |
+
+---
+
+## Content Generation Framework
+
+### Overview
+
+The content generation system is fully implemented with:
+- **CONTENT_STRATEGY.md** - Complete 1,892-line master framework
+- **Article Briefs** - Detailed briefs for content writers
+- **Full Articles** - Human-written articles using the framework
+- **Templates** - Reusable templates for consistent output
+- **React Components** - Frontend for displaying content
+
+### Framework Components
+
+| Component | File | Status |
+|-----------|------|--------|
+| Master Framework | `CONTENT_STRATEGY.md` | ✅ Complete |
+| Article Brief Template | `content/templates/article-brief-template.md` | ✅ Complete |
+| Quality Checklist | `content/templates/quality-checklist-template.md` | ✅ Complete |
+| AI Detection Avoidance | Section 6 in CONTENT_STRATEGY.md | ✅ Complete |
+| AEO/SEO Checklist | Section 8 in CONTENT_STRATEGY.md | ✅ Complete |
+| Proofreading System | Section 7 in CONTENT_STRATEGY.md | ✅ Complete |
+
+### Content Pillars
+
+| Pillar | Focus | Articles | Sub-Pillars |
+|--------|-------|----------|-------------|
+| **Textile & Diamond** | Core industry automation | 5 created | WhatsApp Automation, Lead Management, Inventory, Location Content |
+| **Restaurants & Food** | Order & customer management | Planned | Order Management, Customer Communication, Delivery, Reviews |
+| **Real Estate** | Lead gen & nurturing | Planned | Lead Generation, Property Marketing, Client Nurturing, Documentation |
+| **Coaching & Education** | Student & admission management | Planned | Admission Management, Student Communication, Content & Engagement |
+| **Retail & Consumer** | Customer service & operations | Planned | Customer Service, Marketing, Operations |
+
+---
+
+## Articles Generated
+
+### Published Articles (29)
+
+| # | Title | Slug | Category | Pillar | Word Count |
+|---|-------|------|----------|--------|------------|
+| 1 | WhatsApp Automation for Textile Traders in Surat | `whatsapp-automation-textile-traders-surat` | industries | Textile & Diamond | ~1,800 |
+| 2 | How to Handle Bulk Order Inquiries Automatically | `bulk-order-inquiries-automation` | industries | Textile & Diamond | ~1,500 |
+| 3 | Lead Capture Automation for Diamond Businesses | `lead-capture-diamond-businesses` | industries | Textile & Diamond | ~1,400 |
+| 4 | Stock Alert Automation for Textile Shops | `stock-alert-automation-textile` | industries | Textile & Diamond | ~1,300 |
+| 5 | Textile Business Automation in Varachha | `textile-business-automation-varachha` | locations | Textile & Diamond | ~1,600 |
+| 6 | How a Varachha Trader 3x'd His Response Rate | `varachha-textile-case-study` | case-studies | Textile & Diamond | ~1,200 |
+| 7 | Restaurant Order Automation in Adajan | `restaurant-automation-adajan` | locations | Restaurants & Food | ~1,400 |
+| 8 | WhatsApp Order Automation for Restaurants | `whatsapp-order-automation-restaurants` | industries | Restaurants & Food | ~1,500 |
+| 9 | Auto-Confirming Orders and Sending Estimates | `auto-confirming-orders-estimates` | industries | Restaurants & Food | ~1,300 |
+| 10 | Reservation Booking via WhatsApp | `reservation-booking-whatsapp` | industries | Restaurants & Food | ~1,200 |
+| 11 | Delivery Status Updates via WhatsApp | `delivery-status-updates-whatsapp` | industries | Restaurants & Food | ~1,200 |
+| 12 | Automated Review Requests After Dining | `automated-review-requests-restaurants` | industries | Restaurants & Food | ~1,100 |
+| 13 | Real Estate Lead Generation in Vesu | `real-estate-leads-vesu` | locations | Real Estate | ~1,300 |
+| 14 | Real Estate Lead Automation in Surat | `real-estate-lead-automation-surat` | industries | Real Estate | ~1,500 |
+| 15 | Qualifying Property Buyers Automatically | `qualifying-property-buyers-automatically` | industries | Real Estate | ~1,300 |
+| 16 | Auto-Sharing Property Listings on WhatsApp | `property-listings-whatsapp-automation` | industries | Real Estate | ~1,200 |
+| 17 | Long-Term Lead Nurturing for Real Estate | `long-term-lead-nurturing-real-estate` | industries | Real Estate | ~1,200 |
+| 18 | Coaching Center Automation in Surat | `coaching-center-automation` | industries | Coaching & Education | ~1,400 |
+| 19 | Handling Admission Inquiries 24/7 | `handling-admission-inquiries-24-7` | industries | Coaching & Education | ~1,300 |
+| 20 | Class Schedule Reminders That Actually Work | `class-schedule-reminders` | industries | Coaching & Education | ~1,100 |
+| 21 | Fee Payment Reminders Without the Awkwardness | `fee-payment-reminders-coaching` | industries | Coaching & Education | ~1,200 |
+| 22 | Student Progress Updates for Parents | `student-progress-updates-parents` | industries | Coaching & Education | ~1,100 |
+| 23 | Retail WhatsApp Automation in Surat | `retail-whatsapp-automation` | industries | Retail & Consumer | ~1,100 |
+| 24 | Product Availability Checks via WhatsApp | `product-availability-checks-whatsapp` | industries | Retail & Consumer | ~1,200 |
+| 25 | Sale & Offer Announcements That Get Opened | `sale-announcements-automation` | industries | Retail & Consumer | ~1,200 |
+| 26 | Inventory Alerts When Stock Runs Low | `inventory-alerts-retail` | industries | Retail & Consumer | ~1,100 |
+| 27 | n8n vs Make: Which Automation Tool? | `n8n-vs-make` | comparisons | — | ~1,400 |
+| 28 | WhatsApp Business API vs Automation Tools | `whatsapp-business-api-vs-automation` | comparisons | — | ~1,300 |
+| 29 | Free vs Paid Automation: What Works | `free-vs-paid-automation` | comparisons | — | ~1,200 |
+| 30 | Website Development in Varachha | `website-development-varachha` | locations | — | ~1,300 |
+| 31 | Business Automation in Vesu | `business-automation-vesu` | locations | Real Estate | ~1,200 |
+| 32 | Restaurant & Cafe Automation in Adajan | `restaurant-automation-adajan-location` | locations | Restaurants & Food | ~1,300 |
+| 33 | Getting Started with Business Automation | `getting-started-business-automation` | guides | — | ~1,500 |
+| 34 | The Complete WhatsApp Business Guide for Surat | `complete-whatsapp-business-guide-surat` | guides | — | ~1,800 |
+| 35 | How Much Does Business Automation Cost? | `how-much-does-business-automation-cost` | guides | — | ~1,400 |
+
+### Article Briefs Created (5)
+
+| # | Brief | Status |
+|---|-------|--------|
+| 1 | 01-whatsapp-automation-textile-traders.md | ✅ Full article generated |
+| 2 | 02-bulk-order-inquiries-automation.md | ✅ Full article generated |
+| 3 | 03-lead-capture-diamond-businesses.md | ✅ Full article generated |
+| 4 | 04-stock-alert-automation-textile.md | ✅ Full article generated |
+| 5 | 05-textile-business-automation-varachha.md | ✅ Full article generated |
+
+### Content Files Location
+
+```
+content/
+├── articles/          # Full articles (markdown)
+│   ├── whatsapp-automation-textile-traders-surat.md
+│   ├── bulk-order-inquiries-automation.md
+│   ├── lead-capture-diamond-businesses.md
+│   ├── stock-alert-automation-textile.md
+│   └── textile-business-automation-varachha.md
+├── briefs/            # Article briefs
+│   ├── 01-whatsapp-automation-textile-traders.md
+│   ├── 02-bulk-order-inquiries-automation.md
+│   ├── 03-lead-capture-diamond-businesses.md
+│   ├── 04-stock-alert-automation-textile.md
+│   └── 05-textile-business-automation-varachha.md
+└── templates/         # Reusable templates
+    ├── article-brief-template.md
+    └── quality-checklist-template.md
+```
+
+---
+
+## SEO Implementation
+
+### What's Done
+
+| SEO Element | Status | Implementation |
+|------------|--------|----------------|
+| Meta Tags | ✅ | Dynamic via SEOHead component |
+| Canonical URLs | ✅ | Auto-generated per article |
+| Schema Markup | ✅ | LocalBusiness + Service + Article |
+| Internal Linking | ✅ | 3-5 links per article |
+| External Authority Links | ✅ | 2-3 per article |
+| Sitemap | ✅ Generated | All 12 articles + static pages included |
+| robots.txt | ✅ Configured | Points to sitemap.xml |
+| OG Images | ⬜ | Needs generation |
+| Article Structured Data | ✅ | JSON-LD via SEOHead |
+| FAQ Schema | ✅ | Per-article FAQ sections |
+
+### SEO Components
+
+| Component | File | Purpose |
+|-----------|------|---------|
+| SEOHead | `components/SEOHead.tsx` | Dynamic meta tags |
+| ResourcesPage | `components/resources/ResourcesPage.tsx` | Article listing |
+| ArticlePage | `pages/ArticlePage.tsx` | Individual article rendering |
+| ArticleCard | `components/resources/ArticleCard.tsx` | Article preview cards |
+
+### Article SEO Requirements (Per Framework)
+
+Every article must include:
+- [x] Primary keyword in first 100 words
+- [x] Primary keyword in H1, at least 1 H2, conclusion
+- [x] Meta title ≤60 chars with "Surat"
+- [x] Meta description 150-160 chars with CTA
+- [x] Minimum 3 Surat location references
+- [x] Minimum 1 local business example
+- [x] 3-5 internal links
+- [x] 2-3 external authority links
+- [x] FAQ schema markup
+- [x] WhatsApp CTA in conclusion
 
 ---
 
 ## Recent Execution Log
 
-### 2026-04-13: Deployment Pipeline Setup
+### 2026-04-16: Content System Implementation
 
 **What Was Done:**
-1. Created PowerShell deployment script (`deploy.ps1`) with build automation
-2. Created batch file wrapper (`deploy.bat`) for one-click deployment
-3. Configured Hostinger Git integration for auto-deployment
-4. Removed GitHub Actions workflow (switched to Hostinger's native Git)
-5. Added `.env` to `.gitignore` for security
-6. Configured `dist/` folder to be committed for Hostinger deployment
+1. Created comprehensive `CONTENT_STRATEGY.md` (1,892 lines)
+2. Integrated Universal Content Framework with Mottobiz brand
+3. Added AI detection avoidance system
+4. Added proofreading/quality assurance process
+5. Defined 5 industry pillars with sub-pillars (20+ total)
+6. Created article template schema (JSON)
+7. Specified interactive components for articles
+8. Added color theme guidelines matching brand
+9. Generated 5 full articles from briefs
+10. Created React resources page with routing
+11. Implemented dynamic article pages with content rendering
+12. Added category filtering and search functionality
 
 **Key Decisions:**
-- **Hostinger Git > GitHub Actions:** Hostinger's built-in Git integration is simpler and more reliable than FTP-based Actions
-- **Commit dist/ folder:** Required because Hostinger pulls directly from GitHub
-- **PowerShell script:** Windows-native, no WSL dependency for deployment
+- **Industry-first approach:** Focus on Textile, Restaurant, Real Estate, Coaching, Retail
+- **3-5 sub-pillars per industry:** Focused approach for each vertical
+- **Category landing pages:** Hub pages with sub-category breakdowns
+- **Humanization mandatory:** All articles must pass AI detection checks
+- **React Router:** Used for client-side routing (not Next.js)
 
-**Files Created/Modified:**
+**Files Created:**
 ```
-NEW: deploy.ps1          # Main deployment script
-NEW: deploy.bat          # Windows wrapper
-MOD: .gitignore          # Added .env, removed dist/ ignore
-MOD: mottobiz/.gitignore # Added .env
-DEL: .github/workflows/deploy.yml  # Removed (using Hostinger Git)
-```
+content/
+├── articles/
+│   ├── whatsapp-automation-textile-traders-surat.md
+│   ├── bulk-order-inquiries-automation.md
+│   ├── lead-capture-diamond-businesses.md
+│   ├── stock-alert-automation-textile.md
+│   └── textile-business-automation-varachha.md
+├── briefs/
+│   ├── 01-whatsapp-automation-textile-traders.md
+│   ├── 02-bulk-order-inquiries-automation.md
+│   ├── 03-lead-capture-diamond-businesses.md
+│   ├── 04-stock-alert-automation-textile.md
+│   └── 05-textile-business-automation-varachha.md
+└── templates/
+    ├── article-brief-template.md
+    └── quality-checklist-template.md
 
-**Deployment Process (Current):**
-```powershell
-# From repo root:
-.\deploy.bat
-# Or with custom message:
-.\deploy.ps1 -Message "Your commit message"
-```
-
-**How It Works:**
-1. Script checks for uncommitted changes
-2. Builds the project (`npm run build`)
-3. Stages `dist/` folder
-4. Commits with provided message
-5. Pushes to `main` branch
-6. Hostinger detects push and auto-deploys
-
----
-
-### 2026-04-13: Environment Security
-
-**What Was Done:**
-- Added `.env` to `.gitignore` in both root and `mottobiz/` directories
-- Ensured no sensitive data (webhook URLs, API keys) can be accidentally committed
-
-**Critical Security Rule:**
-> NEVER commit `.env` files or any file containing secrets. The webhook URL will be configured server-side on Hostinger when needed.
-
----
-
-### 2026-04-12: Local SEO Documentation
-
-**What Was Done:**
-1. Created comprehensive Google Business Profile guide
-2. Created Local Citation Building guide with 30+ directories
-3. Defined 20 service areas in Surat for geo-targeting
-4. Documented NAP (Name/Address/Phone) consistency requirements
-
-**Key Files:**
-- `GOOGLE_BUSINESS_PROFILE_GUIDE.md` - Complete GBP setup instructions
-- `LOCAL_CITATION_BUILDING_GUIDE.md` - 30+ directories to list on
-
-**Service Areas Configured (config.ts):**
-```typescript
-// 20 Surat neighborhoods defined with lat/lng
-// Primary: Varachha, Adajan, Vesu, Piplod, Athwa, etc.
-// Extended: Katargam, Udhna, Rander, etc.
+mottobiz/src/
+├── types/article.ts          # Article TypeScript definitions
+├── data/articles.ts         # Article data + content
+├── pages/
+│   ├── HomePage.tsx         # Home page wrapper
+│   ├── ResourcesPage.tsx    # Resources wrapper
+│   └── ArticlePage.tsx      # Individual article page
+└── components/resources/
+    ├── ArticleCard.tsx     # Article cards
+    ├── ArticleGrid.tsx       # Grid layouts
+    ├── CategoryFilter.tsx   # Filters + search
+    ├── ResourcesHero.tsx    # Hero + CTAs
+    └── ResourcesPage.tsx   # Main page component
 ```
 
 ---
 
-## Architecture & Technical Learnings
+## Architecture
 
-### Deployment Architecture (Current)
+### Routing Structure
 
 ```
-Developer Machine
-    │
-    ├──► npm run build ──► dist/ folder
-    │
-    └──► git push origin main ──► GitHub
-                                        │
-                                        ▼
-                              Hostinger Git Integration
-                                        │
-                                        ▼
-                              Auto-deploy to /public_html/
+/                          → HomePage
+/resources                  → ResourcesPage
+/resources/:slug           → ArticlePage
 ```
 
-**Why This Architecture:**
-1. **Simple:** No CI/CD pipeline to maintain
-2. **Reliable:** Hostinger's native Git is purpose-built
-3. **Fast:** Deploys within 2-3 minutes of push
-4. **Versioned:** Every deployment is a Git commit
+### Routing Implementation
 
-**Previous Architecture (Abandoned):**
-```
-GitHub Actions → FTP upload → Hostinger
-```
-**Why Abandoned:** FTP credentials in GitHub secrets, flaky connections, slower
-
----
-
-### Critical Configuration: Single Source of Truth
-
-**ALWAYS** import from `@/lib/config.ts` - never hardcode:
+Uses `react-router-dom` for client-side routing:
 
 ```typescript
-// ✅ CORRECT - In any component:
-import { WHATSAPP_LINK, EMAIL, SITE_URL } from '@/lib/config'
-
-// ❌ WRONG - Never do this:
-<a href="https://wa.me/917487957972">...</a>
+// App.tsx
+<Router>
+  <Routes>
+    <Route path="/" element={<HomePage />} />
+    <Route path="/resources" element={<ResourcesPageWrapper />} />
+    <Route path="/resources/:slug" element={<ArticlePage />} />
+  </Routes>
+</Router>
 ```
 
-**Config File Location:** `mottobiz/src/lib/config.ts`
+### Data Flow
 
-**Current Values:**
-```typescript
-WHATSAPP_NUMBER = '917487957972'
-EMAIL = 'webmaster@mottobiz.com'
-PHONE_DISPLAY = '+91 74879 57972'
-SITE_URL = 'https://mottobiz.com'
-LEAD_WEBHOOK_URL = ''  // Empty = graceful error handling
 ```
-
----
-
-### Form Handling: Graceful Degradation
-
-**Current Implementation:**
-```typescript
-// When webhook URL is empty (not configured):
-if (!LEAD_WEBHOOK_URL) {
-  setSubmitError('Form temporarily unavailable. Please use WhatsApp.')
-  return
-}
+content/articles/*.md  →  articles.ts  →  ResourcesPage/ArticlePage
+                              ↓
+                        ArticleCard
+                              ↓
+                        ArticleGrid
 ```
-
-**Why This Pattern:**
-- Site is live and generating traffic
-- Webhook (n8n/Make) not yet configured
-- Don't block leads - redirect to WhatsApp
-- Error message is user-friendly and actionable
-
-**Future Enhancement:**
-When webhook is ready:
-1. Set up n8n workflow with form submission endpoint
-2. Update `LEAD_WEBHOOK_URL` in config.ts
-3. Test end-to-end submission
-4. Deploy
-
----
-
-## Troubleshooting Log
-
-### Issue: GitHub Actions FTP Deployment Failures
-
-**Symptom:** Intermittent deployment failures, FTP timeout errors
-
-**Root Cause:** GitHub Actions FTP action unreliable for Hostinger shared hosting
-
-**Resolution:** Switched to Hostinger's native Git integration
-
-**Prevention:** Documented deployment process in CONTEXT.md
-
----
-
-### Issue: dist/ Folder Not Deploying
-
-**Symptom:** Changes visible in GitHub but not on live site
-
-**Root Cause:** `.gitignore` was excluding `dist/` folder
-
-**Resolution:** Commented out `dist` in `.gitignore`:
-```gitignore
-# dist - committed for Hostinger deployment
-```
-
-**Lesson:** Hostinger needs `dist/` committed since it pulls from GitHub directly
-
----
-
-### Issue: Environment Variables Exposed
-
-**Symptom:** Nearly committed `.env` file with webhook URL
-
-**Root Cause:** `.env` not in `.gitignore`
-
-**Resolution:** Added `.env` to both `.gitignore` files:
-```gitignore
-# Environment variables
-.env
-.env.local
-.env.*.local
-```
-
-**Lesson:** Always add `.env` to `.gitignore` BEFORE creating the file
-
----
-
-### Issue: Custom Cursor on Touch Devices
-
-**Symptom:** Custom cursor appearing on mobile/tablet
-
-**Root Cause:** No media query check for pointer type
-
-**Resolution:** Added CSS media query:
-```css
-@media (pointer: fine) and (hover: hover) {
-  /* Custom cursor styles */
-}
-```
-
-**Code Location:** `mottobiz/src/components/effects.tsx`
-
----
-
-### Issue: TypeScript baseUrl Deprecation Warning
-
-**Symptom:** TS warnings about `baseUrl` deprecation in tsconfig.json
-
-**Root Cause:** TypeScript 6.0 deprecated `baseUrl` without `paths`
-
-**Resolution:** Added to tsconfig.json:
-```json
-{
-  "compilerOptions": {
-    "ignoreDeprecations": "6.0"
-  }
-}
-```
-
-**Note:** DO NOT REMOVE - this is required for Vite path aliasing to work
 
 ---
 
@@ -280,77 +298,32 @@ npm run dev
 # 3. Open browser to shown port (usually http://localhost:5173)
 ```
 
-### Making Changes
+### Making Content Changes
 
 ```powershell
-# 1. Make your code changes
-# 2. Test locally with npm run dev
-# 3. Build and deploy:
+# 1. Add/Edit article markdown in:
+#    content/articles/*.md
+
+# 2. Add/Edit article metadata in:
+#    mottobiz/src/data/articles.ts
+
+# 3. Test locally
+npm run dev
+
+# 4. Build and deploy:
 cd D:\IDEprojects\Mottobiz
 .\deploy.bat
 ```
 
-### Project Structure Quick Reference
+### Creating New Articles
 
-```
-mottobiz/
-├── src/
-│   ├── components/          # All section components
-│   │   ├── Hero.tsx         # Landing hero section
-│   │   ├── Services.tsx     # Service cards
-│   │   ├── LeadMagnet.tsx   # Lead capture form ⭐
-│   │   ├── FAQ.tsx          # Accordion FAQ
-│   │   ├── effects.tsx      # CustomCursor + AnimatedBackground
-│   │   └── SEOHead.tsx      # Meta tags + JSON-LD
-│   ├── lib/
-│   │   ├── config.ts        # ⭐ ALL constants - EDIT HERE
-│   │   ├── animations.ts    # Framer Motion variants
-│   │   └── utils.ts         # cn() helper
-│   ├── index.css            # Tailwind theme + custom styles
-│   ├── App.tsx              # Section composition
-│   └── main.tsx             # Entry point
-├── dist/                    # ⭐ COMMITTED (for Hostinger)
-└── package.json
-```
-
----
-
-## Strategic Context
-
-### Business Goals
-
-1. **Lead Generation:** Primary goal - capture qualified leads through audit booking form
-2. **Local SEO:** Rank for automation-related searches in Surat
-3. **Brand Authority:** Position as "Surat's first AI automation studio"
-4. **Conversion:** Drive WhatsApp conversations for immediate engagement
-
-### Target Audience
-
-**Primary:** Overwhelmed solopreneurs (28-50 years, Surat-based)
-- Retail shops, food services, coaching centers
-- Pain: Too much time on repetitive tasks, can't afford staff
-- Goal: Automate without hiring
-
-**Secondary:** Growth-focused small businesses (5-20 employees)
-- Pain: Inefficient workflows, manual data entry
-- Goal: Streamline operations
-
-### Marketing Strategy
-
-1. **Local SEO (In Progress):**
-   - Google Business Profile optimization
-   - Local citation building (30+ directories)
-   - Service area geo-targeting (20 Surat neighborhoods)
-
-2. **Content (Planned):**
-   - Blog posts on automation
-   - Case studies
-   - Client testimonials
-
-3. **Conversion Optimization:**
-   - WhatsApp CTAs throughout site
-   - Lead magnet (free audit)
-   - Social proof
+1. **Create Brief:** Copy `content/templates/article-brief-template.md`
+2. **Fill Brief:** Complete SEO, structure, requirements
+3. **Generate Article:** Use master AI prompt from CONTENT_STRATEGY.md
+4. **Humanize:** Apply AI detection avoidance rules
+5. **Proofread:** Use quality checklist template
+6. **Add to Site:** Add to `mottobiz/src/data/articles.ts`
+7. **Test:** Build and verify
 
 ---
 
@@ -360,69 +333,117 @@ mottobiz/
 |------|----------|--------|-------|
 | Webhook Configuration | High | Pending | n8n/Make endpoint needed |
 | Google Analytics 4 | High | Pending | Tracking code not added |
-| Google Tag Manager | Medium | Pending | For conversion tracking |
+| Google Business Profile | High | Done | Claimed and verified |
+| Sitemap & robots.txt | Medium | Done | Submitted to Google Search Console |
+| OG Images | Medium | Pending | Social sharing images |
 | Unit Tests | Medium | Not Started | Jest + React Testing Library |
 | E2E Tests | Low | Not Started | Playwright |
-| Lazy Loading | Low | Not Started | For below-fold images |
 | Error Boundaries | Low | Not Started | React error handling |
+
+---
+
+## Next Steps
+
+### Immediate (This Week)
+
+| Task | Priority | Status | Owner |
+|------|----------|--------|-------|
+| Generate 5 more articles (Restaurant pillar) | High | Done | Content Team |
+| Create sitemap.xml | High | Done | Dev |
+| Setup robots.txt | Medium | Done | Dev |
+| Claim Google Business Profile | High | Done | Client |
+| Generate OG images for articles | Medium | Pending | Design |
+
+### Content Generation (Next Sprint)
+
+| Pillar | Articles Planned | Briefs Needed |
+|--------|-----------------|---------------|
+| Restaurants & Food | 6 | 6 |
+| Real Estate | 5 | 5 |
+| Coaching & Education | 5 | 5 |
+| Retail & Consumer | 4 | 4 |
+| Comparisons | 5 | 5 |
+| Location Pages | 10 | 10 |
+
+**Total Articles to Generate:** ~40
+
+### SEO Next Steps
+
+| Task | Priority | Notes |
+|------|----------|-------|
+| Generate sitemap.xml | High | Include all /resources/* URLs |
+| Setup robots.txt | High | Allow crawlers, point to sitemap |
+| Google Search Console | High | Submit sitemap, monitor indexing |
+| Bing Webmaster Tools | Medium | Secondary search engine |
+| Schema Validation | Medium | Test all structured data |
+| Core Web Vitals | Medium | Monitor LCP, FID, CLS |
+| Backlink Building | Medium | Guest posts, citations |
+
+### SEO Success Metrics
+
+| Metric | Current | Target | Timeline |
+|--------|---------|--------|----------|
+| Organic Traffic | ~0 | 500/month | 3 months |
+| Ranking Keywords | 0 | 50 | 3 months |
+| Featured Snippets | 0 | 5 | 6 months |
+| Top 10 Rankings | 0 | 10 | 6 months |
+| AI Citations | 0 | 5/month | 6 months |
 
 ---
 
 ## Future Plans
 
-### Q2 2026 (Immediate)
-1. Configure production webhook for lead form
-2. Setup Google Analytics 4
-3. Claim Google Business Profile
-4. Start citation building (Week 1-4)
-5. Add 3-5 real client testimonials
+### Q2 2026
 
-### Q3 2026 (Short-term)
-1. Blog/CMS integration
-2. Individual service detail pages
-3. Video testimonials
-4. Case studies section
+1. Complete content generation (40+ articles)
+2. SEO setup (sitemap, robots, Search Console)
+3. Google Business Profile optimization
+4. Citation building (30+ directories)
+5. Lead form webhook configuration
 
-### Q4 2026 (Long-term)
-1. Client portal MVP
-2. Project tracking dashboard
-3. Multi-language support (Gujarati)
+### Q3 2026
+
+1. Second content pillar (Restaurants + Real Estate)
+2. Video testimonials
+3. Case studies section
+4. Industry hub pages
+5. AEO optimization (featured snippets, PAA)
+
+### Q4 2026
+
+1. Third content pillar (Coaching + Retail)
+2. Client portal MVP
+3. Project tracking dashboard
+4. Multi-language support (Gujarati)
 
 ---
 
 ## External Dependencies
 
-### Required Setup
-
 | Service | Purpose | Status | Action Needed |
-|---------|---------|--------|---------------|
-| Google Business Profile | Local SEO | ⬜ Not Claimed | Claim and verify |
+|---------|---------|--------|--------------|
+| Google Business Profile | Local SEO | ✅ Claimed | Optimize profile |
+| Google Search Console | SEO Monitoring | ✅ Setup | Monitor indexing |
+| Bing Webmaster Tools | SEO Monitoring | ⬜ Not Setup | Add property |
 | n8n or Make | Form webhook | ⬜ Not Setup | Create workflow |
 | Google Analytics 4 | Traffic analytics | ⬜ Not Setup | Add tracking code |
 | Google Tag Manager | Tag management | ⬜ Not Setup | Configure tags |
-
-### Current Integrations
-
-| Service | Purpose | Status |
-|---------|---------|--------|
-| WhatsApp (wa.me) | Primary CTA | ✅ Working |
-| Hostinger | Hosting | ✅ Working |
-| GitHub | Version control | ✅ Working |
 
 ---
 
 ## Resources & References
 
 ### Documentation Files
-- `AGENTS.md` - Development guidelines for AI assistants
-- `PRD.md` - Product requirements document
-- `TASKS.md` - Task tracking and backlog
-- `ROADMAP.md` - Future development plans
-- `TECHSTACK.md` - Technology stack details
-- `ARCHITECTURE.md` - System architecture
-- `DESIGN.md` - Design system
-- `GOOGLE_BUSINESS_PROFILE_GUIDE.md` - GBP optimization
-- `LOCAL_CITATION_BUILDING_GUIDE.md` - Citation building
+
+| File | Purpose |
+|------|---------|
+| `CONTENT_STRATEGY.md` | **Content generation framework** - Master guide for all content |
+| `CONTEXT.md` | This file - Project state and history |
+| `GOOGLE_BUSINESS_PROFILE_GUIDE.md` | GBP optimization guide |
+| `LOCAL_CITATION_BUILDING_GUIDE.md` | Citation building (30+ directories) |
+| `DESIGN.md` | Design system and brand colors |
+| `PRD.md` | Product requirements |
+| `AGENTS.md` | Development guidelines |
 
 ### Useful Commands
 
@@ -433,35 +454,13 @@ npm run build         # Production build
 npm run preview       # Preview production build
 
 # Deployment
+cd D:\IDEprojects\Mottobiz
 .\deploy.bat          # Deploy with default message
-.\deploy.ps1 -Message "Custom message"  # Deploy with custom message
 
 # Git
 git status            # Check changes
 git log --oneline -10 # View recent commits
 ```
-
----
-
-## Decision Log
-
-| Date | Decision | Context | Impact |
-|------|----------|---------|--------|
-| 2026-04-13 | Hostinger Git over GitHub Actions | FTP was unreliable | Simpler, faster deployments |
-| 2026-04-13 | Commit dist/ folder | Hostinger needs it | Required for auto-deploy |
-| 2026-04-13 | Empty webhook URL | Not ready yet | Graceful fallback to WhatsApp |
-| 2026-04-12 | 20 service areas | Local SEO targeting | Better geo-ranking |
-| 2026-04-10 | React 19 + Vite 8 | Latest stable | Better performance |
-
----
-
-## Contact & Ownership
-
-**Project:** MottoBiz  
-**Domain:** https://mottobiz.com  
-**Business Location:** Surat, Gujarat, India  
-**Phone:** +91 74879 57972  
-**Email:** webmaster@mottobiz.com  
 
 ---
 
@@ -471,6 +470,62 @@ git log --oneline -10 # View recent commits
 2. **After issues resolved:** Add to "Troubleshooting Log"
 3. **After decisions made:** Add to "Decision Log"
 4. **When status changes:** Update "Quick Status" table
-5. **Regularly:** Update "Last Updated" date
+5. **After content created:** Update "Articles Generated" section
+6. **Regularly:** Update "Last Updated" date
 
 **Remember:** This file is for HUMANS - be verbose, explain the "why", include examples.
+
+---
+
+## Contact & Ownership
+
+| Field | Value |
+|-------|-------|
+| Project | MottoBiz |
+| Domain | https://mottobiz.com |
+| Business Location | Surat, Gujarat, India |
+| Phone | +91 74879 57972 |
+| Email | webmaster@mottobiz.com |
+| WhatsApp | https://wa.me/917487957972 |
+
+---
+
+## For New Team Members
+
+### Getting Started Checklist
+
+1. ⬜ Read this CONTEXT.md file completely
+2. ⬜ Read CONTENT_STRATEGY.md (content framework)
+3. ⬜ Setup local development environment
+4. ⬜ Run `npm run dev` and verify site loads
+5. ⬜ Test /resources page and article navigation
+6. ⬜ Review existing articles in content/articles/
+7. ⬜ Understand brand voice from CONTENT_STRATEGY.md Section 1
+8. ⬜ Review AI detection avoidance rules (Section 6)
+9. ⬜ Create your first article using the template
+
+### Key Files to Know
+
+| File | What It Contains |
+|------|------------------|
+| `CONTENT_STRATEGY.md` | Master content framework - READ FIRST |
+| `CONTEXT.md` | Project state - You are here |
+| `content/templates/article-brief-template.md` | Template for new articles |
+| `mottobiz/src/data/articles.ts` | Where to add new articles to show on site |
+| `mottobiz/src/components/resources/` | Frontend components for resources |
+
+### Common Tasks
+
+| Task | How To Do It |
+|------|--------------|
+| Add new article | Add markdown to `content/articles/` + entry to `articles.ts` |
+| Create article brief | Copy template from `content/templates/article-brief-template.md` |
+| Generate article | Use master AI prompt from CONTENT_STRATEGY.md Section 5 |
+| Add page to site | Edit `App.tsx` routes |
+| Change SEO | Edit `SEOHead.tsx` or page-level props |
+| Deploy | Run `.\deploy.bat` from repo root |
+
+---
+
+**Last Updated:** 2026-04-16  
+**Version:** 2.1 - All 5 Content Pillars + Legal Pages Complete

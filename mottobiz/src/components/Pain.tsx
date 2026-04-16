@@ -23,12 +23,8 @@ export function Pain() {
           animate={inView ? 'visible' : 'hidden'}
           className="text-center"
         >
-          <motion.p variants={staggerItem} className="text-indigo-400 text-sm font-semibold tracking-wider uppercase mb-5">
-            Sound Familiar?
-          </motion.p>
-          <motion.p variants={staggerItem} className="text-white/50 text-lg sm:text-xl max-w-2xl mx-auto mb-16 leading-relaxed">
-            Every hour on repetitive tasks is an hour not spent on growth. 
-            You don't need more hours — you need a system.
+          <motion.p variants={staggerItem} className="text-white/90 text-2xl sm:text-3xl lg:text-4xl font-semibold mb-16">
+            Still doing everything manually?
           </motion.p>
         </motion.div>
 

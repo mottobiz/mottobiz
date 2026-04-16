@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { WHATSAPP_LINK } from '@/lib/config'
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false)
+  const location = useLocation()
+  const isHomePage = location.pathname === '/'
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50)
@@ -27,7 +30,7 @@ export function Navbar() {
         }}
       >
         {/* Logo */}
-        <a href="/" className="flex items-center gap-3 group">
+        <Link to="/" className="flex items-center gap-3 group">
           <img 
             src="/logo-static.svg" 
             alt="Mottobiz" 
@@ -36,25 +39,45 @@ export function Navbar() {
           <span className="font-display font-semibold text-xl tracking-tight text-white">
             Motto<span className="text-indigo-400">Biz</span>
           </span>
-        </a>
+        </Link>
 
         {/* Navigation Links */}
         <div className="hidden md:flex items-center gap-8">
-          {[
-            { label: 'Services', href: '#services' },
-            { label: 'Process', href: '#how-it-works' },
-            { label: 'Results', href: '#proof' },
-            { label: 'FAQ', href: '#faq' },
-          ].map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
+          {isHomePage ? (
+            <>
+              {[
+                { label: 'Services', href: '#services' },
+                { label: 'Process', href: '#how-it-works' },
+                { label: 'Results', href: '#proof' },
+                { label: 'FAQ', href: '#faq' },
+              ].map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  className="text-sm font-medium text-white/70 hover:text-white transition-colors duration-300 relative group"
+                >
+                  {link.label}
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-indigo-400 group-hover:w-full transition-all duration-300" />
+                </a>
+              ))}
+            </>
+          ) : (
+            <Link
+              to="/"
               className="text-sm font-medium text-white/70 hover:text-white transition-colors duration-300 relative group"
             >
-              {link.label}
+              Home
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-indigo-400 group-hover:w-full transition-all duration-300" />
-            </a>
-          ))}
+            </Link>
+          )}
+          
+          <Link
+            to="/resources"
+            className="text-sm font-medium text-white/70 hover:text-white transition-colors duration-300 relative group"
+          >
+            Resources
+            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-indigo-400 group-hover:w-full transition-all duration-300" />
+          </Link>
         </div>
 
         {/* CTA */}
