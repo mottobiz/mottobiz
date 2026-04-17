@@ -2,13 +2,18 @@
   RewriteEngine On
   RewriteBase /
 
-  # Serve static files directly
+  # Explicitly allow all static asset paths through
   RewriteRule ^assets/ - [L]
+  RewriteRule ^public/assets/ - [L]
   RewriteRule ^og/ - [L]
+  RewriteRule ^public/og/ - [L]
   RewriteRule ^favicon\.svg$ - [L]
+  RewriteRule ^favicon\.ico$ - [L]
   RewriteRule ^robots\.txt$ - [L]
   RewriteRule ^sitemap\.xml$ - [L]
-  RewriteRule ^favicon\.ico$ - [L]
+  RewriteRule ^public/sitemap\.xml$ - [L]
+  RewriteRule ^public/favicon\.svg$ - [L]
+  RewriteRule ^public/robots\.txt$ - [L]
   RewriteRule ^logo.*\.(svg|png)$ - [L]
 
   # SPA fallback for all other routes
