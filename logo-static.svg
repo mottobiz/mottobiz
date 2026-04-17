@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <defs>
+    <!-- Gradient definitions -->
+    <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6366f1;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#a855f7;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f59e0b;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="logoGradientSoft" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6366f1;stop-opacity:0.4" />
+      <stop offset="50%" style="stop-color:#a855f7;stop-opacity:0.3" />
+      <stop offset="100%" style="stop-color:#f59e0b;stop-opacity:0.4" />
+    </linearGradient>
+    
+    <!-- Glow filter -->
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    
+    <!-- Outer glow for radiant effect -->
+    <filter id="radiantGlow" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+  
+  <!-- Background circle with soft gradient -->
+  <circle cx="100" cy="100" r="90" fill="url(#logoGradientSoft)" opacity="0.3" filter="url(#radiantGlow)"/>
+  
+  <!-- Outer ring -->
+  <circle cx="100" cy="100" r="85" fill="none" stroke="url(#logoGradient)" stroke-width="2" opacity="0.6" filter="url(#glow)"/>
+  
+  <!-- Inner circle background -->
+  <circle cx="100" cy="100" r="75" fill="#0a0a0b" stroke="url(#logoGradient)" stroke-width="1" opacity="0.9"/>
+  
+  <!-- M letter formed by circuit/automation lines -->
+  <path d="M 55 130 L 55 85 L 75 105 L 100 75 L 125 105 L 145 85 L 145 130" 
+        fill="none" 
+        stroke="url(#logoGradient)" 
+        stroke-width="6" 
+        stroke-linecap="round" 
+        stroke-linejoin="round"
+        filter="url(#glow)"/>
+  
+  <!-- Connection nodes at the peaks (automation points) -->
+  <circle cx="55" cy="85" r="5" fill="#6366f1" filter="url(#glow)"/>
+  <circle cx="75" cy="105" r="4" fill="#8b5cf6" filter="url(#glow)"/>
+  <circle cx="100" cy="75" r="6" fill="#a855f7" filter="url(#glow)"/>
+  <circle cx="125" cy="105" r="4" fill="#8b5cf6" filter="url(#glow)"/>
+  <circle cx="145" cy="85" r="5" fill="#f59e0b" filter="url(#glow)"/>
+  
+  <!-- Static pulse rings for radiant effect -->
+  <circle cx="100" cy="100" r="92" fill="none" stroke="url(#logoGradient)" stroke-width="0.5" opacity="0.15"/>
+  <circle cx="100" cy="100" r="98" fill="none" stroke="url(#logoGradient)" stroke-width="0.5" opacity="0.08"/>
+</svg>
