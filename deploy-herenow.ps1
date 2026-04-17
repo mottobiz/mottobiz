@@ -19,7 +19,7 @@ if ([string]::IsNullOrWhiteSpace($ApiKey)) {
     throw "API key is empty in $credentialsFile"
 }
 
-$distPath = Join-Path $PSScriptRoot "mottobiz\dist"
+$distPath = Join-Path $PSScriptRoot "dist"
 $baseUrl = "https://here.now"
 
 # Get all files

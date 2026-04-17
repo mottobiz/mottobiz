@@ -16,7 +16,7 @@ This file provides mandatory guidance for any AI agent or developer working on t
 - `npm run build` — TypeScript check + Vite production build
 - `npm run preview` — Preview production build locally
 - `npm run generate:og` — Generate per-article OG images (58 PNGs in `public/og/`)
-- `..\deploy.bat` — Deploy to production (from repo root)
+- `.\deploy.bat` — Deploy to production (from repo root)
 
 ## Architecture
 
@@ -31,29 +31,48 @@ This file provides mandatory guidance for any AI agent or developer working on t
 
 ### Project Structure
 ```
-mottobiz/
 ├── src/
-│   ├── components/          # Page sections & reusable components
+│   ├── components/
 │   │   ├── effects.tsx      # CustomCursor + AnimatedBackground
-│   │   ├── SEOHead.tsx      # Meta tags + schema.org markup (uses props for OG/Twitter)
-│   │   └── resources/      # Article system components
+│   │   ├── SEOHead.tsx      # Meta tags + schema.org markup
+│   │   ├── ErrorBoundary.tsx
+│   │   ├── Navbar.tsx
+│   │   ├── Hero.tsx
+│   │   ├── Footer.tsx
+│   │   ├── LeadMagnet.tsx
+│   │   ├── FAQ.tsx
+│   │   ├── FinalCTA.tsx
+│   │   └── resources/
 │   │       ├── ArticleCard.tsx
 │   │       ├── ArticleComponents.tsx  # Interactive content components
 │   │       ├── ArticleGrid.tsx
-│   │       ├── ArticleThumbnail.tsx    # Dynamic SVG thumbnails
+│   │       ├── ArticleThumbnail.tsx
 │   │       ├── CategoryFilter.tsx
+│   │       ├── HubPage.tsx           # Reusable hub page component
 │   │       ├── ResourcesHero.tsx
 │   │       └── ResourcesPage.tsx
-│   ├── pages/               # Route-level page components
+│   ├── pages/
 │   │   ├── HomePage.tsx
 │   │   ├── ResourcesPage.tsx
 │   │   ├── ArticlePage.tsx
 │   │   ├── PrivacyPolicy.tsx
-│   │   └── TermsOfService.tsx
+│   │   ├── TermsOfService.tsx
+│   │   ├── industries/               # Industry hub pages
+│   │   │   ├── TextileDiamondHubPage.tsx
+│   │   │   ├── CoachingEducationHubPage.tsx
+│   │   │   ├── RealEstateHubPage.tsx
+│   │   │   ├── RestaurantFoodHubPage.tsx
+│   │   │   └── RetailConsumerHubPage.tsx
+│   │   └── locations/               # Location hub pages
+│   │       ├── VarachhaHubPage.tsx
+│   │       ├── KatargamHubPage.tsx
+│   │       ├── VesuHubPage.tsx
+│   │       ├── AdajanHubPage.tsx
+│   │       └── OtherAreasHubPage.tsx
 │   ├── data/
 │   │   └── articles.ts     # ALL article metadata + content
 │   ├── types/
-│   │   └── article.ts       # Article types, category config, interactive component types
+│   │   └── article.ts       # Article types, category config
 │   ├── lib/
 │   │   ├── config.ts        # [CRITICAL] All contact/business constants
 │   │   ├── animations.ts    # Framer Motion variants
@@ -65,13 +84,16 @@ mottobiz/
 │   └── generate-og-images.mjs  # Build-time OG image generator (sharp)
 ├── public/
 │   ├── robots.txt
-│   ├── sitemap.xml           # Must be updated when adding new pages/articles
-│   ├── og-image.png          # Default OG image for homepage/other pages
-│   ├── og/                   # Per-article OG images (58 PNGs, auto-generated)
-│   │   └── {slug}.png        # e.g., whatsapp-automation-textile-traders-surat.png
+│   ├── sitemap.xml
+│   ├── og-image.png
+│   ├── og/                   # Per-article OG images (auto-generated)
+│   │   └── {slug}.png
 │   └── logo-static.svg
+├── dist/                     # Production build output (deployed to Hostinger)
 ├── vite.config.ts            # Path alias `@/` → `./src`
-└── tsconfig.json             # `ignoreDeprecations: "6.0"` required for baseUrl
+├── tsconfig.json             # `ignoreDeprecations: "6.0"` required for baseUrl
+├── package.json
+└── .htaccess                 # SPA routing for Apache/Hostinger
 ```
 
 ## Key Rules & Constraints

@@ -222,61 +222,61 @@ Developer Machine
 ## File Structure
 
 ```
-mottobiz/
-├── src/
-│   ├── components/
-│   │   ├── effects.tsx              # CustomCursor + AnimatedBackground
-│   │   ├── ErrorBoundary.tsx        # React error boundary with styled UI
-│   │   ├── SEOHead.tsx              # Meta tags + JSON-LD schema markup
-│   │   ├── Navbar.tsx               # Navigation with Resources link
-│   │   ├── Hero.tsx                 # Landing page hero section
-│   │   ├── Pain.tsx                 # Problem agitation section
-│   │   ├── Proof.tsx                # Credibility markers
-│   │   ├── Services.tsx             # Service offerings (6 cards)
-│   │   ├── HowItWorks.tsx           # Process steps
-│   │   ├── Qualifier.tsx             # Ideal client filter
-│   │   ├── SocialProof.tsx          # Testimonials
-│   │   ├── LeadMagnet.tsx           # Lead capture form (WhatsApp fallback)
-│   │   ├── FAQ.tsx                  # Accordion Q&A
-│   │   ├── FinalCTA.tsx             # Final conversion push
-│   │   ├── Footer.tsx               # Footer with privacy/terms links
-│   │   └── resources/
-│   │       ├── ArticleCard.tsx       # Card + Featured card with thumbnails
-│   │       ├── ArticleComponents.tsx # 8 interactive content components
-│   │       ├── ArticleThumbnail.tsx  # Dynamic SVG thumbnail generator
-│   │       ├── ArticleGrid.tsx       # Grid with load more
-│   │       ├── CategoryFilter.tsx    # Category pill filter + search
-│   │       ├── ResourcesHero.tsx    # Hero + newsletter/WhatsApp CTAs
-│   │       ├── ResourcesPage.tsx    # Full hub page composition
-│   │       └── index.ts             # Barrel export
-│   ├── pages/
-│   │   ├── HomePage.tsx              # Landing page section composition
-│   │   ├── ResourcesPage.tsx          # Resources hub wrapper (lazy loaded)
-│   │   ├── ArticlePage.tsx           # Article detail with content parser (lazy)
-│   │   ├── PrivacyPolicy.tsx         # Privacy page (lazy loaded)
-│   │   └── TermsOfService.tsx        # Terms page (lazy loaded)
-│   ├── data/
-│   │   └── articles.ts              # ALL 57 articles + enrichment functions
-│   ├── types/
-│   │   └── article.ts               # Types, CATEGORY_COLORS, CATEGORY_INFO, INDUSTRY_HUBS
-│   ├── lib/
-│   │   ├── config.ts                # ⭐ All contact/business constants + env vars
-│   │   ├── animations.ts             # Framer Motion variants
-│   │   └── utils.ts                  # cn() helper for Tailwind classes
-│   ├── index.css                     # Tailwind v4 theme + custom keyframes + design tokens
-│   ├── App.tsx                       # Lazy routes + Suspense + ErrorBoundary
-│   ├── main.tsx                       # Entry point with HelmetProvider
-│   └── vite-env.d.ts                 # Vite type declarations + env vars
-├── public/
-│   ├── robots.txt
-│   ├── sitemap.xml                   # All 57 article URLs + static pages
-│   ├── og-image.png                  # Generic OG image
-│   └── logo-static.svg               # Logo
-├── .env                               # VITE_LEAD_WEBHOOK_URL
-├── .env.example                       # Template for env vars
-├── package.json
-├── tsconfig.json                      # ignoreDeprecations: "6.0"
-└── vite.config.ts                     # Path alias @/ → ./src
+src/
+├── components/
+│   ├── effects.tsx              # CustomCursor + AnimatedBackground
+│   ├── ErrorBoundary.tsx        # React error boundary with styled UI
+│   ├── SEOHead.tsx              # Meta tags + JSON-LD schema markup
+│   ├── Navbar.tsx               # Navigation with Resources link
+│   ├── Hero.tsx                 # Landing page hero section
+│   ├── LeadMagnet.tsx           # Lead capture form (WhatsApp fallback)
+│   ├── FAQ.tsx                  # Accordion Q&A
+│   ├── FinalCTA.tsx             # Final conversion push
+│   ├── Footer.tsx               # Footer with privacy/terms links
+│   └── resources/
+│       ├── ArticleCard.tsx       # Card + Featured card with thumbnails
+│       ├── ArticleComponents.tsx # 8 interactive content components
+│       ├── ArticleThumbnail.tsx  # Dynamic SVG thumbnail generator
+│       ├── ArticleGrid.tsx       # Grid with load more
+│       ├── CategoryFilter.tsx    # Category pill filter + search
+│       ├── HubPage.tsx           # Reusable hub page component
+│       ├── ResourcesHero.tsx    # Hero + newsletter/WhatsApp CTAs
+│       └── ResourcesPage.tsx    # Full hub page composition
+├── pages/
+│   ├── HomePage.tsx              # Landing page section composition
+│   ├── ResourcesPage.tsx          # Resources hub wrapper (lazy loaded)
+│   ├── ArticlePage.tsx           # Article detail with content parser (lazy)
+│   ├── PrivacyPolicy.tsx         # Privacy page (lazy loaded)
+│   ├── TermsOfService.tsx        # Terms page (lazy loaded)
+│   ├── industries/               # Industry hub pages
+│   │   └── TextileDiamondHubPage, CoachingEducationHubPage, RealEstateHubPage,
+│   │       RestaurantFoodHubPage, RetailConsumerHubPage
+│   └── locations/               # Location hub pages
+│       └── VarachhaHubPage, KatargamHubPage, VesuHubPage, AdajanHubPage, OtherAreasHubPage
+├── data/
+│   └── articles.ts              # ALL 75 articles + enrichment functions
+├── types/
+│   └── article.ts               # Types, CATEGORY_COLORS, CATEGORY_INFO, INDUSTRY_HUBS
+├── lib/
+│   ├── config.ts                # ⭐ All contact/business constants + env vars
+│   ├── animations.ts             # Framer Motion variants
+│   └── utils.ts                  # cn() helper for Tailwind classes
+├── index.css                     # Tailwind v4 theme + custom keyframes + design tokens
+├── App.tsx                       # Lazy routes + Suspense + ErrorBoundary
+├── main.tsx                       # Entry point with HelmetProvider
+└── vite-env.d.ts                 # Vite type declarations + env vars
+public/
+├── robots.txt
+├── sitemap.xml                   # All article URLs + static pages
+├── og-image.png                  # Generic OG image
+└── og/                          # Per-article OG images
+dist/                              # Production build output (deployed to Hostinger)
+.env                               # VITE_LEAD_WEBHOOK_URL
+.env.example                       # Template for env vars
+package.json
+tsconfig.json                      # ignoreDeprecations: "6.0"
+vite.config.ts                     # Path alias @/ → ./src
+.htaccess                          # SPA routing for Apache/Hostinger
 ```
 
 ---
@@ -288,7 +288,7 @@ mottobiz/
 | `npm run dev` | Start Vite dev server (port auto-increments) |
 | `npm run build` | TypeScript check + Vite production build |
 | `npm run preview` | Preview production build locally |
-| `cd .. && deploy.bat` | Deploy to production (from repo root) |
+| `deploy.bat` | Deploy to production (from repo root) |
 
 ---
 

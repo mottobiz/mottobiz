@@ -10,8 +10,8 @@ Write-Host "=========================" -ForegroundColor Cyan
 Write-Host ""
 
 # Check if we're in the right directory
-if (-not (Test-Path "mottobiz\package.json")) {
-    Write-Host "❌ Error: Must run from repository root (where mottobiz/ folder is)" -ForegroundColor Red
+if (-not (Test-Path "package.json")) {
+    Write-Host "❌ Error: Must run from repository root (where package.json is)" -ForegroundColor Red
     exit 1
 }
 
@@ -21,7 +21,7 @@ if ($status) {
     Write-Host "⚠️  You have uncommitted changes:" -ForegroundColor Yellow
     Write-Host $status
     Write-Host ""
-    
+
     $response = Read-Host "Do you want to commit these changes? (y/n)"
     if ($response -ne 'y') {
         Write-Host "❌ Deploy cancelled" -ForegroundColor Red
@@ -31,13 +31,12 @@ if ($status) {
 
 # Build the project
 Write-Host "🔨 Building project..." -ForegroundColor Yellow
-Set-Location mottobiz
 
 try {
     npm run build 2>&1 | ForEach-Object {
         Write-Host $_
     }
-    
+
     if ($LASTEXITCODE -ne 0) {
         throw "Build failed"
     }
@@ -47,11 +46,9 @@ try {
     exit 1
 }
 
-Set-Location ..
-
 # Stage dist folder
 Write-Host "📁 Staging dist folder..." -ForegroundColor Yellow
-git add mottobiz/dist/
+git add dist/
 
 # Check if there are changes to commit
 $diff = git diff --cached --name-only

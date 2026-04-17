@@ -39,26 +39,34 @@ This file serves as the **single source of truth** for the current state of the 
 
 ### Project Structure
 ```
-mottobiz/
-├── src/
-│   ├── data/
-│   │   └── articles.ts           # Monolithic barrel file (~5,400 lines)
-│   │                              # Contains: ARTICLES[55], LOCATION_SERVICE_ARTICLES[20],
-│   │                              # ARTICLE_CONTENT{}, all enrichment databases, helpers
-│   ├── components/resources/
-│   │   ├── ArticleCard.tsx, ArticleThumbnail.tsx, ArticleGrid.tsx
-│   │   ├── CategoryFilter.tsx, ResourcesHero.tsx, ResourcesPage.tsx
-│   │   ├── ArticleComponents.tsx  # StatCards, Checklist, Steps, ProTip, Warning, CTABox, TLDRBox
-│   │   └── HubPage.tsx           # Reusable hub page component
-│   ├── pages/
-│   │   ├── HomePage.tsx, ResourcesPage.tsx, ArticlePage.tsx
-│   │   └── PrivacyPolicy.tsx, TermsOfService.tsx
-│   ├── types/article.ts          # Types + CATEGORY_INFO + INDUSTRY_HUBS
-│   └── lib/config.ts             # ⭐ All contact/business constants (never hardcode)
-└── public/
-    ├── sitemap.xml
-    ├── og-image.png (default)
-    └── og/                      # Per-article OG images (58 PNGs)
+src/
+├── data/
+│   └── articles.ts           # Monolithic barrel file (~5,400 lines)
+│                              # Contains: ARTICLES[55], LOCATION_SERVICE_ARTICLES[20],
+│                              # ARTICLE_CONTENT{}, all enrichment databases, helpers
+├── components/
+│   ├── effects.tsx, SEOHead.tsx, ErrorBoundary.tsx, Navbar.tsx, Hero.tsx
+│   ├── Footer.tsx, LeadMagnet.tsx, FAQ.tsx, FinalCTA.tsx
+│   └── resources/
+│       ├── ArticleCard.tsx, ArticleThumbnail.tsx, ArticleGrid.tsx
+│       ├── CategoryFilter.tsx, ResourcesHero.tsx, ResourcesPage.tsx
+│       ├── ArticleComponents.tsx  # StatCards, Checklist, Steps, ProTip, Warning, CTABox, TLDRBox
+│       └── HubPage.tsx           # Reusable hub page component
+├── pages/
+│   ├── HomePage.tsx, ResourcesPage.tsx, ArticlePage.tsx
+│   ├── PrivacyPolicy.tsx, TermsOfService.tsx
+│   ├── industries/               # Industry hub pages
+│   │   └── TextileDiamondHubPage, CoachingEducationHubPage, RealEstateHubPage,
+│   │       RestaurantFoodHubPage, RetailConsumerHubPage
+│   └── locations/               # Location hub pages
+│       └── VarachhaHubPage, KatargamHubPage, VesuHubPage, AdajanHubPage, OtherAreasHubPage
+├── types/article.ts          # Types + CATEGORY_INFO + INDUSTRY_HUBS
+└── lib/config.ts             # ⭐ All contact/business constants (never hardcode)
+public/
+├── sitemap.xml
+├── og-image.png (default)
+└── og/                      # Per-article OG images (58 PNGs)
+dist/                          # Production build output (deployed to Hostinger)
 ```
 
 ### Data Architecture

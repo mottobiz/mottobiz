@@ -9,7 +9,7 @@ param(
 
 $ErrorActionPreference = "Stop"
 
-$distPath = Join-Path $PSScriptRoot "mottobiz\dist"
+$distPath = Join-Path $PSScriptRoot "dist"
 $baseUrl = "https://here.now"
 
 # Get all files
