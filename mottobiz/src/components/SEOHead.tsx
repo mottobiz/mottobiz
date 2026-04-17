@@ -347,11 +347,11 @@ export function SEOHead({
       <meta name="last-modified" content="2026-04-13" />
       
       {/* Open Graph */}
-      <meta property="og:type" content="business.business" />
-      <meta property="og:url" content={SITE_URL} />
-      <meta property="og:title" content="Business Automation & Web Design in Surat | MottoBiz" />
-      <meta property="og:description" content="We build the digital system Surat's sharpest small businesses run on — so you grow without the chaos." />
-      <meta property="og:image" content={`${SITE_URL}/og-image.png`} />
+      <meta property="og:type" content={canonicalUrl === SITE_URL ? 'business.business' : 'article'} />
+      <meta property="og:url" content={canonicalUrl} />
+      <meta property="og:title" content={title} />
+      <meta property="og:description" content={description} />
+      <meta property="og:image" content={ogImage} />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
       <meta property="og:locale" content="en_IN" />
@@ -362,9 +362,9 @@ export function SEOHead({
 
       {/* Twitter */}
       <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:title" content="Business Automation & Web Design in Surat | MottoBiz" />
-      <meta name="twitter:description" content="We build the digital system Surat's sharpest small businesses run on." />
-      <meta name="twitter:image" content={`${SITE_URL}/og-image.png`} />
+      <meta name="twitter:title" content={title} />
+      <meta name="twitter:description" content={description} />
+      <meta name="twitter:image" content={ogImage} />
 
       {/* Local SEO - Enhanced Geo Tags */}
       <meta name="geo.region" content="IN-GJ" />

@@ -35,7 +35,7 @@ export function FAQ() {
           </motion.p>
           <motion.h2 variants={staggerItem} className="font-display text-4xl sm:text-5xl md:text-6xl font-bold">
             Honest Answers to
-            <span className="text-white/30"> Real Questions.</span>
+            <span className="text-white/50"> Real Questions.</span>
           </motion.h2>
         </motion.div>
 

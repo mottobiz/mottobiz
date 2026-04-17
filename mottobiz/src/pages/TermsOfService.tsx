@@ -1,7 +1,6 @@
 import { SEOHead } from '@/components/SEOHead'
 import { SITE_URL, EMAIL, BUSINESS_NAME, WHATSAPP_NUMBER } from '@/lib/config'
-import { motion } from 'framer-motion'
-import { useInView } from 'framer-motion'
+import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 
 const lastUpdated = 'April 16, 2026'
@@ -132,6 +131,7 @@ export function TermsOfService() {
         title="Terms of Service | MottoBiz"
         description="MottoBiz Terms of Service — the rules and guidelines governing your use of our website and business automation services."
         canonicalUrl={`${SITE_URL}/terms`}
+        ogImage={`${SITE_URL}/og-image.png`}
       />
       <main className="pt-28 sm:pt-36 pb-20 px-6">
         <div className="max-w-3xl mx-auto" ref={ref}>
@@ -143,7 +143,7 @@ export function TermsOfService() {
             <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 text-gradient">
               Terms of Service
             </h1>
-            <p className="text-white/40 text-sm mb-12">Last updated: {lastUpdated}</p>
+            <p className="text-white/55 text-sm mb-12">Last updated: {lastUpdated}</p>
           </motion.div>
 
           <motion.div
@@ -174,7 +174,7 @@ export function TermsOfService() {
                     href={`#${section.id}`}
                     className="text-sm text-white/50 hover:text-indigo-400 transition-colors"
                   >
-                    <span className="text-white/30 mr-2">{i + 1}.</span>
+                    <span className="text-white/50 mr-2">{i + 1}.</span>
                     {section.title}
                   </a>
                 </li>
@@ -209,7 +209,7 @@ export function TermsOfService() {
             transition={{ duration: 0.5, delay: 0.5 }}
             className="mt-16 pt-8 border-t border-white/5 text-center"
           >
-            <p className="text-white/30 text-sm">
+            <p className="text-white/50 text-sm">
               &copy; {new Date().getFullYear()} {BUSINESS_NAME}. All rights reserved.
             </p>
           </motion.div>

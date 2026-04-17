@@ -24,7 +24,7 @@ export function CategoryFilter({
   ]
 
   return (
-    <div className="flex flex-wrap justify-center gap-2 mb-12">
+    <div className="flex flex-wrap justify-center gap-2 mb-12" role="group" aria-label="Filter articles by category">
       {categories.map((category) => {
         const isActive = activeCategory === category.slug
         const count = category.slug === 'all' 
@@ -37,6 +37,7 @@ export function CategoryFilter({
             onClick={() => onCategoryChange(category.slug)}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
+            aria-pressed={isActive}
             className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
               isActive
                 ? 'text-white shadow-lg'
@@ -96,6 +97,7 @@ export function CompactCategoryFilter({
           <button
             key={category.slug}
             onClick={() => onCategoryChange(category.slug)}
+            aria-pressed={isActive}
             className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm transition-all ${
               isActive
                 ? 'bg-indigo-500/20 text-indigo-400 border border-indigo-500/30'
@@ -103,7 +105,7 @@ export function CompactCategoryFilter({
             }`}
           >
             <span>{category.name}</span>
-            <span className="text-xs text-white/40">{count}</span>
+            <span className="text-xs text-white/55">{count}</span>
           </button>
         )
       })}
@@ -125,7 +127,9 @@ export function SearchBar({
 }: SearchBarProps) {
   return (
     <div className="relative">
+      <label htmlFor="article-search" className="sr-only">Search articles</label>
       <input
+        id="article-search"
         type="text"
         value={value}
         onChange={(e) => onChange(e.target.value)}
@@ -148,6 +152,7 @@ export function SearchBar({
       {value && (
         <button
           onClick={() => onChange('')}
+          aria-label="Clear search"
           className="absolute right-4 top-1/2 -translate-y-1/2 text-white/40 hover:text-white transition-colors"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

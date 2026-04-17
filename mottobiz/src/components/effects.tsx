@@ -41,6 +41,8 @@ export function CustomCursor() {
   return (
     <>
       <div
+        aria-hidden="true"
+        role="presentation"
         ref={glowRef}
         className="fixed top-0 left-0 pointer-events-none z-[9998]"
         style={{
@@ -53,6 +55,8 @@ export function CustomCursor() {
         }}
       />
       <div
+        aria-hidden="true"
+        role="presentation"
         ref={cursorRef}
         className="fixed top-0 left-0 pointer-events-none z-[9999]"
         style={{
@@ -87,6 +91,8 @@ export function AnimatedBackground() {
 
   return (
     <div
+      aria-hidden="true"
+      role="presentation"
       ref={ref}
       className="fixed inset-0 z-0 pointer-events-none transition-[background] duration-500"
       style={{ background: '#0a0a0b' }}

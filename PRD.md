@@ -2,17 +2,17 @@
 
 ## Product Overview
 
-**Product Name:** MottoBiz Landing Page  
-**Version:** 1.0.0  
+**Product Name:** MottoBiz Landing Page + Resources Hub  
+**Version:** 2.5  
 **Status:** Production Ready (Live at https://mottobiz.com)  
-**Last Updated:** 2026-04-13  
+**Last Updated:** 2026-04-16  
 **Next Review:** See ROADMAP.md for upcoming features
 
 ---
 
 ## Executive Summary
 
-MottoBiz is a business automation studio based in Surat, Gujarat, India. The landing page serves as the primary digital touchpoint for lead generation, showcasing AI automation services to solopreneurs and small businesses in the Surat region.
+MottoBiz is a business automation studio based in Surat, Gujarat, India. The website serves as the primary digital touchpoint for lead generation, showcasing AI automation services to solopreneurs and small businesses in the Surat region, and publishing SEO-optimized content to attract organic search traffic.
 
 ### Core Value Proposition
 > "We build the digital system that runs your business — so you can focus on growth without hiring a team."
@@ -22,16 +22,16 @@ MottoBiz is a business automation studio based in Surat, Gujarat, India. The lan
 ## Goals & Objectives
 
 ### Primary Goals
-1. **Lead Generation** - Capture qualified leads through the audit booking form
-2. **Brand Awareness** - Establish MottoBiz as Surat's first AI automation studio
-3. **Conversion** - Drive WhatsApp conversations for immediate engagement
-4. **SEO Visibility** - Rank for local automation-related searches in Surat
+1. **Lead Generation** — Capture qualified leads through the audit booking form (WhatsApp fallback when no webhook)
+2. **Brand Awareness** — Establish MottoBiz as Surat's first automation studio
+3. **Conversion** — Drive WhatsApp conversations for immediate engagement
+4. **SEO Visibility** — Rank for local automation-related searches through 57 articles across 5 industry pillars
+5. **Thought Leadership** — Position as automation experts through comprehensive content
 
 ### Success Metrics
-- Form submissions (audit bookings)
-- WhatsApp click-through rate
-- Time on page / scroll depth
+- Form submissions and WhatsApp clicks
 - Organic search rankings for target keywords
+- Article pageviews and time on page
 - Mobile vs desktop conversion rates
 
 ---
@@ -40,12 +40,8 @@ MottoBiz is a business automation studio based in Surat, Gujarat, India. The lan
 
 ### Primary Persona: The Overwhelmed Solopreneur
 - **Demographics:** Age 28-50, Surat-based business owner
-- **Business Types:** Retail shops, food/tiffin services, coaching centers, professional services, health & wellness, interior design, manufacturing/trade
-- **Pain Points:**
-  - Spending too much time on repetitive tasks
-  - Missing customer inquiries
-  - Cannot afford to hire support staff
-  - Inconsistent follow-ups leading to lost sales
+- **Business Types:** Textile traders, restaurant owners, real estate agents, coaching center owners, retail shop owners
+- **Pain Points:** Spending too much time on repetitive tasks, missing customer inquiries, cannot afford to hire support staff, inconsistent follow-ups
 - **Goals:** Automate daily operations, reduce workload, scale without hiring
 
 ### Secondary Persona: The Growth-Focused Small Business
@@ -75,14 +71,6 @@ MottoBiz is a business automation studio based in Surat, Gujarat, India. The lan
 | Feature tags per service | Medium | Done |
 | Responsive grid layout | High | Done |
 
-**Services Offered:**
-1. Smart Website - Lead forms, SEO optimized, Mobile-first
-2. AI Automation - Auto-responses, Lead nurturing, 24/7 availability
-3. Social Media - Auto-posting, Content AI, Multi-platform
-4. Business Intelligence - Analytics, Reports, Insights
-5. Workflow Automation - Integrations, Triggers, Notifications
-6. Lead Pipeline - CRM sync, Scoring, Routing
-
 ### 3. Lead Magnet (Audit Booking Form)
 | Feature | Priority | Status |
 |---------|----------|--------|
@@ -91,59 +79,80 @@ MottoBiz is a business automation studio based in Surat, Gujarat, India. The lan
 | Email field (validation) | High | Done |
 | Business type dropdown | High | Done |
 | Form submission to webhook | High | Done |
+| WhatsApp fallback (no webhook) | High | Done |
 | Success state UI | High | Done |
 | Error handling | High | Done |
 | Zod validation schema | High | Done |
 
-**Business Type Options:**
-- Retail / Shop
-- Food & Tiffin Service
-- Coaching / Education
-- Professional Services
-- Health & Wellness
-- Interior / Decor
-- Manufacturing / Trade
-- Other
-
-### 4. Social Proof & Testimonials
+### 4. Resources Hub
 | Feature | Priority | Status |
 |---------|----------|--------|
-| Client logos/brands | Medium | Done |
-| Testimonial quotes | Medium | Done |
-| Results/metrics display | Medium | Done |
+| Resources page with category filtering | High | Done |
+| Search functionality | High | Done |
+| Industry hub sections (5 pillars) | High | Done |
+| Featured articles section | Medium | Done |
+| Article grid with load more | Medium | Done |
+| Dynamic SVG thumbnails per article | Medium | Done |
+| Mobile responsive layout | High | Done |
 
-### 5. FAQ Section
+### 5. Article Pages
 | Feature | Priority | Status |
 |---------|----------|--------|
-| Accordion component | High | Done |
-| Common questions (6-8) | High | Done |
-| Animated expand/collapse | Medium | Done |
+| Dynamic routing by slug | High | Done |
+| Rich content parser (headings, bullets, tables) | High | Done |
+| 8 interactive components (ComparisonTable, StatCards, etc.) | Medium | Done |
+| TL;DR box (auto-injected from database) | High | Done |
+| FAQ section with schema markup | High | Done |
+| Internal links section | Medium | Done |
+| Related articles | Medium | Done |
+| SEO meta tags per article | High | Done |
+| Article + FAQPage JSON-LD schema | High | Done |
+| Breadcrumb and category badges | Medium | Done |
+| WhatsApp CTA in article footer | High | Done |
 
-### 6. Final CTA Section
+### 6. Content System
 | Feature | Priority | Status |
 |---------|----------|--------|
-| Urgency headline | High | Done |
-| WhatsApp button | High | Done |
+| 57 articles across 5 industry pillars | High | Done |
+| Hand-written FAQs (3 Q&As per article) | High | Done |
+| TL;DR boxes (3-5 bullets per article) | High | Done |
+| Comparison tables in 12 articles | Medium | Done |
+| SEO enrichment system (auto-generated) | High | Done |
+| Internal link generation | Medium | Done |
+| Related article recommendations | Medium | Done |
 
-### 7. Navigation & Footer
+### 7. Legal Pages
 | Feature | Priority | Status |
 |---------|----------|--------|
-| Sticky navbar with links | High | Done |
+| Privacy Policy page | Medium | Done |
+| Terms of Service page | Medium | Done |
+| Framer Motion animations | Low | Done |
+| Footer links to both pages | Medium | Done |
+
+### 8. Navigation & Footer
+| Feature | Priority | Status |
+|---------|----------|--------|
+| Sticky navbar with sections links (homepage) | High | Done |
+| Resources link in nav | High | Done |
+| Home link on non-homepage pages | Medium | Done |
 | Mobile hamburger menu | High | Done |
-| Contact information | High | Done |
-| Social links | Medium | Done |
+| Contact information in footer | High | Done |
+| Privacy/Terms links in footer | Medium | Done |
 | Floating WhatsApp button | High | Done |
 
-### 8. SEO & Technical
+### 9. SEO & Technical
 | Feature | Priority | Status |
 |---------|----------|--------|
 | JSON-LD LocalBusiness schema | High | Done |
+| JSON-LD Article schema per article | High | Done |
+| JSON-LD FAQPage schema per article | High | Done |
 | Open Graph tags | High | Done |
-| Twitter Card tags | Medium | Done |
-| Canonical URL | High | Done |
-| Meta description | High | Done |
-| Geo meta tags | Medium | Done |
-| Preconnect for fonts | Medium | Done |
+| Canonical URLs per page | High | Done |
+| Sitemap.xml (59 URLs) | High | Done |
+| robots.txt | High | Done |
+| Code splitting (React.lazy) | High | Done |
+| Error boundary | Medium | Done |
+| Responsive design | High | Done |
 
 ---
 
@@ -157,16 +166,25 @@ MottoBiz is a business automation studio based in Surat, Gujarat, India. The lan
 - **Typography:** Space Grotesk (display) + Inter (body)
 
 ### UI Components
-- **Glass morphism cards** - Subtle blur + border
-- **Gradient text** - For headlines and emphasis
-- **Custom cursor** - Pointer devices only
-- **Animated background** - Cursor-reactive gradient orbs
-- **Scroll-triggered animations** - Staggered fade-up reveals
+- **Glass morphism cards** — `.glass` and `.glass-hover` classes
+- **Gradient text** — `.text-gradient` and `.text-gradient-gold`
+- **Custom cursor** — Pointer devices only `@media (pointer: fine)`
+- **Animated background** — Cursor-reactive gradient orbs
+- **Scroll-triggered animations** — Framer Motion `useInView` + `fadeUp` variants
+- **Section dividers** — `.section-divider` class
 
-### Responsive Breakpoints
-- Mobile: < 640px
-- Tablet: 640px - 1024px
-- Desktop: > 1024px
+### Component Classes (from index.css)
+| Class | Purpose |
+|-------|---------|
+| `.glass` | Glass morphism card background |
+| `.glass-hover` | Glass card with hover state |
+| `.card` | Standard card with hover |
+| `.btn-primary` | Gradient button (indigo to purple) |
+| `.btn-secondary` | Outline button |
+| `.text-gradient` | Indigo-to-gold gradient text |
+| `.text-gradient-gold` | Gold gradient text |
+| `.number-badge` | Numbered badge circle |
+| `.section-divider` | Gradient line between sections |
 
 ---
 
@@ -174,8 +192,9 @@ MottoBiz is a business automation studio based in Surat, Gujarat, India. The lan
 
 ### Performance
 - First Contentful Paint < 1.5s
+- Initial JS bundle < 200KB gzipped
+- Articles loaded on demand via code splitting
 - Largest Contentful Paint < 2.5s
-- Total blocking time < 200ms
 - Cumulative Layout Shift < 0.1
 
 ### Browser Support
@@ -185,33 +204,26 @@ MottoBiz is a business automation studio based in Surat, Gujarat, India. The lan
 - Edge (last 2 versions)
 - Mobile Safari / Chrome
 
-### Accessibility
-- WCAG 2.1 AA compliance
-- Keyboard navigation
-- Screen reader compatible
-- Proper ARIA labels
-
 ---
 
 ## Out of Scope (Future Considerations)
 
-1. **Blog/Content Section** - Educational articles on automation
-2. **Case Studies** - Detailed project showcases
-3. **Pricing Page** - Transparent pricing tiers
-4. **Client Portal** - Project management dashboard
-5. **Multi-language Support** - Gujarati/Hindi versions
-6. **Dark/Light Mode Toggle** - User preference
-7. **Live Chat Widget** - Real-time support
-8. **Analytics Dashboard** - Self-service insights
+1. **CMS/Blog Engine** — Content is in `articles.ts`, not a CMS
+2. **Client Portal** — Authentication, project tracking, dashboards
+3. **Pricing Page** — Transparent pricing tiers
+4. **Multi-language** — Gujarati/Hindi versions
+5. **Live Chat Widget** — Real-time support
+6. **Analytics Dashboard** — Self-service insights
 
 ---
 
 ## Dependencies
 
 ### External Services
-- **Webhook Endpoint** - n8n or Make for form processing
-- **WhatsApp Business API** - For messaging
-- **Font CDN** - Google Fonts
+- **WhatsApp** — Primary contact channel (wa.me links + form pre-fill)
+- **Webhook** — Make/n8n for form processing (configurable via VITE_LEAD_WEBHOOK_URL)
+- **Google Fonts** — Typography hosting
+- **GitHub + Hostinger** — Version control and deployment
 
 ### Third-Party Integrations (Future)
 - Google Analytics 4
@@ -221,90 +233,45 @@ MottoBiz is a business automation studio based in Surat, Gujarat, India. The lan
 
 ---
 
-## Timeline & Milestones
+## Key Files Reference
 
-| Phase | Deliverable | Status |
-|-------|-------------|--------|
-| Phase 1 | Core landing page structure | Done |
-| Phase 2 | All sections implemented | Done |
-| Phase 3 | Form integration ready | Done |
-| Phase 4 | SEO optimization | Done |
-| Phase 5 | Deployment pipeline | Done |
-| Phase 6 | Production deployment | Done |
-
----
-
-## Risks & Mitigation
-
-| Risk | Impact | Mitigation |
-|------|--------|------------|
-| Webhook endpoint not configured | Form submissions fail | Graceful error messaging, fallback to WhatsApp |
-| Slow loading on mobile | Lost conversions | Optimized assets, lazy loading |
-| SEO competition | Low organic traffic | Local SEO focus, quality content |
-| WhatsApp API changes | Broken CTA links | Regular monitoring, alternative contact methods |
+| File | Purpose |
+|------|---------|
+| `src/lib/config.ts` | All contact/business constants + env vars |
+| `src/data/articles.ts` | All 57 articles (metadata + content + TLDR + FAQ databases) |
+| `src/pages/ArticlePage.tsx` | Article detail page with rich content parser |
+| `src/components/resources/` | Resources hub components (8 files) |
+| `src/components/ErrorBoundary.tsx` | Error boundary wrapping all routes |
+| `src/components/LeadMagnet.tsx` | Lead form with WhatsApp fallback |
+| `src/components/SEOHead.tsx` | Meta tags + JSON-LD schema |
+| `src/lib/animations.ts` | Framer Motion animation variants |
+| `.env` | VITE_LEAD_WEBHOOK_URL (empty = WhatsApp fallback) |
+| `AGENTS.md` | Mandatory development rules (READ BEFORE CHANGES) |
 
 ---
 
-## Appendices
-
-### A. Key Files Reference
-- `src/lib/config.ts` - All configuration constants
-- `src/components/LeadMagnet.tsx` - Form implementation
-- `src/components/SEOHead.tsx` - Meta tags and schema
-- `src/index.css` - Design system tokens
-
-## Appendices
-
-### A. Key Files Reference
-- `src/lib/config.ts` - All configuration constants
-- `src/components/LeadMagnet.tsx` - Form implementation
-- `src/components/SEOHead.tsx` - Meta tags and schema
-- `src/index.css` - Design system tokens
-
-### B. Related Documents
-- `AGENTS.md` - Development guidelines
-- `CONTEXT.md` - **Project state & execution memory (START HERE)**
-- `TASKS.md` - Task tracking
-- `TECHSTACK.md` - Technology details
-- `ROADMAP.md` - Future development plans
-
-### C. Deployment Notes
+## Deployment Notes
 
 **Current Deployment Method:** Hostinger Git Integration
 - Push to `main` branch triggers auto-deployment
 - `dist/` folder is committed to repository (required by Hostinger)
 - Deployment scripts: `deploy.ps1` / `deploy.bat`
+- Pre-commit hook runs `npm run build` to verify
 
-**Deployment Process:**
-```powershell
-# From repo root:
-.\deploy.bat
-```
+**Environment Variables:**
+- `VITE_LEAD_WEBHOOK_URL` — Optional. Set in `.env` to POST form data to Make/n8n. When empty, form redirects to WhatsApp.
 
-See `CONTEXT.md` for detailed troubleshooting and architecture decisions.
+---
 
-### D. Webhook Configuration Status
-
-The `LEAD_WEBHOOK_URL` in `src/lib/config.ts` is currently **empty**. This is intentional:
-
-1. Site is live and generating traffic
-2. Webhook (n8n/Make) not yet configured
-3. Form shows graceful error with WhatsApp fallback
-4. No leads are lost - users redirected to WhatsApp
-
-**To configure webhook:**
-1. Set up n8n or Make workflow
-2. Create webhook endpoint
-3. Update `LEAD_WEBHOOK_URL` in config.ts
-4. Test form submission end-to-end
-5. Deploy
-
-### E. Recent Changes (v1.0)
+## Recent Changes (v2.5)
 
 | Date | Change | Impact |
 |------|--------|--------|
+| 2026-04-16 | Code splitting with React.lazy | 740KB → 192KB initial bundle |
+| 2026-04-16 | Error boundary for crash resilience | Styled error screen with refresh |
+| 2026-04-16 | TLDR_DATABASE for all 57 articles | Key takeaways on every article |
+| 2026-04-16 | FAQ_DATABASE for all 57 articles | Rich snippet schema on every article |
+| 2026-04-16 | Comparison tables in 12 articles | Interactive content engagement |
+| 2026-04-16 | WhatsApp lead fallback | Zero data loss on form submit |
+| 2026-04-16 | VITE_LEAD_WEBHOOK_URL env variable | Configurable webhook without code changes |
 | 2026-04-13 | Switched to Hostinger Git deployment | More reliable than FTP Actions |
-| 2026-04-13 | Added deploy.ps1 script | One-click deployment |
-| 2026-04-13 | Added .env to .gitignore | Security improvement |
-| 2026-04-12 | Added Local SEO guides | GBP + citation strategy |
-| 2026-04-10 | Initial production release | Site live at mottobiz.com |

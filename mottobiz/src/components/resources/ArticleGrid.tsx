@@ -126,7 +126,7 @@ export function PaginatedGrid({
               .map((page, i, arr) => (
                 <span key={page}>
                   {i > 0 && arr[i - 1] !== page - 1 && (
-                    <span className="px-2 text-white/30">...</span>
+                    <span className="px-2 text-white/40">...</span>
                   )}
                   <button
                     onClick={() => onPageChange(page)}

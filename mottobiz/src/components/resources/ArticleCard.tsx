@@ -73,7 +73,7 @@ export function ArticleCardComponent({ article, index = 0 }: ArticleCardProps) {
           </p>
 
           {/* Meta */}
-          <div className="flex items-center justify-between text-xs text-white/40">
+          <div className="flex items-center justify-between text-xs text-white/55">
             <span>{article.readingTime} min read</span>
             <span>{formattedDate}</span>
           </div>
@@ -81,7 +81,7 @@ export function ArticleCardComponent({ article, index = 0 }: ArticleCardProps) {
           {/* Pillar indicator if exists */}
           {article.pillar && (
             <div className="mt-3 pt-3 border-t border-white/10">
-              <span className="text-xs text-white/40">
+              <span className="text-xs text-white/55">
                 {article.pillar}
               </span>
             </div>

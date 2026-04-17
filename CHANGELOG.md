@@ -6,27 +6,121 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [2.8.0] - 2026-04-17
+
+### Fixed
+
+#### Architecture
+- **`getEnrichedArticle()`** — Now searches both `ARTICLES` and `LOCATION_SERVICE_ARTICLES` arrays. Location articles can now use the full enrichment system.
+- **Generator functions** — `generateFAQ()`, `generateSEO()`, `generateInternalLinks()`, and `generateRelatedSlugs()` all updated to search both article arrays.
+- **TypeScript conflict** — Removed duplicate `ArticleEnrichment` type declaration from `articles.ts`. Type is now imported from `types/article.ts`.
+- **Build error** — Fixed `articles-content.ts` missing closing backtick for `business-automation-jahangirabad` template literal.
+- **Duplicate slug** — `website-development-varachha` existed in both `ARTICLES` and `LOCATION_SERVICE_ARTICLES`. LOCATION version renamed to `website-development-varachha-location` across all references + sitemap.
+
+#### Content
+- **FAQ coverage** — Added 26 new FAQ entries covering all 20 location articles and 6 comparison articles (whatsapp-api-vs-360dialog, make-vs-zapier, whatsapp-business-vs-instagram-business, website-vs-google-business-profile, manual-followups-vs-automated, email-vs-whatsapp-business).
+- **Enrichment databases** — Added `STATCARDS_DATABASE`, `CHECKLISTS_DATABASE`, `STEPS_DATABASE`, `PROTIPS_DATABASE`, and `WARNINGS_DATABASE` for all 75 articles to `articles.ts`.
+- **`getInteractiveBlocks()`** — Full implementation added to `articles.ts` for interactive article components.
+- **WhatsApp links** — 20 hardcoded `https://wa.me/917487957972` URLs replaced with config-based replacement at render time in `ArticlePage.tsx`.
+
+#### Counts
+- **`CATEGORY_INFO`** — Updated: industries: 43, comparisons: 9, guides: 3, case-studies: 1, locations: 20.
+- **`INDUSTRY_HUBS`** — Updated article counts: Textile & Diamond: 19, Restaurants & Food: 15, Real Estate: 14, Coaching & Education: 11, Retail & Consumer: 12.
+
+---
+
+## [2.7.0] - 2026-04-16
+
+### Added
+
+#### Performance
+- **Code splitting** — All 5 route pages lazy-loaded via `React.lazy` + `Suspense`. Initial JS bundle dropped from 740KB to 192KB (60KB gzipped). Articles data (259KB) loads only when visiting `/resources`.
+- **Error boundary** — `ErrorBoundary` component wrapping all routes with styled error screen and refresh button.
+
+#### Content System
+- **20 location articles** — Added `LOCATION_SERVICE_ARTICLES[]` for Surat area-specific content (Katargam, Udhna, Ring Road, Nanpura, City Light, Parle Point, Chowk Bazar, Rander, Palanpur, Jahangirabad, Vesu, Adajan, Varachha, Athwa, Piplod).
+- **TL;DR database** — 3-5 key takeaway bullets for every article, injected before first H2 heading via `TLDR_DATABASE` + `getTLDR()`.
+- **Hand-written FAQs** — All 75 articles now have 3 specific Q&A pairs in `FAQ_DATABASE`. FAQ schema markup renders on every article page.
+- **Comparison tables** — 12 articles have interactive comparison tables (markdown table parser + dedicated content tables for n8n-vs-make, whatsapp-business-api-vs-automation, getting-started-business-automation, etc.).
+- **Article thumbnails** — Dynamic SVG component (`ArticleThumbnail.tsx`) with category-colored gradients and emoji icon map per article slug.
+- **SEO enrichment** — `getEnrichedArticle()` auto-generates meta titles, descriptions, keywords, FAQ, internal links, related articles, and TLDR for every article.
+- **8 interactive components** — ComparisonTable, StatCards, Checklist, Steps, ProTip, Warning, CTABox, TLDRBox in `ArticleComponents.tsx`.
+- **Article content parser** — Detects markdown headings, bullets, numbered lists, tables, and TLDR patterns, rendering them as styled React components.
+
+### Changed
+- **Sitemap** — Updated with all 75 article URLs plus `/privacy` and `/terms`.
+
+---
+
+## [2.5.0] - 2026-04-16
+
+### Added
+
+#### Performance
+- **Code splitting** — All 5 route pages lazy-loaded via `React.lazy` + `Suspense`. Initial JS bundle dropped from 740KB to 192KB (60KB gzipped). Articles data (259KB) loads only when visiting `/resources`.
+- **Error boundary** — `ErrorBoundary` component wrapping all routes with styled error screen and refresh button.
+
+#### Content System
+- **57 articles** across 5 industry pillars (Textile & Diamond, Restaurants & Food, Real Estate, Coaching & Education, Retail & Consumer) plus comparisons, guides, and location pages.
+- **TL;DR database** — 3-5 key takeaway bullets for every article, injected before first H2 heading via `TLDR_DATABASE` + `getTLDR()`.
+- **Hand-written FAQs** — All 57 articles now have 3 specific Q&A pairs in `FAQ_DATABASE` (up from 6). FAQ schema markup renders on every article page.
+- **Comparison tables** — 12 articles have interactive comparison tables (markdown table parser + dedicated content tables for n8n-vs-make, whatsapp-business-api-vs-automation, getting-started-business-automation, etc.).
+- **Article thumbnails** — Dynamic SVG component (`ArticleThumbnail.tsx`) with category-colored gradients and emoji icon map per article slug.
+- **SEO enrichment** — `getEnrichedArticle()` auto-generates meta titles, descriptions, keywords, FAQ, internal links, related articles, and TLDR for every article.
+- **8 interactive components** — ComparisonTable, StatCards, Checklist, Steps, ProTip, Warning, CTABox, TLDRBox in `ArticleComponents.tsx`.
+- **Article content parser** — Detects markdown headings, bullets, numbered lists, tables, and TLDR patterns, rendering them as styled React components.
+- **Legal pages** — Privacy Policy (`/privacy`) and Terms of Service (`/terms`) with Framer Motion animations and proper SEO.
+
+#### Lead Form
+- **WhatsApp fallback** — When `VITE_LEAD_WEBHOOK_URL` is empty (default), form submissions redirect to WhatsApp with pre-filled name, phone, email, and business type instead of showing an error.
+- **Environment variable** — `VITE_LEAD_WEBHOOK_URL` configurable via `.env` file. Set it to a Make/n8n endpoint to POST form data.
+- **Error recovery** — If webhook POST fails, falls back to WhatsApp redirect instead of showing an error message.
+
+### Changed
+- **App.tsx** — Refactored to use `React.lazy` + `Suspense` for all 5 route pages. Added `ErrorBoundary` wrapper.
+- **Navbar** — Resources link now visible on both homepage and other pages.
+- **Footer** — Added links to Privacy Policy and Terms of Service.
+- **Sitemap** — Updated with all 57 article URLs plus `/privacy` and `/terms`.
+
+### Fixed
+- Form submission no longer shows "Form temporarily unavailable" — redirects to WhatsApp with form data pre-filled.
+- Bundle size warning resolved through code splitting (no single chunk over 500KB).
+
+---
+
+## [2.0.0] - 2026-04-14
+
+### Added
+
+#### Resources Hub
+- **Resources page** — Full hub with category filtering, search, industry hubs, and featured articles.
+- **Article detail pages** — Dynamic routing at `/resources/:slug` with rich content rendering.
+- **Article grid** — Responsive grid with load-more pagination.
+- **Category filter** — Pill-based category filter with search.
+- **Resources hero** — Hero section with newsletter CTA and WhatsApp button.
+
+#### Content Generation
+- **CONTENT_STRATEGY.md** — 1,892-line master framework for content creation.
+- **Article brief templates** — Reusable templates for consistent article output.
+- **Quality checklists** — Proofreading and AI detection avoidance guidelines.
+- **5 full articles** with SEO metadata (Textile & Diamond pillar).
+
+---
+
 ## [1.0.1] - 2026-04-13
 
 ### Changed
 - **Deployment Method:** Switched from GitHub Actions FTP to Hostinger Git Integration
-  - More reliable deployment process
-  - Faster deploy times (2-3 minutes)
-  - No FTP credentials in GitHub secrets
-  - See `CONTEXT.md` for detailed reasoning
+- More reliable deployment, faster deploy times, no FTP credentials in secrets
 
 ### Added
-- `deploy.ps1` - PowerShell deployment script with interactive prompts
-- `deploy.bat` - Windows batch wrapper for one-click deployment
-- `CONTEXT.md` - Comprehensive project context and execution memory
-- `.env` to `.gitignore` - Security improvement to prevent secret exposure
-
-### Removed
-- `.github/workflows/deploy.yml` - GitHub Actions workflow (replaced by Hostinger Git)
+- `deploy.ps1` — PowerShell deployment script with interactive prompts
+- `deploy.bat` — Windows batch wrapper for one-click deployment
+- `CONTEXT.md` — Comprehensive project context and execution memory
+- `.env` to `.gitignore` — Security improvement
 
 ### Security
-- Added `.env` and `.env.*.local` to `.gitignore` in both root and mottobiz directories
-- Prevents accidental commit of environment variables and secrets
+- Added `.env` and `.env.*.local` to `.gitignore`
 
 ---
 
@@ -36,176 +130,32 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 #### Core Website
 - Complete landing page with 10 sections
-  - Hero with animated headline and stats
-  - Pain points section
-  - Social proof/credibility markers
-  - Services showcase (6 services)
-  - How it works process
-  - Qualifier section
-  - Testimonials
-  - Lead magnet form (audit booking)
-  - FAQ accordion
-  - Final CTA
-  - Footer with contact info
-
-#### Visual Effects
 - Custom cursor (pointer devices only)
 - Animated background with gradient orbs
 - Scroll-triggered fade-up animations
 - Glass morphism card effects
-- Hover animations on CTAs and cards
 
-#### Form Integration
-- React Hook Form for state management
-- Zod schema validation
+#### Form & Integration
+- React Hook Form + Zod validation
+- WhatsApp integration
 - Graceful error handling
-- WhatsApp fallback when webhook unavailable
 
 #### SEO
-- JSON-LD LocalBusiness schema
-- ServiceArea schema with 20 Surat neighborhoods
-- Open Graph tags
-- Twitter Card tags
-- Canonical URL
-- Geo meta tags
-- Preconnect for Google Fonts
+- JSON-LD LocalBusiness + ServiceArea schema
+- Open Graph and Twitter Card tags
+- Canonical URLs and geo meta tags
 
 #### Documentation
-- `AGENTS.md` - Development guidelines
-- `PRD.md` - Product requirements
-- `TASKS.md` - Task tracking
-- `ROADMAP.md` - Future plans
-- `TECHSTACK.md` - Technology details
-- `ARCHITECTURE.md` - System architecture
-- `DESIGN.md` - Design system
-- `GOOGLE_BUSINESS_PROFILE_GUIDE.md` - GBP optimization
-- `LOCAL_CITATION_BUILDING_GUIDE.md` - Citation building strategy
-
-### Technical Stack
-- React 19.0.0
-- TypeScript 6.0.2
-- Vite 8.0.4
-- Tailwind CSS v4.2.2
-- Framer Motion 12.38.0
-- react-hook-form 7.72.1
-- Zod 4.3.6
-- Radix UI primitives
-- lucide-react icons
-
-### Infrastructure
-- Hostinger shared hosting
-- Domain: https://mottobiz.com
-- Let's Encrypt SSL
-- GitHub repository for version control
-
-### Known Limitations (v1.0.0)
-- Webhook URL empty (graceful fallback to WhatsApp)
-- No analytics tracking (GA4, GTM)
-- Google Business Profile not claimed
-- No blog/content section
-
----
-
-## Pre-Release Development History
-
-### 2026-04-10 - Project Initialization
-- Initialize React + Vite project
-- Configure TypeScript with path aliases
-- Setup Tailwind CSS v4
-- Create project structure
-- Define design tokens
-
-### 2026-04-10 to 2026-04-11 - Core Development
-- Build all page sections
-- Implement animations with Framer Motion
-- Create form with validation
-- Add SEO components
-
-### 2026-04-11 to 2026-04-12 - Polish & Deployment
-- Mobile responsive design
-- Performance optimization
-- Initial GitHub Actions workflow (FTP)
-- Production deployment
+- AGENTS.md, PRD.md, TASKS.md, ROADMAP.md, TECHSTACK.md, ARCHITECTURE.md, DESIGN.md, CHANGELOG.md
 
 ---
 
 ## Versioning Strategy
 
 We use [Semantic Versioning](https://semver.org/spec/v2.0.0.html):
-
-- **MAJOR** version - Incompatible changes, major redesigns
-- **MINOR** version - New features, sections, functionality
-- **PATCH** version - Bug fixes, documentation updates, optimizations
-
-### Version Labels
-
-| Label | Meaning |
-|-------|---------|
-| [Unreleased] | Changes on main branch, not yet deployed |
-| [X.Y.Z] | Specific released version |
-
----
-
-## Planned Versions
-
-### [1.1.0] - Q2 2026 - Polish & Optimization
-- Configure production webhook URL
-- Setup Google Analytics 4
-- Setup Google Tag Manager
-- Add privacy policy page
-- Add terms of service page
-- Create XML sitemap
-- Add robots.txt optimization
-
-### [1.2.0] - Q3 2026 - Content & Authority
-- Blog/CMS integration
-- Individual service detail pages
-- Video testimonials
-- Case studies section
-- Enhanced structured data
-
-### [2.0.0] - Q4 2026 - Client Portal MVP
-- Client authentication
-- Project status tracking
-- Document sharing
-- Basic analytics dashboard
-
-### [3.0.0] - 2027 - Platform Expansion
-- Multi-language support (Gujarati, Hindi)
-- Partner program
-- Automation template marketplace
-- Advanced analytics
-
----
-
-## How to Update This Changelog
-
-### When to Add Entries
-
-1. **For each deployment** - Add a new version section
-2. **For significant changes** - Document in [Unreleased] section during development
-3. **For breaking changes** - Mark clearly and explain migration path
-
-### Categories
-
-Use these categories under each version:
-
-- `Added` - New features
-- `Changed` - Changes to existing functionality
-- `Deprecated` - Soon-to-be removed features
-- `Removed` - Removed features
-- `Fixed` - Bug fixes
-- `Security` - Security improvements
-
-### Format
-
-```markdown
-## [X.Y.Z] - YYYY-MM-DD
-
-### Added/Changed/Fixed/Security
-- Description of change
-- Reference to issue/PR if applicable
-```
+- **MAJOR** — Incompatible changes, major redesigns
+- **MINOR** — New features, sections, functionality
+- **PATCH** — Bug fixes, documentation, optimizations
 
 ---
 

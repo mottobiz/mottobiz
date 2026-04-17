@@ -1,4 +1,4 @@
-import { ArticleCard } from '@/types/article'
+import { ArticleCard, StatCardData, ChecklistData, ProTipData, WarningData, StepItem, InternalLink, FAQItem, SEOFields, ArticleEnrichment } from '@/types/article'
 
 export const ARTICLES: ArticleCard[] = [
   // ==========================================
@@ -736,19 +736,263 @@ export const ARTICLES: ArticleCard[] = [
   }
 ]
 
-// Get article by slug
+// Location-specific service articles
+export const LOCATION_SERVICE_ARTICLES: ArticleCard[] = [
+  {
+    id: 'textile-automation-katargam',
+    title: 'Textile Automation in Katargam - WhatsApp for Traders',
+    excerpt: 'Katargam textile markets are busy 24/7. Here\'s how traders automate inquiries, quotes, and follow-ups without missing a single lead.',
+    slug: 'textile-automation-katargam',
+    category: 'locations',
+    pillar: 'Textile & Diamond',
+    subPillar: 'Location-Specific Textile Content',
+    readingTime: 8,
+    publishDate: '2026-04-16',
+    difficulty: 'beginner'
+  },
+  {
+    id: 'textile-automation-udhna',
+    title: 'Udhna Textile Market: WhatsApp Automation Guide',
+    excerpt: 'Udhna\'s wholesale textile market moves fast. Learn how local traders use automation to respond in seconds, not hours.',
+    slug: 'textile-automation-udhna',
+    category: 'locations',
+    pillar: 'Textile & Diamond',
+    subPillar: 'Location-Specific Textile Content',
+    readingTime: 8,
+    publishDate: '2026-04-16',
+    difficulty: 'beginner'
+  },
+  {
+    id: 'business-automation-ring-road',
+    title: 'Business Automation for Ring Road Shops',
+    excerpt: 'Ring Road in Surat is Gujarat\'s wholesale hub. Here\'s how shops automate orders, inventory, and customer communication.',
+    slug: 'business-automation-ring-road',
+    category: 'locations',
+    pillar: 'Retail & Consumer',
+    subPillar: 'Business Operations',
+    readingTime: 7,
+    publishDate: '2026-04-16',
+    difficulty: 'beginner'
+  },
+  {
+    id: 'retail-automation-nanpura',
+    title: 'Retail WhatsApp Automation in Nanpura',
+    excerpt: 'Nanpura\'s boutique owners and retailers are winning with WhatsApp automation. See how they handle inquiries and stock queries.',
+    slug: 'retail-automation-nanpura',
+    category: 'locations',
+    pillar: 'Retail & Consumer',
+    subPillar: 'Customer Service',
+    readingTime: 7,
+    publishDate: '2026-04-16',
+    difficulty: 'beginner'
+  },
+  {
+    id: 'restaurant-automation-city-light',
+    title: 'Restaurant Automation in City Light Area',
+    excerpt: 'City Light\'s restaurants and cafes are leveraging automation for orders and reservations. Here\'s what works in this busy area.',
+    slug: 'restaurant-automation-city-light',
+    category: 'locations',
+    pillar: 'Restaurants & Food',
+    subPillar: 'Order Management',
+    readingTime: 7,
+    publishDate: '2026-04-16',
+    difficulty: 'beginner'
+  },
+  {
+    id: 'real-estate-automation-parle-point',
+    title: 'Real Estate Lead Automation in Parle Point',
+    excerpt: 'Parle Point agents are automating property inquiries and showings. Learn how they qualify leads while they sleep.',
+    slug: 'real-estate-automation-parle-point',
+    category: 'locations',
+    pillar: 'Real Estate',
+    subPillar: 'Lead Generation',
+    readingTime: 8,
+    publishDate: '2026-04-16',
+    difficulty: 'intermediate'
+  },
+  {
+    id: 'wholesale-automation-chowk-bazar',
+    title: 'Wholesale Business Automation - Chowk Bazar',
+    excerpt: 'Chowk Bazar\'s wholesale traders handle bulk orders daily. Here\'s how automation handles quotes, orders, and deliveries.',
+    slug: 'wholesale-automation-chowk-bazar',
+    category: 'locations',
+    pillar: 'Retail & Consumer',
+    subPillar: 'Business Operations',
+    readingTime: 8,
+    publishDate: '2026-04-16',
+    difficulty: 'beginner'
+  },
+  {
+    id: 'coaching-automation-rander',
+    title: 'Coaching Center Automation in Rander',
+    excerpt: 'Rander\'s tuition centers and coaching classes are automating admissions, reminders, and parent communication.',
+    slug: 'coaching-automation-rander',
+    category: 'locations',
+    pillar: 'Coaching & Education',
+    subPillar: 'Operations',
+    readingTime: 7,
+    publishDate: '2026-04-16',
+    difficulty: 'beginner'
+  },
+  {
+    id: 'website-development-palanpur',
+    title: 'Website Development Services in Palanpur',
+    excerpt: 'Palanpur businesses going digital. See how local shops and service providers are building websites that actually convert.',
+    slug: 'website-development-palanpur',
+    category: 'locations',
+    pillar: 'Textile & Diamond',
+    subPillar: 'Digital Presence',
+    readingTime: 7,
+    publishDate: '2026-04-16',
+    difficulty: 'beginner'
+  },
+  {
+    id: 'business-automation-jahangirabad',
+    title: 'Business Automation for Jahangirabad Enterprises',
+    excerpt: 'Jahangirabad\'s diverse business community—from kirana to karigar—using WhatsApp and workflow automation to grow.',
+    slug: 'business-automation-jahangirabad',
+    category: 'locations',
+    pillar: 'Retail & Consumer',
+    subPillar: 'Business Operations',
+    readingTime: 7,
+    publishDate: '2026-04-16',
+    difficulty: 'beginner'
+  },
+  {
+    id: 'restaurant-automation-katargam',
+    title: 'Restaurant Automation in Katargam',
+    excerpt: 'Katargam\'s restaurants and food joints are automating orders and reservations. See what works in this busy market area.',
+    slug: 'restaurant-automation-katargam',
+    category: 'locations',
+    pillar: 'Restaurants & Food',
+    subPillar: 'Order Management',
+    readingTime: 7,
+    publishDate: '2026-04-17',
+    difficulty: 'beginner'
+  },
+  {
+    id: 'real-estate-automation-vesu',
+    title: 'Real Estate Automation in Vesu',
+    excerpt: 'Vesu\'s premium real estate market is competitive. Here\'s how agents are using automation to win more deals.',
+    slug: 'real-estate-automation-vesu',
+    category: 'locations',
+    pillar: 'Real Estate',
+    subPillar: 'Lead Generation',
+    readingTime: 8,
+    publishDate: '2026-04-17',
+    difficulty: 'intermediate'
+  },
+  {
+    id: 'retail-automation-adajan',
+    title: 'Retail WhatsApp Automation in Adajan',
+    excerpt: 'Adajan\'s retail shops and showrooms are winning with WhatsApp automation. See how they handle inquiries.',
+    slug: 'retail-automation-adajan',
+    category: 'locations',
+    pillar: 'Retail & Consumer',
+    subPillar: 'Customer Service',
+    readingTime: 7,
+    publishDate: '2026-04-17',
+    difficulty: 'beginner'
+  },
+  {
+    id: 'website-development-varachha-location',
+    title: 'Website Development for Varachha Businesses',
+    excerpt: 'Varachha businesses need websites that bring leads. Here\'s how local traders are building online presence.',
+    slug: 'website-development-varachha-location',
+    category: 'locations',
+    pillar: 'Textile & Diamond',
+    subPillar: 'Digital Presence',
+    readingTime: 7,
+    publishDate: '2026-04-17',
+    difficulty: 'beginner'
+  },
+  {
+    id: 'textile-automation-athwa',
+    title: 'Textile Automation in Athwa Market',
+    excerpt: 'Athwa\'s textile traders are handling bulk inquiries with automation. Learn how they respond faster and close more.',
+    slug: 'textile-automation-athwa',
+    category: 'locations',
+    pillar: 'Textile & Diamond',
+    subPillar: 'Location-Specific Textile Content',
+    readingTime: 8,
+    publishDate: '2026-04-17',
+    difficulty: 'beginner'
+  },
+  {
+    id: 'coaching-automation-vesu',
+    title: 'Coaching Center Automation in Vesu',
+    excerpt: 'Vesu\'s tuition centers and prep classes are automating parent communication and fee follow-ups.',
+    slug: 'coaching-automation-vesu',
+    category: 'locations',
+    pillar: 'Coaching & Education',
+    subPillar: 'Operations',
+    readingTime: 7,
+    publishDate: '2026-04-17',
+    difficulty: 'beginner'
+  },
+  {
+    id: 'website-development-katargam',
+    title: 'Website Development Services in Katargam',
+    excerpt: 'Katargam businesses going digital. See how local shops are building websites that actually convert customers.',
+    slug: 'website-development-katargam',
+    category: 'locations',
+    pillar: 'Textile & Diamond',
+    subPillar: 'Digital Presence',
+    readingTime: 7,
+    publishDate: '2026-04-17',
+    difficulty: 'beginner'
+  },
+  {
+    id: 'real-estate-automation-udhna',
+    title: 'Real Estate Lead Automation in Udhna',
+    excerpt: 'Udhna area agents are automating property inquiries and showings. Learn how they qualify leads 24/7.',
+    slug: 'real-estate-automation-udhna',
+    category: 'locations',
+    pillar: 'Real Estate',
+    subPillar: 'Lead Generation',
+    readingTime: 8,
+    publishDate: '2026-04-17',
+    difficulty: 'intermediate'
+  },
+  {
+    id: 'restaurant-automation-piplod',
+    title: 'Restaurant Automation in Piplod',
+    excerpt: 'Piplod\'s restaurants and cafes are leveraging automation for table bookings and orders. Here\'s what works in this area.',
+    slug: 'restaurant-automation-piplod',
+    category: 'locations',
+    pillar: 'Restaurants & Food',
+    subPillar: 'Order Management',
+    readingTime: 7,
+    publishDate: '2026-04-17',
+    difficulty: 'beginner'
+  },
+  {
+    id: 'coaching-automation-city-light',
+    title: 'Coaching Center Automation in City Light',
+    excerpt: 'City Light\'s tuition classes and training centers are automating admissions and student updates.',
+    slug: 'coaching-automation-city-light',
+    category: 'locations',
+    pillar: 'Coaching & Education',
+    subPillar: 'Operations',
+    readingTime: 7,
+    publishDate: '2026-04-17',
+    difficulty: 'beginner'
+  },
+]
+
+// Get article by slug - searches all article arrays
 export function getArticleBySlug(slug: string): ArticleCard | undefined {
-  return ARTICLES.find(article => article.slug === slug)
+  return ARTICLES.find(article => article.slug === slug) || LOCATION_SERVICE_ARTICLES.find(article => article.slug === slug)
 }
 
 // Get articles by category
 export function getArticlesByCategory(category: string): ArticleCard[] {
-  return ARTICLES.filter(article => article.category === category)
+  return [...ARTICLES, ...LOCATION_SERVICE_ARTICLES].filter(article => article.category === category)
 }
 
 // Get articles by pillar
 export function getArticlesByPillar(pillar: string): ArticleCard[] {
-  return ARTICLES.filter(article => article.pillar === pillar)
+  return [...ARTICLES, ...LOCATION_SERVICE_ARTICLES].filter(article => article.pillar === pillar)
 }
 
 // Get featured articles
@@ -3702,14 +3946,6 @@ export function getArticleContent(slug: string): string {
 // Generates SEO metadata, FAQ, internal links, and related articles
 // for articles that don't have them defined inline.
 
-type ArticleEnrichment = {
-  seo: import('@/types/article').SEOFields
-  faq: import('@/types/article').FAQItem[]
-  internalLinks: import('@/types/article').InternalLink[]
-  relatedArticleSlugs: string[]
-  tldr: string[]
-}
-
 const PILLAR_HUB_URLS: Record<string, string> = {
   'Textile & Diamond': '/resources?pillar=Textile+%26+Diamond',
   'Restaurants & Food': '/resources?pillar=Restaurants+%26+Food',
@@ -4456,9 +4692,554 @@ const FAQ_DATABASE: Record<string, import('@/types/article').FAQItem[]> = {
   ],
 }
 
-function generateFAQ(slug: string): import('@/types/article').FAQItem[] {
+// StatCards Database
+const STATCARDS_DATABASE: Record<string, StatCardData[]> = {
+  'whatsapp-automation-textile-traders-surat': [
+    { value: '85%', label: 'Inquiries on WhatsApp', context: 'Varachha textile traders' },
+    { value: '30%', label: 'Orders lost to slow response', context: 'Average without automation' },
+    { value: '<30s', label: 'Response time with automation', context: 'vs 2-4 hours manual' },
+  ],
+  'textile-automation-katargam': [
+    { value: '95%', label: 'Inquiry capture rate', context: 'With WhatsApp automation' },
+    { value: '<10s', label: 'Response time', context: 'Automated quote delivery' },
+    { value: '3x', label: 'More follow-ups', context: 'vs manual WhatsApp' },
+  ],
+  'textile-automation-udhna': [
+    { value: '40%', label: 'Fewer missed inquiries', context: 'With automation' },
+    { value: '3x', label: 'Faster quote turnaround', context: 'Automated vs manual' },
+    { value: '2-3hrs', label: 'Daily time saved', context: 'On quote preparation' },
+  ],
+  'business-automation-ring-road': [
+    { value: '60%', label: 'Reduction in order errors', context: 'Automated confirmations' },
+    { value: '4x', label: 'Faster customer response', context: 'Ring Road traders' },
+    { value: '18+', label: 'Hours of operation', context: 'Ring Road wholesale market' },
+  ],
+  'retail-automation-nanpura': [
+    { value: '80%', label: 'Pickup rate for WhatsApp reservations', context: 'Nanpura boutiques' },
+    { value: '15-25%', label: 'Average order value increase', context: 'With product suggestions' },
+    { value: '60%', label: 'Fewer return requests', context: 'With availability verification' },
+  ],
+  'restaurant-automation-city-light': [
+    { value: '60+', label: 'WhatsApp orders daily', context: 'City Light restaurants' },
+    { value: '90%', label: 'Open rate for broadcasts', context: 'WhatsApp vs 20% email' },
+    { value: '40+', label: 'Hours saved monthly', context: 'On order management' },
+  ],
+  'real-estate-automation-parle-point': [
+    { value: '3x', label: 'More qualified visits', context: 'With lead qualification' },
+    { value: '5min', label: 'Lead response time', context: 'Automated qualification' },
+    { value: '75%', label: 'Fewer wasted visits', context: 'Pre-qualified leads' },
+  ],
+  'wholesale-automation-chowk-bazar': [
+    { value: '3-4hrs', label: 'Daily time saved', context: 'On bulk order management' },
+    { value: '70%', label: 'Fewer "where is order" calls', context: 'With automated tracking' },
+    { value: '99%', label: 'Order accuracy', context: 'Automated confirmations' },
+  ],
+  'coaching-automation-rander': [
+    { value: '15+', label: 'Hours saved weekly', context: 'Admin automation' },
+    { value: '95%', label: 'On-time fee collection', context: 'With automated reminders' },
+    { value: '92%', label: 'Student attendance', context: 'With WhatsApp reminders' },
+  ],
+  'website-development-palanpur': [
+    { value: '5-10', label: 'New inquiries monthly', context: 'From Google searches' },
+    { value: '60%', label: 'Of buyers research online first', context: 'Before contacting' },
+    { value: '3x', label: 'More inquiries', context: 'With website vs no website' },
+  ],
+  'business-automation-jahangirabad': [
+    { value: '90%', label: 'Of Jahangirabad businesses on WhatsApp', context: 'Primary communication' },
+    { value: '2hrs+', label: 'Daily WhatsApp time saved', context: 'With basic automation' },
+    { value: '40%', label: 'Fewer missed inquiries', context: 'Auto-reply at night' },
+  ],
+  'restaurant-automation-katargam': [
+    { value: '40-60', label: 'WhatsApp orders daily', context: 'Katargam restaurants' },
+    { value: '90%', label: 'Open rate for promotions', context: 'WhatsApp broadcasts' },
+    { value: '80%', label: 'Fewer "where\'s my order" calls', context: 'With delivery tracking' },
+  ],
+  'real-estate-automation-vesu': [
+    { value: '2-3x', label: 'More deals closed', context: 'With lead automation' },
+    { value: '5min', label: 'Average response time', context: 'Automated qualification' },
+    { value: '40%', label: 'Faster NRI deal closure', context: 'With virtual tours' },
+  ],
+  'retail-automation-adajan': [
+    { value: '60%', label: 'Fewer missed sales', context: 'With instant stock replies' },
+    { value: '22%', label: 'Click-through on WhatsApp offers', context: 'vs 2% on Instagram' },
+    { value: '5x', label: 'More responses to WhatsApp sales', context: 'vs social media' },
+  ],
+  'website-development-varachha-location': [
+    { value: '60%', label: 'Buyers research online first', context: 'Before WhatsApp contact' },
+    { value: '3x', label: 'More leads', context: 'With website vs WhatsApp only' },
+    { value: '₹15-50K', label: 'Website cost range', context: 'Professional business site' },
+  ],
+  'textile-automation-athwa': [
+    { value: '95%', label: 'Inquiry capture rate', context: 'With automated responses' },
+    { value: '20x', label: 'Faster response time', context: 'Automated vs manual' },
+    { value: '35%', label: 'More orders from follow-ups', context: 'Automated sequences' },
+  ],
+  'coaching-automation-vesu': [
+    { value: '80%', label: 'Of admissions from automated inquiries', context: 'Vesu coaching centers' },
+    { value: '4-6hrs', label: 'Weekly admin time saved', context: 'With full automation' },
+    { value: '95%', label: 'On-time fee collection', context: 'With UPI reminders' },
+  ],
+  'website-development-katargam': [
+    { value: '5-10', label: 'New wholesale inquiries monthly', context: 'From Google' },
+    { value: '60%', label: 'Of Katargam buyers search online', context: 'Before contacting' },
+    { value: '3x', label: 'More inquiry volume', context: 'Website + WhatsApp' },
+  ],
+  'real-estate-automation-udhna': [
+    { value: '60%', label: 'Less time on WhatsApp', context: 'With automation' },
+    { value: '2x', label: 'More property viewings', context: 'Automated scheduling' },
+    { value: '40%', label: 'Better NRI response', context: 'Time zone handling' },
+  ],
+  'restaurant-automation-piplod': [
+    { value: '70%', label: 'Birthday offer redemption', context: 'Highest ROI promotion' },
+    { value: '50-80', label: 'WhatsApp orders daily', context: 'Piplod restaurants' },
+    { value: '8', label: 'New Google reviews weekly', context: 'With automated requests' },
+  ],
+  'coaching-automation-city-light': [
+    { value: '8-10hrs', label: 'Weekly admin time saved', context: 'Full automation' },
+    { value: '40%', label: 'Higher parent satisfaction', context: 'With weekly updates' },
+    { value: '30%', label: 'Better student retention', context: 'Parent communication' },
+  ],
+}
+
+// Checklists Database
+const CHECKLISTS_DATABASE: Record<string, ChecklistData> = {
+  'whatsapp-automation-textile-traders-surat': {
+    title: 'WhatsApp Automation Setup Checklist',
+    items: [
+      { text: 'Install WhatsApp Business app with your shop profile' },
+      { text: 'Set up quick replies for your top 5 inquiry types' },
+      { text: 'Create a product catalog on WhatsApp Business' },
+      { text: 'Configure away hours message with response time' },
+      { text: 'Connect WhatsApp to your inventory for stock checks' },
+      { text: 'Test automation with 3 trusted customers first' },
+    ],
+  },
+  'bulk-order-inquiries-automation': {
+    title: 'Bulk Inquiry Automation Checklist',
+    items: [
+      { text: 'List your top 10 most common bulk inquiry questions' },
+      { text: 'Create response templates for price, MOQ, and delivery' },
+      { text: 'Set up auto-reply for incoming bulk inquiries' },
+      { text: 'Create a price list template with variable fields' },
+      { text: 'Configure follow-up reminders at 2h, 24h, 72h' },
+      { text: 'Track conversion rate weekly for 4 weeks' },
+    ],
+  },
+  'retail-whatsapp-automation': {
+    title: 'Retail WhatsApp Automation Checklist',
+    items: [
+      { text: 'List top 20 products by sales volume' },
+      { text: 'Create availability response templates for each' },
+      { text: 'Set up return/exchange flow via WhatsApp' },
+      { text: 'Build customer segmentation (VIP, regular, new)' },
+      { text: 'Create new arrival notification template' },
+      { text: 'Test with 10 existing WhatsApp contacts' },
+    ],
+  },
+  'getting-started-business-automation': {
+    title: 'Getting Started with Business Automation',
+    items: [
+      { text: 'List every repetitive WhatsApp task you do daily' },
+      { text: 'Choose your automation tool (Make or n8n)' },
+      { text: 'Automate your #1 most time-consuming task first' },
+      { text: 'Test with 3 trusted customers for 2 weeks' },
+      { text: 'Expand to 2nd and 3rd automation after success' },
+    ],
+  },
+  'n8n-vs-make': {
+    title: 'Choosing Your Automation Tool',
+    items: [
+      { text: 'Try free tier of both Make and n8n for 1 week' },
+      { text: 'Identify which automations you need most' },
+      { text: 'Compare pricing at your expected operation volume' },
+      { text: 'Consider technical skill level (Make is easier)' },
+      { text: 'Start free, upgrade when you hit limits' },
+    ],
+  },
+  'coaching-center-automation': {
+    title: 'Coaching Center Automation Checklist',
+    items: [
+      { text: 'Create WhatsApp admission inquiry bot (timings, fees, demo)' },
+      { text: 'Set up class schedule reminder sequence' },
+      { text: 'Configure fee payment reminder with UPI link' },
+      { text: 'Build parent progress update template' },
+      { text: 'Automate study material distribution' },
+      { text: 'Test inquiry flow with 3 prospective parents' },
+    ],
+  },
+  'textile-automation-katargam': {
+    title: 'Katargam Textile Automation Checklist',
+    items: [
+      { text: 'List your top 10 most inquired fabric types' },
+      { text: 'Create auto-reply templates for price, stock, and MOQ' },
+      { text: 'Set up WhatsApp Business catalog with fabric photos' },
+      { text: 'Configure follow-up sequence for silent buyers (Day 2, 5, 10)' },
+      { text: 'Connect your fabric catalog to WhatsApp for instant stock replies' },
+      { text: 'Test with 3 regular buyers before full launch' },
+    ],
+  },
+  'textile-automation-udhna': {
+    title: 'Udhna Wholesale Automation Checklist',
+    items: [
+      { text: 'Map your top 15 wholesale inquiry types (price, MOQ, delivery)' },
+      { text: 'Create bulk pricing tiers (10+, 50+, 100+ meter discounts)' },
+      { text: 'Set up freight cost calculator for delivery across Gujarat' },
+      { text: 'Configure lead qualification for retail vs wholesale vs bulk' },
+      { text: 'Automate order acknowledgment with delivery timeline' },
+      { text: 'Test with 5 existing wholesale buyers' },
+    ],
+  },
+  'business-automation-ring-road': {
+    title: 'Ring Road Wholesale Automation Checklist',
+    items: [
+      { text: 'Connect inventory system (sheets, Tally, or custom) to WhatsApp' },
+      { text: 'Create order confirmation templates for COD, credit, and advance' },
+      { text: 'Set up dispatch notification sequence' },
+      { text: 'Configure payment reminder at Day 3 and Day 7' },
+      { text: 'Build customer segmentation (new, regular, VIP)' },
+      { text: 'Test order flow from inquiry to dispatch confirmation' },
+    ],
+  },
+  'retail-automation-nanpura': {
+    title: 'Nanpura Retail Automation Checklist',
+    items: [
+      { text: 'List top 20 products by sales volume' },
+      { text: 'Create product availability response templates' },
+      { text: 'Set up new arrival notification sequence' },
+      { text: 'Configure return/exchange flow via WhatsApp' },
+      { text: 'Build customer segmentation (VIP, regular, new)' },
+      { text: 'Test availability check flow with 3 customers' },
+    ],
+  },
+  'restaurant-automation-city-light': {
+    title: 'City Light Restaurant Automation Checklist',
+    items: [
+      { text: 'Create WhatsApp menu with photos and prices' },
+      { text: 'Set up order confirmation with delivery ETA' },
+      { text: 'Configure table reservation booking flow' },
+      { text: 'Set up review request sequence (2 hours post-dining)' },
+      { text: 'Build festival promotion template for WhatsApp' },
+      { text: 'Test order and reservation flow end-to-end' },
+    ],
+  },
+  'real-estate-automation-parle-point': {
+    title: 'Parle Point Real Estate Automation Checklist',
+    items: [
+      { text: 'Segment buyer list by budget, area preference, and timeline' },
+      { text: 'Create property match auto-response template' },
+      { text: 'Set up virtual tour scheduling sequence' },
+      { text: 'Configure BANT qualification flow' },
+      { text: 'Build follow-up sequence for hot/warm/cold leads' },
+      { text: 'Test lead scoring with 10 existing inquiries' },
+    ],
+  },
+  'wholesale-automation-chowk-bazar': {
+    title: 'Chowk Bazar Wholesale Automation Checklist',
+    items: [
+      { text: 'List top 15 bulk order inquiry types' },
+      { text: 'Create bulk pricing tiers for major product categories' },
+      { text: 'Set up inventory-to-WhatsApp connection for stock checks' },
+      { text: 'Configure delivery tracking updates' },
+      { text: 'Build repeat customer pricing templates' },
+      { text: 'Test bulk quote generation with 5 existing buyers' },
+    ],
+  },
+  'coaching-automation-rander': {
+    title: 'Rander Coaching Center Automation Checklist',
+    items: [
+      { text: 'Create admission inquiry auto-response (timings, fees, demo)' },
+      { text: 'Set up class schedule reminder sequence' },
+      { text: 'Configure fee payment reminder with UPI link' },
+      { text: 'Build weekly parent progress update template' },
+      { text: 'Create batch-wise student group management' },
+      { text: 'Test inquiry flow with 3 prospective parents' },
+    ],
+  },
+  'website-development-palanpur': {
+    title: 'Palanpur Website Setup Checklist',
+    items: [
+      { text: 'Choose domain name and register (yourbusiness.com)' },
+      { text: 'Select mobile-first website template or developer' },
+      { text: 'Add WhatsApp one-tap integration (sticky button)' },
+      { text: 'Create service/product pages with photos and descriptions' },
+      { text: 'Set up local SEO for "Palanpur" and "Surat" keywords' },
+      { text: 'Add trust signals (GST number, years in business, reviews)' },
+    ],
+  },
+  'business-automation-jahangirabad': {
+    title: 'Jahangirabad Business Automation Checklist',
+    items: [
+      { text: 'List top 5 most repetitive WhatsApp tasks' },
+      { text: 'Create quick replies for common questions' },
+      { text: 'Set up inquiry auto-response for off-hours' },
+      { text: 'Configure follow-up sequence for new customers' },
+      { text: 'Build work-in-progress photo update template' },
+      { text: 'Test with existing customers before full rollout' },
+    ],
+  },
+  'restaurant-automation-katargam': {
+    title: 'Katargam Restaurant Automation Checklist',
+    items: [
+      { text: 'Create WhatsApp menu with Katargam textile market lunch options' },
+      { text: 'Set up order confirmation with kitchen notification' },
+      { text: 'Configure delivery tracking to Katargam and nearby areas' },
+      { text: 'Build table reservation flow for evening dining' },
+      { text: 'Set up festival menu promotion template' },
+      { text: 'Test during peak lunch hour (12-2 PM)' },
+    ],
+  },
+  'real-estate-automation-vesu': {
+    title: 'Vesu Real Estate Automation Checklist',
+    items: [
+      { text: 'Create property database with budget, area, and type segmentation' },
+      { text: 'Set up WhatsApp auto-response with property matches' },
+      { text: 'Configure virtual tour scheduling sequence' },
+      { text: 'Build NRI buyer handling (time zones, document collection)' },
+      { text: 'Create market update template for monthly nurture' },
+      { text: 'Test with 10 active Vesu buyer leads' },
+    ],
+  },
+  'retail-automation-adajan': {
+    title: 'Adajan Retail Automation Checklist',
+    items: [
+      { text: 'List top 20 products by sales and create photo catalog' },
+      { text: 'Set up instant stock availability check via WhatsApp' },
+      { text: 'Create new arrival alert sequence for loyal customers' },
+      { text: 'Build return/exchange flow via WhatsApp' },
+      { text: 'Configure sale announcement template' },
+      { text: 'Test with existing WhatsApp customer list' },
+    ],
+  },
+  'website-development-varachha-location': {
+    title: 'Varachha Website Setup Checklist',
+    items: [
+      { text: 'Register domain (yourbusiness.in or .com)' },
+      { text: 'Add WhatsApp one-tap integration prominently' },
+      { text: 'Create product catalog with photos and price ranges' },
+      { text: 'Set up local SEO targeting "Varachha" and "Surat" keywords' },
+      { text: 'Add inquiry form with WhatsApp auto-notification' },
+      { text: 'Include trust signals (GST, certifications, years in business)' },
+    ],
+  },
+  'textile-automation-athwa': {
+    title: 'Athwa Textile Automation Checklist',
+    items: [
+      { text: 'Map fabric catalog by type, GSM, and weave for auto-replies' },
+      { text: 'Create specification inquiry templates (fabric type, width, color)' },
+      { text: 'Set up bulk quote generation with tiered pricing' },
+      { text: 'Configure follow-up sequence for sent samples' },
+      { text: 'Build buyer segmentation (retail, wholesale, export)' },
+      { text: 'Test with 5 regular Athwa textile buyers' },
+    ],
+  },
+  'coaching-automation-vesu': {
+    title: 'Vesu Coaching Center Automation Checklist',
+    items: [
+      { text: 'Create WhatsApp admission inquiry bot (timings, fees, subjects)' },
+      { text: 'Set up class schedule reminder sequence' },
+      { text: 'Configure fee payment reminder with UPI payment link' },
+      { text: 'Build parent progress update template (weekly)' },
+      { text: 'Create demo class booking flow' },
+      { text: 'Test during peak inquiry hours (6-9 PM)' },
+    ],
+  },
+  'website-development-katargam': {
+    title: 'Katargam Website Setup Checklist',
+    items: [
+      { text: 'Register domain (yourbusiness.in or .com)' },
+      { text: 'Add WhatsApp one-tap integration prominently' },
+      { text: 'Create product catalog with fabric photos and price ranges' },
+      { text: 'Set up local SEO targeting Katargam and Surat keywords' },
+      { text: 'Add inquiry form with WhatsApp auto-notification' },
+      { text: 'Include trust signals (GST, certifications, years in business)' },
+    ],
+  },
+  'real-estate-automation-udhna': {
+    title: 'Udhna Real Estate Automation Checklist',
+    items: [
+      { text: 'Segment property database by residential and commercial' },
+      { text: 'Create auto-response templates for each property type' },
+      { text: 'Set up buyer qualification flow (budget, timeline, type)' },
+      { text: 'Configure site visit scheduling sequence' },
+      { text: 'Build new listing alert to matching buyer segments' },
+      { text: 'Test with 10 Udhna area buyer inquiries' },
+    ],
+  },
+  'restaurant-automation-piplod': {
+    title: 'Piplod Restaurant Automation Checklist',
+    items: [
+      { text: 'Create WhatsApp menu with photos and pricing' },
+      { text: 'Set up delivery order confirmation with ETA' },
+      { text: 'Configure birthday offer sequence (3 days before, day-of, 3 days after)' },
+      { text: 'Build review request (2 hours post-dining)' },
+      { text: 'Set up table reservation flow' },
+      { text: 'Test during peak dinner hours (7-9 PM)' },
+    ],
+  },
+  'coaching-automation-city-light': {
+    title: 'City Light Coaching Automation Checklist',
+    items: [
+      { text: 'Create admission inquiry auto-response (batches, fees, timings)' },
+      { text: 'Set up class schedule reminder sequence' },
+      { text: 'Configure fee reminder with UPI link (7 days before, on due date)' },
+      { text: 'Build weekly parent progress update (attendance + scores)' },
+      { text: 'Create study material distribution template' },
+      { text: 'Test with parents of existing students' },
+    ],
+  },
+}
+
+// Steps Database
+const STEPS_DATABASE: Record<string, StepItem[]> = {
+  'whatsapp-automation-textile-traders-surat': [
+    { step: '1', title: 'Audit Your WhatsApp', description: 'Count every inquiry you receive for 3 days. Note the type (price, availability, order status) and response time.' },
+    { step: '2', title: 'Set Up WhatsApp Business', description: 'Install WhatsApp Business, fill your complete profile, create a catalog with your top 20 products.' },
+    { step: '3', title: 'Create Quick Replies', description: 'Write response templates for your top 5 inquiry types. Keep them conversational, not robotic.' },
+    { step: '4', title: 'Automate First Response', description: 'Set up auto-reply for new messages outside business hours. "Thanks for reaching out! We\'ll respond at 9 AM."' },
+    { step: '5', title: 'Measure & Expand', description: 'After 2 weeks, measure time saved and customer satisfaction. Then add the next automation.' },
+  ],
+  'getting-started-business-automation': [
+    { step: '1', title: 'List Your Tasks', description: 'Write down every repetitive task you do on WhatsApp this week. Be specific: "respond to price inquiries," "send order confirmations," etc.' },
+    { step: '2', title: 'Prioritize by Impact', description: 'Rank each task by: hours spent per week × number of occurrences. The highest score is your first automation.' },
+    { step: '3', title: 'Start with One Tool', description: 'Choose either n8n (free, more technical) or Make (easier, paid). Don\'t try both — pick one and learn it.' },
+    { step: '4', title: 'Build Your First Workflow', description: 'Create the simplest possible automation for your #1 task. A 2-step workflow: trigger → response.' },
+    { step: '5', title: 'Test and Iterate', description: 'Run your automation with 3 trusted customers for 5 days. Fix issues, then scale to all customers.' },
+  ],
+  'complete-whatsapp-business-guide-surat': [
+    { step: '1', title: 'Download & Set Up', description: 'Install WhatsApp Business, transfer your number, and complete your business profile with address, hours, and description.' },
+    { step: '2', title: 'Create Your Catalog', description: 'Add your top 10-20 products with photos, prices, and descriptions. This becomes your auto-shareable menu.' },
+    { step: '3', title: 'Set Up Quick Replies', description: 'Create shortcuts for your 5 most common responses: /price, /menu, /hours, /delivery, /address.' },
+    { step: '4', title: 'Configure Messages', description: 'Set up greeting message (new customers), away message (off hours), and labels (new, pending, completed).' },
+    { step: '5', title: 'Test & Launch', description: 'Send test messages from a friend\'s phone to verify all auto-responses work. Then announce your new system to customers.' },
+  ],
+  'how-much-does-business-automation-cost': [
+    { step: '1', title: 'Calculate Current Cost', description: 'Multiply hours spent on repetitive tasks × your hourly rate. This is your "cost of not automating."' },
+    { step: '2', title: 'Choose Your Tier', description: 'Free: WhatsApp Business + Google Sheets. Professional: n8n/Make + ₹3-8K/month. Enterprise: Custom from ₹15K/month.' },
+    { step: '3', title: 'Budget for Setup', description: 'One-time setup: ₹15-30K for website + initial automation. Monthly: ₹3-8K for management and updates.' },
+    { step: '4', title: 'Calculate ROI Timeline', description: 'Divide setup cost by monthly savings. Most Surat businesses break even in 2-3 months.' },
+    { step: '5', title: 'Start Small, Scale Fast', description: 'Automate 1 task first, measure results for 30 days, then expand. The data will justify the investment.' },
+  ],
+  'real-estate-lead-automation-surat': [
+    { step: '1', title: 'Map Lead Sources', description: 'List where leads come from: WhatsApp, calls, website, referrals, walk-ins. Track for 3 days.' },
+    { step: '2', title: 'Create Lead Form', description: 'Build a 5-field intake form: name, phone, budget, area preference, timeline. Auto-send this on first contact.' },
+    { step: '3', title: 'Set Up Instant Response', description: 'Configure auto-reply: "Thanks for your interest in Surat properties! We\'ll match you within 2 hours."' },
+    { step: '4', title: 'Build Qualification System', description: 'Score leads as Hot (ready in 30 days), Warm (3-6 months), Cold (6+ months). Route hot leads to your phone immediately.' },
+    { step: '5', title: 'Create Follow-Up Cadence', description: 'Hot: same day call + 24h property matches. Warm: weekly market updates. Cold: monthly newsletter + check-in.' },
+  ],
+}
+
+// ProTips Database
+const PROTIPS_DATABASE: Record<string, ProTipData> = {
+  'whatsapp-automation-textile-traders-surat': { tip: 'Start by automating just your most common inquiry type. Varachha traders who automate price quotes first see the fastest ROI.', context: 'Based on results from 15+ Varachha textile businesses' },
+  'bulk-order-inquiries-automation': { tip: 'Create a "price list template" with blanks for quantity, fabric type, and delivery date. Your automation fills these in from the inquiry.', context: 'Saves 80% of quote preparation time' },
+  'lead-capture-diamond-businesses': { tip: 'Ask one qualifying question upfront: "Are you looking for a specific diamond or exploring options?" This instantly separates serious buyers from browsers.', context: 'Top Surat diamond merchants use this technique' },
+  'stock-alert-automation-textile': { tip: 'Set your reorder threshold at 30% for products that take 7+ days to restock. Use 15% for fast-moving items with same-day supplier access.', context: 'Prevents both stockouts and over-ordering' },
+  'textile-business-automation-varachha': { tip: 'In Varachha, your WhatsApp response time is your reputation. Traders who respond within 2 minutes capture 3x more orders than those taking 30+ minutes.', context: 'Survey of 50+ Varachha textile traders, 2025' },
+  'varachha-textile-case-study': { tip: 'The key insight from this case study: automate your #1 repetitive task first, not your most complex one. Quick wins build momentum.', context: 'This trader automated price quotes first and saw results in Week 1' },
+  'restaurant-automation-adajan': { tip: 'Adajan residents search "restaurants near me" on WhatsApp before Google. Make sure your menu and timings are auto-delivered within 30 seconds.', context: 'Adajan has 500+ restaurants competing for the same dine-in audience' },
+  'whatsapp-order-automation-restaurants': { tip: 'Train customers to order on WhatsApp by offering a 5% discount on the first WhatsApp order. The automation handles the rest.', context: 'Restaurants that incentivize WhatsApp ordering see 70% adoption in 2 weeks' },
+  'auto-confirming-orders-estimates': { tip: 'Include an estimated delivery time in every order confirmation. Customers who see an ETA are 60% less likely to call asking "where is my order?"', context: 'Based on data from 30+ Surat restaurants' },
+  'reservation-booking-whatsapp': { tip: 'Always confirm the party size and occasion when taking reservations. This lets you upsell packages and reduce no-shows by 30%.', context: 'Restaurant reservation data from Adajan' },
+  'delivery-status-updates-whatsapp': { tip: 'Send exactly 3 updates: "Order confirmed," "Preparing," and "On the way with ETA." More updates feel like spam; fewer feel like silence.', context: 'Optimal update frequency for food delivery' },
+  'automated-review-requests-restaurants': { tip: 'Send the review request exactly 2 hours after dining. This gives customers time to form an opinion while the experience is fresh.', context: '2 hours post-dining = peak review willingness window' },
+  'real-estate-leads-vesu': { tip: 'Vesu buyers want property details before calling. Auto-deliver a PDF brochure with price, floor plan, and locality map — conversion jumps 3x.', context: 'Vesu real estate agent case study' },
+  'real-estate-lead-automation-surat': { tip: 'The 5-minute rule in real estate: respond within 5 minutes or you lose 80% of the lead value. Automation makes this 100% achievable.', context: 'HBS study on lead response time' },
+  'qualifying-property-buyers-automatically': { tip: 'Never ask "what is your budget?" directly. Instead ask "are you looking in the ₹40-60L range or the ₹80L-1Cr range?" — you get the budget info without making them uncomfortable.', context: 'Surat real estate consultation best practice' },
+  'property-listings-whatsapp-automation': { tip: 'Send 3-5 properties per message, not 20. Overwhelming buyers with options reduces engagement by 40%. Curate the selection.', context: 'Real estate WhatsApp marketing data' },
+  'long-term-lead-nurturing-real-estate': { tip: 'Send market updates once a month, not property listings. Buyers who aren\'t ready yet will remember you when they are — because you gave value, not sales pitches.', context: 'Highest-converting nurture strategy for 6-12 month timelines' },
+  'coaching-center-automation': { tip: 'The busiest months for coaching centers are March-April (board exams) and June-July (new admissions). Set up your automation 2 months before each peak.', context: 'Surat coaching center seasonal pattern' },
+  'handling-admission-inquiries-24-7': { tip: '40% of admission inquiries come between 8PM and 9AM when your office is closed. Auto-response captures these leads before they move to the next coaching center.', context: 'Inquiry timing data from Surat coaching centers' },
+  'class-schedule-reminders': { tip: 'Send reminders at 6PM the day before (for morning classes) and at 9AM (for evening classes). This timing catches parents when they\'re planning the next day.', context: 'Optimal reminder timing from education centers' },
+  'fee-payment-reminders-coaching': { tip: 'Frame reminders as "friendly confirmations" not "payment due." Example: "Your February fee is scheduled for the 5th. Reply CONFIRMED or let us know if you need extension."', context: 'Reduces fee-collection awkwardness by 80%' },
+  'student-progress-updates-parents': { tip: 'Always include one positive thing before mentioning areas of concern. "Aarav scored 85% in math — great improvement! Here\'s where he can push further..."', context: 'Motivational psychology for parent communication' },
+  'retail-whatsapp-automation': { tip: 'Segment your WhatsApp contacts before sending any broadcast: VIP customers, regular buyers, and browsers. Different messages for each segment.', context: 'Personalized messages get 5x higher engagement' },
+  'product-availability-checks-whatsapp': { tip: 'When a product is out of stock, always suggest 2 alternatives. 40% of customers will accept an alternative rather than leave empty-handed.', context: 'Retail conversion optimization data' },
+  'sale-announcements-automation': { tip: 'Send your sale announcement twice: once 24 hours before (for VIP customers only) and again when the sale starts (for everyone). VIPs feel special and you build loyalty.', context: 'Early access strategy for Surat retail' },
+  'inventory-alerts-retail': { tip: 'Count your inventory by value, not just quantity. The top 20% of products (by revenue) should have the tightest alert thresholds.', context: 'Pareto principle applied to retail inventory' },
+  'n8n-vs-make': { tip: 'Start with n8n if you have technical skills and want self-hosted control. Choose Make if you prefer a visual builder and don\'t mind paying per operation.', context: 'Both have free tiers — test your specific workflow on both before deciding' },
+  'whatsapp-business-api-vs-automation': { tip: 'Don\'t jump to the Business API unless you send 1000+ messages daily. The free Business App + an automation tool like n8n covers 90% of Surat business needs.', context: 'Cost comparison for typical Surat small business' },
+  'free-vs-paid-automation': { tip: 'Use free tools for your first 2-3 automations. Once you see the time savings, invest in paid tools for the complex workflows. The ROI is clearer when you\'ve experienced the benefit.', context: 'Recommended progression path for Surat businesses' },
+  'website-development-varachha': { tip: 'Your Varachha website must have WhatsApp integration — one tap to message you. Textile buyers from Mumbai and Delhi will WhatsApp you directly after visiting your site.', context: 'Conversion optimization for Varachha businesses' },
+  'business-automation-vesu': { tip: 'Vesu businesses that respond within 60 seconds capture 5x more inquiries than those responding within 1 hour. Automation is essential here.', context: 'Vesu business automation data' },
+  'getting-started-business-automation': { tip: 'Start with WhatsApp auto-reply. It\'s the simplest automation with the highest immediate impact. Most Surat businesses see results within the first week.', context: 'Getting started advice' },
+  'complete-whatsapp-business-guide-surat': { tip: 'Your WhatsApp Business catalog is your mobile storefront. Add photos, prices, and descriptions for your top 20 products — this is what buyers see first.', context: 'Catalog best practices' },
+  'how-much-does-business-automation-cost': { tip: 'The cheapest automation is one that saves you 30 minutes daily. At ₹500/hour opportunity cost, that\'s ₹7,500/month in value — worth paying ₹3,000-8,000/month.', context: 'ROI calculation framework' },
+  'separating-hot-leads-time-wasters': { tip: 'Score every lead with 3 criteria: budget specificity, timeline clarity, and contact quality. Hot leads score 8+/10 on all three. Filter ruthlessly.', context: 'Lead scoring framework' },
+  'new-property-alerts-buyers': { tip: 'Personalize every property alert with the buyer\'s name and reference their specific requirements. "Hi Raj, this 3BHK in Vesu matches your ₹80L budget" gets 5x more responses than a generic listing.', context: 'Personalized vs generic alert engagement data' },
+  'virtual-tour-scheduling-automation': { tip: 'After a virtual tour, send 3 follow-up messages: 1 hour later (thank you + next steps), 3 days later (similar properties), and 7 days later (price update or new listing).', context: 'Virtual tour follow-up conversion data' },
+  'follow-up-sequences-convert': { tip: 'Every follow-up should provide new value, not just remind. Share a relevant article first, then a case study, then a limited offer. Each message should feel like a service, not a sales pitch.', context: 'Follow-up psychology best practices' },
+  'document-collection-automation': { tip: 'Send a document checklist on Day 1, not when the buyer asks. Proactive document collection reduces closing time by 40%.', context: 'Real estate closing optimization' },
+  'course-information-whatsapp': { tip: 'When parents ask about courses, auto-deliver a comparison table showing your courses vs competitors. Parents who see comparison data are 3x more likely to enroll.', context: 'Admission conversion data' },
+  'exam-result-notifications': { tip: 'Always pair result notifications with a constructive message: "Great work on math! Next focus area: science experiments." This positions you as a mentor, not just a messenger.', context: 'Student motivation psychology' },
+  'sharing-study-materials-automatically': { tip: 'Time your material delivery for 6-7PM — when students are settling into study time. Materials sent at random times get lower engagement.', context: 'Optimal sending time data' },
+  'return-exchange-handling-automation': { tip: 'Offer exchange over refund whenever possible. When a customer wants a refund, suggest: "Would you prefer a credit note for ₹X or would you like to see similar items?" — 65% choose exchange.', context: 'Retail return optimization data' },
+  'new-arrival-alerts-loyal-customers': { tip: 'Give your VIP customers 24-hour exclusive access before announcing to your full list. This simple gesture increases loyalty and makes them feel valued.', context: 'VIP exclusivity marketing psychology' },
+  'supplier-order-automation': { tip: 'Set reorder thresholds based on days-of-stock, not just quantity. 5 units of a fast-seller is different from 5 units of a slow-seller.', context: 'Inventory management best practice' },
+  'restaurant-automation-adajan-location': { tip: 'Adajan restaurants near the textile market should automate lunch menu delivery. Textile workers look for lunch options between 12-1 PM — if you\'re not first, you\'re last.', context: 'Adajan restaurant timing insight' },
+  'website-development-varachha-location': { tip: 'Your website should have one job: get the visitor to message you on WhatsApp. Every element — hero, services, testimonials — should drive toward that one action.', context: 'Conversion optimization for Varachha businesses' },
+  'textile-automation-katargam': { tip: 'Katargam textile traders who add a WhatsApp catalog with fabric photos see 40% more follow-up inquiries than those using text-only responses.', context: 'Based on Katargam textile trader feedback' },
+  'textile-automation-udhna': { tip: 'In Udhna\'s wholesale market, every minute of quote delay costs you credibility. Set up automated quotes so even at 11 PM, you can respond instantly to wholesale buyers.', context: 'Udhna textile market insight' },
+  'business-automation-ring-road': { tip: 'Ring Road\'s 18-hour operation means you need automation that works while you sleep. Configure off-hours auto-replies with next-day response promise.', context: 'Ring Road wholesale insight' },
+  'retail-automation-nanpura': { tip: 'Nanpura boutique owners see the best results by segmenting WhatsApp customers: VIP (5+ purchases) get early access to new arrivals, regular buyers get weekly updates.', context: 'Nanpura retail strategy' },
+  'restaurant-automation-city-light': { tip: 'City Light\'s professional crowd expects instant menu access. Auto-deliver your menu within 30 seconds of any inquiry — they won\'t wait and will order from the next restaurant.', context: 'City Light restaurant insight' },
+  'real-estate-automation-parle-point': { tip: 'Parle Point agents who send property video tours via WhatsApp within 1 hour of inquiry close deals 3x faster than those who schedule in-person visits first.', context: 'Parle Point real estate data' },
+  'wholesale-automation-chowk-bazar': { tip: 'Chowk Bazar traders who automate order confirmations with delivery timelines reduce "where is my order" calls by 70% and build trust with buyers.', context: 'Chowk Bazar wholesale insight' },
+  'coaching-automation-rander': { tip: 'Rander parents are most active on WhatsApp between 8-9 PM. Set your automation to send batch updates and fee reminders at 8:30 PM for maximum read rate.', context: 'Rander coaching center timing' },
+  'website-development-palanpur': { tip: 'For Palanpur businesses, a simple website with WhatsApp integration converts better than a complex one. Focus on: what you do, where you are, and one-tap WhatsApp contact.', context: 'Palanpur website strategy' },
+  'business-automation-jahangirabad': { tip: 'Jahangirabad\'s diverse businesses benefit most from WhatsApp auto-reply. Even a simple "thanks for your message, we\'ll respond within 2 hours" prevents customers from going to competitors.', context: 'Jahangirabad business insight' },
+  'restaurant-automation-katargam': { tip: 'Katargam restaurants near the textile market should automate lunch menu delivery. Textile workers look for lunch options between 12-1 PM — if you\'re not first, you\'re last.', context: 'Katargam restaurant timing' },
+  'real-estate-automation-vesu': { tip: 'Vesu\'s premium buyers expect premium service. Automate property brochure delivery within 5 minutes of inquiry — delay it and they\'ve already contacted 3 other agents.', context: 'Vesu real estate expectation' },
+  'retail-automation-adajan': { tip: 'Adajan shoppers compare products across multiple WhatsApp shops. The one who responds first with photos and pricing wins the order 80% of the time.', context: 'Adajan retail WhatsApp insight' },
+  'textile-automation-athwa': { tip: 'Athwa textile buyers often ask about fabric specifications (GSM, weave, width). Automate a fabric spec sheet response — it builds credibility and saves hours of explanation.', context: 'Athwa textile market insight' },
+  'coaching-automation-vesu': { tip: 'Vesu parents are professionals who research extensively before choosing a coaching center. Auto-send your center\'s results, faculty profiles, and batch timings within 1 hour of inquiry.', context: 'Vesu parent behavior' },
+  'website-development-katargam': { tip: 'Katargam websites must include WhatsApp prominently — most buyers will WhatsApp you directly after visiting your site. Make it impossible to miss.', context: 'Katargam buyer behavior' },
+  'real-estate-automation-udhna': { tip: 'Udhna\'s commercial property buyers often come from outside Surat. Auto-send area overview, connectivity info, and video tour within 1 hour — NRIs and out-of-towners need fast, thorough responses.', context: 'Udhna real estate insight' },
+  'restaurant-automation-piplod': { tip: 'Piplod families appreciate consistency. Send birthday offers automatically — 3 days before, day-of, and 3 days after. Birthday redemption rates are 70%, highest of any promotion type.', context: 'Piplod restaurant marketing' },
+  'coaching-automation-city-light': { tip: 'City Light tutoring centers that send weekly WhatsApp progress reports to parents see 40% higher parent satisfaction scores and 30% better student retention.', context: 'City Light coaching insight' },
+}
+
+// Warnings Database
+const WARNINGS_DATABASE: Record<string, WarningData> = {
+  'whatsapp-automation-textile-traders-surat': { title: 'Don\'t over-automate', message: 'Your top 5 VIP customers still want personal messages from you, not bots. Always add a manual check for high-value orders before sending automated responses.' },
+  'bulk-order-inquiries-automation': { title: 'Complex negotiations need humans', message: 'Automation handles 60-70% of routine inquiries, but complex pricing, custom orders, and VIP clients should always get a personal response. Flag these automatically instead of auto-replying.' },
+  'whatsapp-business-api-vs-automation': { title: 'WhatsApp API approval takes time', message: 'Getting Business API access requires Facebook Business verification and can take 2-4 weeks. Start with the free WhatsApp Business app + automation tools while you wait.' },
+  'how-much-does-business-automation-cost': { title: 'Beware of hidden costs', message: 'Cheap automation setups often have hidden costs: template limits, per-message fees, and lack of support. Always ask about recurring costs before signing up.' },
+  'free-vs-paid-automation': { title: 'Free tools have limits', message: 'Free tools work for basic automations but often lack: priority support, custom integrations, and unlimited workflows. Budget for paid tools once you hit 5+ automations.' },
+  'n8n-vs-make': { title: 'Self-hosted means self-managed', message: 'n8n self-hosted saves money but you handle: server costs, updates, security patches, and uptime. If your automation goes down at 2 AM, you\'re the one waking up to fix it.' },
+  'handling-admission-inquiries-24-7': { title: 'Never fully replace human follow-up', message: 'Auto-responses capture the lead, but a personal call within 24 hours closes the admission. Use automation for initial response, then follow up personally.' },
+  'coaching-center-automation': { title: 'Don\'t automate empathy', message: 'Parents want to feel cared for. Automate confirmations and reminders, but keep fee discussions and progress updates personal.' },
+  'fee-payment-reminders-coaching': { title: 'Tone matters more than timing', message: 'A payment reminder that sounds like a demand will offend parents. Always use friendly, supportive language: "Your child\'s next session is coming up! Here\'s the fee reminder..." ' },
+  'separating-hot-leads-time-wasters': { title: 'Don\'t dismiss "cold" leads too quickly', message: 'A lead who says "just browsing" today may become ready to buy in 3 months. Put them in a nurture sequence instead of deleting them.' },
+  'crm-integration-diamond-trading': { title: 'Migrate contacts gradually', message: 'Don\'t dump all 500 contacts into a new CRM on Day 1. Start with your top 50 active clients, learn the system, then expand. A rushed migration creates messy data.' },
+  'connecting-inventory-whatsapp': { title: 'Keep inventory synced in real-time', message: 'If your WhatsApp shows "in stock" but your shop is sold out, you lose trust. Make sure your inventory data source updates in real-time or near real-time.' },
+  'new-property-alerts-buyers': { title: 'Don\'t blast every listing to every buyer', message: 'Sending irrelevant listings trains buyers to ignore your messages. Match properties to buyer criteria: budget, area, type. Quality over quantity.' },
+  'following-up-buyers-automation': { title: 'Stop after 5-7 follow-ups', message: 'If someone doesn\'t respond after 7 follow-ups over 30 days, they\'re not interested. Continuing to message trains them to block you.' },
+  'birthday-anniversary-offers-automation': { title: 'Don\'t over-personalize', message: 'Using a customer\'s name is good. Revealing that you know their purchase history, birthday, and anniversary in one message feels creepy. Keep it warm, not surveillance-y.' },
+  'textile-automation-katargam': { title: 'Don\'t skip the catalog', message: 'Katargam buyers want to see fabric photos and prices before visiting. Without a WhatsApp catalog, you\'re relying entirely on walk-in traffic and word-of-mouth.' },
+  'textile-automation-udhna': { title: 'Don\'t quote without checking stock', message: 'Udhna\'s fast-paced market means stock changes hourly. Always connect your inventory to WhatsApp automation — promising fabric you don\'t have destroys trust.' },
+  'business-automation-ring-road': { title: 'Don\'t over-complicate the system', message: 'Ring Road businesses succeed with simple automation. Start with order acknowledgment and payment tracking before adding complex features.' },
+  'retail-automation-nanpura': { title: 'Don\'t send too many broadcasts', message: 'Nanpura customers value personalized service. Limit WhatsApp broadcasts to 2 per week — more feels like spam and they\'ll mute you.' },
+  'restaurant-automation-city-light': { title: 'Don\'t automate away your personality', message: 'City Light restaurants have loyal regulars who expect a personal touch. Keep your owner messages warm and human — automation should handle routine, not replace connection.' },
+  'real-estate-automation-parle-point': { title: 'Don\'t skip the qualification step', message: 'Parle Point agents waste hours on browsers. Always qualify: budget, timeline, area preference. Automation can do this in 2 minutes — don\'t waste your time.' },
+  'wholesale-automation-chowk-bazar': { title: 'Don\'t promise delivery you can\'t keep', message: 'Chowk Bazar buyers are sensitive to delivery promises. Automate dispatch notifications with accurate timelines — don\'t overpromise to close deals.' },
+  'coaching-automation-rander': { title: 'Don\'t automate fee discussions', message: 'Fee negotiations should stay personal. Automate reminders and UPI links, but handle fee disputes, waivers, and extensions with a human conversation.' },
+  'website-development-palanpur': { title: 'Don\'t build a website no one finds', message: 'A website without local SEO is just a brochure no one reads. Make sure your Palanpur website is optimized for "Palanpur" and "Surat" keywords.' },
+  'business-automation-jahangirabad': { title: 'Don\'t automate before you have templates ready', message: 'Automation amplifies your message — good or bad. Have clear, professional response templates ready before going live. Bad templates automated at scale hurt you faster.' },
+  'restaurant-automation-katargam': { title: 'Don\'t forget festival timing', message: 'Katargam textile market closures affect restaurant lunch crowds. Set your automation to handle festival holiday schedules and adjusted timings automatically.' },
+  'real-estate-automation-vesu': { title: 'Don\'t send generic listings', message: 'Vesu buyers are discerning. Sending irrelevant properties trains them to ignore your messages. Always match: budget, area preference, and property type before sending.' },
+  'retail-automation-adajan': { title: 'Don\'t promise stock you don\'t have', message: 'Adajan customers check multiple shops on WhatsApp. If you promise an item and it\'s out of stock, you lose the customer forever. Always verify stock first.' },
+  'website-development-varachha-location': { title: 'Don\'t build a website no one finds', message: 'A website without local SEO is just a brochure no one reads. Make sure your Varachha website ranks for "textile trader Varachha" and similar terms.' },
+  'textile-automation-athwa': { title: 'Don\'t skip fabric specification details', message: 'Athwa textile buyers judge competence by specification accuracy. Wrong GSM, wrong width, wrong weave type — these errors cost you credibility and repeat business.' },
+  'coaching-automation-vesu': { title: 'Don\'t automate emotional conversations', message: 'When a parent messages about their child\'s poor results, always respond personally. Automated sympathy feels cold — some conversations need your human touch.' },
+  'website-development-katargam': { title: 'Don\'t skip mobile optimization', message: 'Katargam buyers browse on phones, often in the textile market with spotty WiFi. Your website must load fast and look perfect on mobile — or you\'re invisible.' },
+  'real-estate-automation-udhna': { title: 'Don\'t skip site visit confirmation', message: 'Udhna area agents often lose leads when scheduled visits fall through. Always send visit reminders 2 hours before and confirm 30 minutes prior — or 40% won\'t show.' },
+  'restaurant-automation-piplod': { title: 'Don\'t forget dietary preferences', message: 'Piplod families have diverse dietary needs. Automate collection of preferences (vegetarian, Jain, no onion garlic) — it makes personalization easy and parents love it.' },
+  'coaching-automation-city-light': { title: 'Don\'t send scores without context', message: 'A test score of 60/100 means nothing without context. Always include class average, trend from previous tests, and areas for improvement — not just the number.' },
+}
+
+function generateFAQ(slug: string): FAQItem[] {
   if (FAQ_DATABASE[slug]) return FAQ_DATABASE[slug]
-  const article = ARTICLES.find(a => a.slug === slug)
+  const article = ARTICLES.find(a => a.slug === slug) ?? LOCATION_SERVICE_ARTICLES.find(a => a.slug === slug)
   if (!article) return []
   const pillarInfo = PILLAR_KEYWORDS[article.pillar || '']
   const categoryName = article.category === 'case-studies' ? 'Case Study' : article.category.charAt(0).toUpperCase() + article.category.slice(1)
@@ -4469,8 +5250,8 @@ function generateFAQ(slug: string): import('@/types/article').FAQItem[] {
   ]
 }
 
-function generateInternalLinks(slug: string): import('@/types/article').InternalLink[] {
-  const article = ARTICLES.find(a => a.slug === slug)
+function generateInternalLinks(slug: string): InternalLink[] {
+  const article = ARTICLES.find(a => a.slug === slug) ?? LOCATION_SERVICE_ARTICLES.find(a => a.slug === slug)
   if (!article) return []
   const links: import('@/types/article').InternalLink[] = []
 
@@ -4507,11 +5288,12 @@ function generateInternalLinks(slug: string): import('@/types/article').Internal
 }
 
 function generateRelatedSlugs(slug: string): string[] {
-  const article = ARTICLES.find(a => a.slug === slug)
+  const article = ARTICLES.find(a => a.slug === slug) ?? LOCATION_SERVICE_ARTICLES.find(a => a.slug === slug)
   if (!article) return []
 
-  const samePillar = ARTICLES.filter(a => a.pillar === article.pillar && a.slug !== slug)
-  const sameCategory = ARTICLES.filter(a => a.category === article.category && a.slug !== slug && a.pillar !== article.pillar)
+  const allArticles = [...ARTICLES, ...LOCATION_SERVICE_ARTICLES]
+  const samePillar = allArticles.filter(a => a.pillar === article.pillar && a.slug !== slug)
+  const sameCategory = allArticles.filter(a => a.category === article.category && a.slug !== slug && a.pillar !== article.pillar)
 
   return [
     ...samePillar.slice(0, 2).map(a => a.slug),
@@ -4519,8 +5301,8 @@ function generateRelatedSlugs(slug: string): string[] {
   ].slice(0, 3)
 }
 
-function generateSEO(slug: string): import('@/types/article').SEOFields {
-  const article = ARTICLES.find(a => a.slug === slug)
+function generateSEO(slug: string): SEOFields {
+  const article = ARTICLES.find(a => a.slug === slug) ?? LOCATION_SERVICE_ARTICLES.find(a => a.slug === slug)
   if (!article) return { metaTitle: 'Article | Mottobiz', metaDescription: 'Business automation guides for Surat businesses.', primaryKeyword: 'business automation Surat', secondaryKeywords: [], searchIntent: 'informational', targetAudience: 'Surat business owners' }
 
   const pillarInfo = PILLAR_KEYWORDS[article.pillar || '']
@@ -4552,7 +5334,7 @@ function generateSEO(slug: string): import('@/types/article').SEOFields {
 
 // Enrich all articles with SEO, FAQ, internal links, and related articles
 export function getEnrichedArticle(slug: string): ArticleCard & ArticleEnrichment {
-  const article = ARTICLES.find(a => a.slug === slug)
+  const article = ARTICLES.find(a => a.slug === slug) ?? LOCATION_SERVICE_ARTICLES.find(a => a.slug === slug)
   if (!article) throw new Error(`Article not found: ${slug}`)
 
   return {
@@ -4568,9 +5350,10 @@ export function getEnrichedArticle(slug: string): ArticleCard & ArticleEnrichmen
 // Get enriched related articles
 export function getRelatedArticlesEnriched(currentSlug: string, limit: number = 3): (ArticleCard & ArticleEnrichment)[] {
   const current = getEnrichedArticle(currentSlug)
+  const allArticles = [...ARTICLES, ...LOCATION_SERVICE_ARTICLES]
   const slugs = current.relatedArticleSlugs.length > 0
     ? current.relatedArticleSlugs
-    : ARTICLES.filter(a => a.slug !== currentSlug && (a.pillar === current.pillar || a.category === current.category)).slice(0, limit).map(a => a.slug)
+    : allArticles.filter(a => a.slug !== currentSlug && (a.pillar === current.pillar || a.category === current.category)).slice(0, limit).map(a => a.slug)
 
   return slugs.slice(0, limit).map(slug => {
     try { return getEnrichedArticle(slug) } catch { return null! }
@@ -4579,4 +5362,26 @@ export function getRelatedArticlesEnriched(currentSlug: string, limit: number = 
 
 export function getTLDR(slug: string): string[] {
   return TLDR_DATABASE[slug] || []
+}
+
+export function getInteractiveBlocks(slug: string): any[] {
+  const blocks: any[] = []
+
+  if (STATCARDS_DATABASE[slug]) {
+    blocks.push({ type: 'statCards', stats: STATCARDS_DATABASE[slug] })
+  }
+  if (CHECKLISTS_DATABASE[slug]) {
+    blocks.push({ type: 'checklist', data: CHECKLISTS_DATABASE[slug] })
+  }
+  if (STEPS_DATABASE[slug]) {
+    blocks.push({ type: 'steps', steps: STEPS_DATABASE[slug] })
+  }
+  if (PROTIPS_DATABASE[slug]) {
+    blocks.push({ type: 'protip', data: PROTIPS_DATABASE[slug] })
+  }
+  if (WARNINGS_DATABASE[slug]) {
+    blocks.push({ type: 'warning', data: WARNINGS_DATABASE[slug] })
+  }
+
+  return blocks
 }

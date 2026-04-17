@@ -12,6 +12,16 @@ const ResourcesPageWrapper = lazy(() => import('./pages/ResourcesPage').then(m =
 const ArticlePage = lazy(() => import('./pages/ArticlePage').then(m => ({ default: m.ArticlePage })))
 const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy').then(m => ({ default: m.PrivacyPolicy })))
 const TermsOfService = lazy(() => import('./pages/TermsOfService').then(m => ({ default: m.TermsOfService })))
+const TextileDiamondHub = lazy(() => import('./pages/industries/TextileDiamondHubPage'))
+const CoachingEducationHub = lazy(() => import('./pages/industries/CoachingEducationHubPage'))
+const RealEstateHub = lazy(() => import('./pages/industries/RealEstateHubPage'))
+const RestaurantFoodHub = lazy(() => import('./pages/industries/RestaurantFoodHubPage'))
+const RetailConsumerHub = lazy(() => import('./pages/industries/RetailConsumerHubPage'))
+const VarachhaHub = lazy(() => import('./pages/locations/VarachhaHubPage'))
+const KatargamHub = lazy(() => import('./pages/locations/KatargamHubPage'))
+const VesuHub = lazy(() => import('./pages/locations/VesuHubPage'))
+const AdajanHub = lazy(() => import('./pages/locations/AdajanHubPage'))
+const OtherAreasHub = lazy(() => import('./pages/locations/OtherAreasHubPage'))
 
 function PageLoader() {
   return (
@@ -41,6 +51,16 @@ function App() {
               <Route path="/resources/:slug" element={<ArticlePage />} />
               <Route path="/privacy" element={<PrivacyPolicy />} />
               <Route path="/terms" element={<TermsOfService />} />
+              <Route path="/industries/textile-diamond" element={<TextileDiamondHub />} />
+              <Route path="/industries/coaching-education" element={<CoachingEducationHub />} />
+              <Route path="/industries/real-estate" element={<RealEstateHub />} />
+              <Route path="/industries/restaurant-food" element={<RestaurantFoodHub />} />
+              <Route path="/industries/retail" element={<RetailConsumerHub />} />
+              <Route path="/locations/varachha" element={<VarachhaHub />} />
+              <Route path="/locations/katargam" element={<KatargamHub />} />
+              <Route path="/locations/vesu" element={<VesuHub />} />
+              <Route path="/locations/adajan" element={<AdajanHub />} />
+              <Route path="/locations/other" element={<OtherAreasHub />} />
             </Routes>
           </Suspense>
         </ErrorBoundary>

@@ -15,6 +15,7 @@ This file provides mandatory guidance for any AI agent or developer working on t
 - `npm run dev` — Start Vite dev server (port auto-increments if 5173 in use)
 - `npm run build` — TypeScript check + Vite production build
 - `npm run preview` — Preview production build locally
+- `npm run generate:og` — Generate per-article OG images (58 PNGs in `public/og/`)
 - `..\deploy.bat` — Deploy to production (from repo root)
 
 ## Architecture
@@ -34,7 +35,7 @@ mottobiz/
 ├── src/
 │   ├── components/          # Page sections & reusable components
 │   │   ├── effects.tsx      # CustomCursor + AnimatedBackground
-│   │   ├── SEOHead.tsx      # Meta tags + schema.org markup
+│   │   ├── SEOHead.tsx      # Meta tags + schema.org markup (uses props for OG/Twitter)
 │   │   └── resources/      # Article system components
 │   │       ├── ArticleCard.tsx
 │   │       ├── ArticleComponents.tsx  # Interactive content components
@@ -60,10 +61,14 @@ mottobiz/
 │   ├── index.css            # Tailwind v4 theme + custom keyframes
 │   ├── App.tsx               # Section composition + routes
 │   └── main.tsx              # Entry point with HelmetProvider
+├── scripts/
+│   └── generate-og-images.mjs  # Build-time OG image generator (sharp)
 ├── public/
 │   ├── robots.txt
 │   ├── sitemap.xml           # Must be updated when adding new pages/articles
-│   ├── og-image.png
+│   ├── og-image.png          # Default OG image for homepage/other pages
+│   ├── og/                   # Per-article OG images (58 PNGs, auto-generated)
+│   │   └── {slug}.png        # e.g., whatsapp-automation-textile-traders-surat.png
 │   └── logo-static.svg
 ├── vite.config.ts            # Path alias `@/` → `./src`
 └── tsconfig.json             # `ignoreDeprecations: "6.0"` required for baseUrl
@@ -273,7 +278,8 @@ WhatsApp:     #25D366
 3. Add icon to `THUMBNAIL_ICONS` in `src/components/resources/ArticleThumbnail.tsx`
 4. Add `<url>` to `public/sitemap.xml`
 5. Update `CATEGORY_INFO` and `INDUSTRY_HUBS` counts in `src/types/article.ts`
-6. Run `npm run build` to verify
+6. Run `npm run generate:og` to create the OG image for the new article
+7. Run `npm run build` to verify
 
 ### Adding a New Section
 1. Create `src/components/NewSection.tsx`

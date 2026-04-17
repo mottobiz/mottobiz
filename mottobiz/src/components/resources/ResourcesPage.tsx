@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { 
@@ -20,6 +20,14 @@ interface ResourcesPageProps {
 export function ResourcesPage({ articles = ARTICLES }: ResourcesPageProps) {
   const [activeCategory, setActiveCategory] = useState<ArticleCategory | 'all'>('all')
   const [searchQuery, setSearchQuery] = useState('')
+  const [isDataPrefetched, setIsDataPrefetched] = useState(false)
+
+  // Prefetch article data in background (once per session)
+  useEffect(() => {
+    if (!isDataPrefetched) {
+      import('@/data/articles').then(() => setIsDataPrefetched(true))
+    }
+  }, [isDataPrefetched])
 
   // Filter articles based on category and search
   const filteredArticles = useMemo(() => {
@@ -128,7 +136,7 @@ export function ResourcesPage({ articles = ARTICLES }: ResourcesPageProps) {
                   <h3 className="font-display font-semibold text-white mb-1 group-hover:text-indigo-400 transition-colors">
                     {hub.name}
                   </h3>
-                  <p className="text-xs text-white/40">
+                  <p className="text-xs text-white/55">
                     {hub.articles} articles
                   </p>
                 </Link>
@@ -145,7 +153,7 @@ export function ResourcesPage({ articles = ARTICLES }: ResourcesPageProps) {
             <h2 className="font-display text-2xl font-bold text-white">
               {activeCategory === 'all' ? 'All Articles' : CATEGORY_INFO.find(c => c.slug === activeCategory)?.name}
             </h2>
-            <span className="text-white/40 text-sm">
+            <span className="text-white/55 text-sm">
               {filteredArticles.length} articles
             </span>
           </div>

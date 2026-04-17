@@ -2,7 +2,7 @@
 
 ## Overview
 
-MottoBiz is a modern single-page application built with a focus on performance, developer experience, and maintainability.
+MottoBiz is a modern single-page application built with React, TypeScript, and Vite, focused on performance, SEO, and content-driven lead generation.
 
 ---
 
@@ -13,6 +13,7 @@ MottoBiz is a modern single-page application built with a focus on performance, 
 |------------|---------|---------|
 | React | 19.0.0 | UI component library |
 | TypeScript | 6.0.2 | Type-safe JavaScript |
+| React Router | 7.x | Client-side routing with lazy loading |
 
 ### Build Tools
 | Technology | Version | Purpose |
@@ -33,7 +34,7 @@ MottoBiz is a modern single-page application built with a focus on performance, 
 ### Animation
 | Library | Version | Purpose |
 |---------|---------|---------|
-| framer-motion | 12.38.0 | Animation library for React |
+| framer-motion | 12.38.0 | Scroll animations, page transitions, micro-interactions |
 
 ### Form Handling
 | Library | Version | Purpose |
@@ -81,12 +82,12 @@ MottoBiz is a modern single-page application built with a focus on performance, 
 ### Why React 19?
 - Latest stable release with improved performance
 - Concurrent rendering capabilities
-- Better hydration for SSR (future-proofing)
+- Better error boundaries
 
 ### Why Vite over Create React App?
 - Faster development server startup
 - Lightning-fast HMR
-- Optimized production builds
+- Optimized production builds with code splitting
 - Native ESM support
 
 ### Why Tailwind CSS v4?
@@ -95,23 +96,16 @@ MottoBiz is a modern single-page application built with a focus on performance, 
 - Smaller bundle size
 - Built-in Vite plugin
 
-### Why Framer Motion?
-- Declarative animation syntax
-- Hardware-accelerated animations
-- Built-in gesture support
-- Excellent React integration
+### Why React.lazy for Code Splitting?
+- Reduced initial bundle from 740KB to 192KB
+- Articles data (259KB) loads only on resources pages
+- Each route loaded on demand
+- Error boundary provides crash resilience
 
-### Why Radix UI?
-- Unstyled, accessible primitives
-- Full keyboard navigation
-- ARIA compliance out of the box
-- Composable API
-
-### Why Zod + react-hook-form?
-- Type-safe form validation
-- Runtime type checking
-- Excellent DX with TypeScript
-- Minimal re-renders
+### Why react-helmet-async?
+- Works with React 19 concurrent rendering
+- Server-side compatible for future SSR migration
+- Prevents memory leaks with automatic cleanup
 
 ---
 
@@ -134,17 +128,35 @@ MottoBiz is a modern single-page application built with a focus on performance, 
 - Tree-shaking via Vite
 - CSS minification via LightningCSS
 - Asset hashing for cache busting
+- Code splitting with React.lazy
 
 ### Runtime
-- Lazy loading (planned)
-- Code splitting (planned)
-- Font preloading
-- Preconnect to external origins
+- ✅ Code splitting (lazy routes)
+- ✅ Error boundary for crash resilience
+- ✅ Font preloading
+- ✅ Preconnect to external origins
+- ✅ On-demand article data loading (259KB only when needed)
 
 ### CSS
 - Utility-first approach (smaller CSS)
 - No unused styles in production
 - CSS custom properties for theming
+
+### Bundle Sizes (Production)
+```
+index.js           192KB (60KB gzipped)   - Core React + Router
+HomePage.js        148KB (45KB gzipped)   - Landing page sections
+articles.js        259KB (88KB gzipped)   - All 57 articles data
+proxy.js           158KB (51KB gzipped)   - React Helmet + shared
+chunk.js            41KB (14KB gzipped)   - Shared utilities
+ResourcesPage.js    14KB (4KB gzipped)    - Resources hub
+ArticlePage.js      10KB (3KB gzipped)    - Article detail + parser
+PrivacyPolicy.js     7KB (3KB gzipped)    - Privacy page
+TermsOfService.js    9KB (4KB gzipped)    - Terms page
+effects.js           6KB (2KB gzipped)    - Cursor + background
+use-in-view.js       1KB (0.5KB gzipped)  - Framer Motion hook
+index.css           50KB (9KB gzipped)    - All styles
+```
 
 ---
 
@@ -152,7 +164,7 @@ MottoBiz is a modern single-page application built with a focus on performance, 
 
 ### Hosting
 | Component | Provider | Details |
-|-----------|----------|---------|
+|-----------|----------|--------|
 | Hosting | Hostinger | Shared hosting, Git deployment |
 | Domain | Hostinger | mottobiz.com |
 | SSL | Let's Encrypt | Auto-renewal |
@@ -166,54 +178,26 @@ Developer Machine
     ├──► npm run build ──► dist/ folder
     │
     └──► git push origin main ──► GitHub
-                                        │
-                                        ▼
-                              Hostinger Git Integration
-                                        │
-                                        ▼
-                              Auto-deploy to /public_html/
+                                         │
+                                         ▼
+                               Hostinger Git Integration
+                                         │
+                                         ▼
+                               Auto-deploy to /public_html/
 ```
 
 ### CI/CD Pipeline
-
-**Current Method:** Hostinger Git Integration
 - **Trigger:** Push to `main` branch
-- **Process:** Hostinger pulls from GitHub and deploys automatically
-- **Build:** Done locally, `dist/` folder committed to repo
-
-**Deployment Scripts:**
-| Script | Purpose | Usage |
-|--------|---------|-------|
-| `deploy.ps1` | Main deployment script | `.&#96;\deploy.ps1 -Message "Update"` |
-| `deploy.bat` | Windows wrapper | Double-click or run `.&#96;\deploy.bat` |
-
-**Script Features:**
-- Checks for uncommitted changes
-- Builds the project (`npm run build`)
-- Stages `dist/` folder
-- Commits with provided message
-- Pushes to `main` branch
-- Hostinger auto-deploys within 2-3 minutes
-
-**Previous Method (Abandoned):**
-- GitHub Actions → FTP upload
-- **Why Abandoned:** FTP credentials in secrets, flaky connections, slower
+- **Process:** Pre-commit hook runs `npm run build` → Hostinger auto-deploys
+- **Scripts:** `deploy.ps1` / `deploy.bat` for one-click deployment
 
 ### Environment Variables
 
-**Security Rule:** NEVER commit `.env` files
+| Variable | Purpose | Required | Default |
+|----------|---------|----------|---------|
+| `VITE_LEAD_WEBHOOK_URL` | Make/n8n webhook endpoint | No | Empty string (WhatsApp fallback) |
 
-```gitignore
-# Environment variables
-.env
-.env.local
-.env.*.local
-```
-
-**Current Approach:**
-- Config values in `src/lib/config.ts` (safe - no secrets)
-- Webhook URL currently empty (graceful fallback)
-- When webhook configured: use Hostinger's environment variable feature or server-side config
+**Security Rule:** `.env` files are gitignored. Never commit secrets.
 
 ---
 
@@ -222,69 +206,77 @@ Developer Machine
 ### Currently Used
 | Service | Purpose |
 |---------|---------|
-| Google Fonts | Typography hosting |
-| WhatsApp | Primary contact channel |
+| Google Fonts | Typography hosting (Space Grotesk, Inter) |
+| WhatsApp | Primary contact channel (wa.me links + form pre-fill) |
 
 ### Planned Integrations
-| Service | Purpose |
-|---------|---------|
-| n8n / Make | Webhook automation |
-| Google Analytics 4 | Traffic analytics |
-| Google Tag Manager | Tag management |
-| Hotjar / Clarity | User behavior analysis |
+| Service | Purpose | Priority |
+|---------|---------|----------|
+| Make/n8n | Lead webhook processing | High |
+| Google Analytics 4 | Traffic analytics | Medium |
+| Google Tag Manager | Tag management | Medium |
+| Hotjar/Clarity | User behavior analysis | Low |
 
 ---
 
 ## File Structure
 
 ```
-mottobiz/                    # Main project folder
+mottobiz/
 ├── src/
-│   ├── components/          # React components
-│   │   ├── effects.tsx      # Visual effects (CustomCursor, AnimatedBackground)
-│   │   ├── FAQ.tsx
-│   │   ├── FinalCTA.tsx
-│   │   ├── Footer.tsx
-│   │   ├── Hero.tsx
-│   │   ├── HowItWorks.tsx
-│   │   ├── LeadMagnet.tsx   # Lead capture form
-│   │   ├── Navbar.tsx
-│   │   ├── Pain.tsx
-│   │   ├── Proof.tsx
-│   │   ├── Qualifier.tsx
-│   │   ├── SEOHead.tsx      # Meta tags + JSON-LD
-│   │   ├── Services.tsx
-│   │   └── SocialProof.tsx
+│   ├── components/
+│   │   ├── effects.tsx              # CustomCursor + AnimatedBackground
+│   │   ├── ErrorBoundary.tsx        # React error boundary with styled UI
+│   │   ├── SEOHead.tsx              # Meta tags + JSON-LD schema markup
+│   │   ├── Navbar.tsx               # Navigation with Resources link
+│   │   ├── Hero.tsx                 # Landing page hero section
+│   │   ├── Pain.tsx                 # Problem agitation section
+│   │   ├── Proof.tsx                # Credibility markers
+│   │   ├── Services.tsx             # Service offerings (6 cards)
+│   │   ├── HowItWorks.tsx           # Process steps
+│   │   ├── Qualifier.tsx             # Ideal client filter
+│   │   ├── SocialProof.tsx          # Testimonials
+│   │   ├── LeadMagnet.tsx           # Lead capture form (WhatsApp fallback)
+│   │   ├── FAQ.tsx                  # Accordion Q&A
+│   │   ├── FinalCTA.tsx             # Final conversion push
+│   │   ├── Footer.tsx               # Footer with privacy/terms links
+│   │   └── resources/
+│   │       ├── ArticleCard.tsx       # Card + Featured card with thumbnails
+│   │       ├── ArticleComponents.tsx # 8 interactive content components
+│   │       ├── ArticleThumbnail.tsx  # Dynamic SVG thumbnail generator
+│   │       ├── ArticleGrid.tsx       # Grid with load more
+│   │       ├── CategoryFilter.tsx    # Category pill filter + search
+│   │       ├── ResourcesHero.tsx    # Hero + newsletter/WhatsApp CTAs
+│   │       ├── ResourcesPage.tsx    # Full hub page composition
+│   │       └── index.ts             # Barrel export
+│   ├── pages/
+│   │   ├── HomePage.tsx              # Landing page section composition
+│   │   ├── ResourcesPage.tsx          # Resources hub wrapper (lazy loaded)
+│   │   ├── ArticlePage.tsx           # Article detail with content parser (lazy)
+│   │   ├── PrivacyPolicy.tsx         # Privacy page (lazy loaded)
+│   │   └── TermsOfService.tsx        # Terms page (lazy loaded)
+│   ├── data/
+│   │   └── articles.ts              # ALL 57 articles + enrichment functions
+│   ├── types/
+│   │   └── article.ts               # Types, CATEGORY_COLORS, CATEGORY_INFO, INDUSTRY_HUBS
 │   ├── lib/
-│   │   ├── animations.ts    # Framer Motion variants
-│   │   ├── config.ts        # Environment constants ⭐
-│   │   └── utils.ts         # Utility functions
-│   ├── assets/              # Static assets
-│   ├── index.css            # Global styles + Tailwind v4 theme
-│   ├── main.tsx             # App entry point
-│   ├── App.tsx              # Root component
-│   └── vite-env.d.ts        # Vite type declarations
-├── dist/                    # ⭐ COMMITTED for Hostinger deployment
+│   │   ├── config.ts                # ⭐ All contact/business constants + env vars
+│   │   ├── animations.ts             # Framer Motion variants
+│   │   └── utils.ts                  # cn() helper for Tailwind classes
+│   ├── index.css                     # Tailwind v4 theme + custom keyframes + design tokens
+│   ├── App.tsx                       # Lazy routes + Suspense + ErrorBoundary
+│   ├── main.tsx                       # Entry point with HelmetProvider
+│   └── vite-env.d.ts                 # Vite type declarations + env vars
+├── public/
+│   ├── robots.txt
+│   ├── sitemap.xml                   # All 57 article URLs + static pages
+│   ├── og-image.png                  # Generic OG image
+│   └── logo-static.svg               # Logo
+├── .env                               # VITE_LEAD_WEBHOOK_URL
+├── .env.example                       # Template for env vars
 ├── package.json
-├── tsconfig.json            # TypeScript 6 config (ignoreDeprecations: 6.0)
-vite.config.ts             # Vite 8 config with path aliases
-└── index.html
-```
-
-**Root Level Files:**
-```
-/
-├── deploy.ps1               # ⭐ PowerShell deployment script
-├── deploy.bat               # ⭐ Windows batch wrapper
-├── CONTEXT.md               # ⭐ Project context & execution memory
-├── AGENTS.md                # Development guidelines for AI assistants
-├── PRD.md                   # Product requirements
-├── ROADMAP.md               # Future development plans
-├── TECHSTACK.md             # This file
-├── ARCHITECTURE.md          # System architecture
-├── DESIGN.md                # Design system
-├── GOOGLE_BUSINESS_PROFILE_GUIDE.md  # Local SEO
-└── LOCAL_CITATION_BUILDING_GUIDE.md  # Local SEO
+├── tsconfig.json                      # ignoreDeprecations: "6.0"
+└── vite.config.ts                     # Path alias @/ → ./src
 ```
 
 ---
@@ -293,9 +285,10 @@ vite.config.ts             # Vite 8 config with path aliases
 
 | Command | Description |
 |---------|-------------|
-| `npm run dev` | Start development server |
-| `npm run build` | Type-check + production build |
+| `npm run dev` | Start Vite dev server (port auto-increments) |
+| `npm run build` | TypeScript check + Vite production build |
 | `npm run preview` | Preview production build locally |
+| `cd .. && deploy.bat` | Deploy to production (from repo root) |
 
 ---
 
@@ -304,7 +297,8 @@ vite.config.ts             # Vite 8 config with path aliases
 ### Near-Term
 - [ ] React 19 → Latest patch versions
 - [ ] Tailwind CSS v4 → Keep updated
-- [ ] Add testing libraries
+- [ ] Add Vitest for unit testing
+- [ ] Add Playwright for E2E testing
 
 ### Long-Term
 - [ ] Consider React Server Components (if SSR needed)

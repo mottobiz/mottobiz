@@ -6,84 +6,91 @@ MottoBiz aims to become the go-to business automation partner for small business
 
 ---
 
-## Current State (v1.0)
+## Current State (v2.5)
 
 ### Completed
 - [x] Landing page with all core sections
-- [x] Lead capture form with validation
-- [x] WhatsApp integration
-- [x] SEO optimization with LocalBusiness schema
+- [x] Lead capture form with validation + WhatsApp fallback
+- [x] WhatsApp integration (direct links + form pre-fill)
+- [x] SEO optimization with LocalBusiness + Article + FAQPage schema
 - [x] Mobile-responsive design
 - [x] Automated deployment pipeline (Hostinger Git)
 - [x] Production deployment (https://mottobiz.com)
+- [x] Resources hub with 57 articles, filtering, and search
+- [x] Article detail pages with rich content parser
+- [x] Interactive article components (8 types)
+- [x] Dynamic SVG thumbnails per article
+- [x] SEO enrichment system (auto-generated meta, FAQ, links)
+- [x] TL;DR boxes for all 57 articles
+- [x] Hand-written FAQs for all 57 articles (3 Q&As each)
+- [x] Comparison tables in 12 articles
+- [x] Code splitting (740KB → 192KB initial bundle)
+- [x] Error boundary for crash resilience
+- [x] Privacy Policy and Terms of Service pages
+- [x] Sitemap with all 57 article URLs
+- [x] Google Business Profile claimed
+- [x] Google Search Console setup
 
 ### Known Limitations
-- No webhook endpoint configured (graceful fallback to WhatsApp)
-- Missing analytics tracking (GA4, GTM)
-- No content/blog section
-- Google Business Profile not yet claimed
+- Per-article OG images (currently one generic image)
+- Google Analytics 4 not yet installed
+- No unit tests
+- No E2E tests
 
 ---
 
-## Q2 2026 (v1.1 - Polish & Optimization)
+## Q2 2026 (v2.6 - Polish & Analytics)
 
 ### Goals
 - Complete production readiness
 - Establish analytics baseline
-- Begin content marketing foundation
+- Begin SEO traction
 
 ### Tasks
 
 #### Must Have
-- [ ] Configure production webhook URL
-- [ ] Create logo-static.svg
-- [ ] Create og-image.png (1200x630px)
-- [ ] Add favicon and app icons
+- [ ] Configure Make/n8n webhook URL
 - [ ] Setup Google Analytics 4
 - [ ] Setup Google Tag Manager
-- [ ] Add privacy policy page
-- [ ] Add terms of service page
+- [ ] Create per-article OG images (or dynamic generation)
 
 #### Should Have
-- [ ] Add 3-5 real client testimonials
+- [ ] Add 3-5 real client testimonials to landing page
 - [ ] Optimize images with WebP format
-- [ ] Add structured data for services
-- [ ] Create XML sitemap
-- [ ] Implement lazy loading for below-fold content
+- [ ] Performance audit (Lighthouse)
+- [ ] Accessibility audit (WCAG 2.1)
+- [ ] Bing Webmaster Tools setup
 
 #### Nice to Have
 - [ ] Add loading skeleton states
-- [ ] Implement smooth scroll polyfill
-- [ ] Add PWA manifest
+- [ ] Add more interactive content (StatCards, Checklists) to articles
+- [ ] Service schema markup
+- [ ] PWA manifest
 
 ---
 
-## Q3 2026 (v1.2 - Content & Authority)
+## Q3 2026 (v3.0 - Content Authority)
 
 ### Goals
-- Establish thought leadership
-- Improve SEO through content
+- Establish thought leadership through content
+- Improve SEO through quality + freshness
 - Build trust with social proof
 
 ### Features
 
-#### Blog/CMS Integration
-- [ ] Choose CMS (Sanity, Contentful, or MDX)
-- [ ] Design blog layout
-- [ ] Create article templates
-- [ ] Implement RSS feed
-- [ ] Add reading time estimates
-
-#### Content Strategy
-- [ ] 2-4 blog posts per month
-- [ ] Topics: automation guides, case studies, industry insights
-- [ ] Local SEO focus (Surat, Gujarat)
+#### Content Enhancements
+- [ ] Add 10-15 new articles (new topics + updating existing)
+- [ ] Industry hub landing pages (5 pillar pages)
+- [ ] Author profiles on articles
+- [ ] Reading progress indicator
+- [ ] Table of contents for long articles
+- [ ] Related article recommendations (beyond same category)
 
 #### Enhanced Social Proof
 - [ ] Video testimonials section
 - [ ] Client logo carousel
-- [ ] Case study deep-dives
 - [ ] Before/after metrics
+- [ ] Case study section with data visualizations
 
 #### Service Pages
 - [ ] Individual service detail pages
@@ -92,7 +99,7 @@ MottoBiz aims to become the go-to business automation partner for small business
 
 ---
 
-## Q4 2026 (v2.0 - Client Portal MVP)
+## Q4 2026 (v4.0 - Client Portal MVP)
 
 ### Goals
 - Provide client self-service tools
@@ -102,7 +109,7 @@ MottoBiz aims to become the go-to business automation partner for small business
 ### Features
 
 #### Client Dashboard
-- [ ] Secure authentication
+- [ ] Secure authentication (Clerk or Auth.js)
 - [ ] Project status tracking
 - [ ] Document sharing
 - [ ] Communication history
@@ -121,7 +128,7 @@ MottoBiz aims to become the go-to business automation partner for small business
 
 ---
 
-## 2027 (v3.0 - Platform Expansion)
+## 2027 (v5.0 - Platform Expansion)
 
 ### Goals
 - Geographic expansion
@@ -161,17 +168,13 @@ MottoBiz aims to become the go-to business automation partner for small business
 - **Deployment:** Hostinger Git Integration (auto-deploy on push to main)
 - **Build:** Local build, commit dist/ folder
 - **Scripts:** deploy.ps1 / deploy.bat for one-click deployment
-
-**Deployment Learnings:**
-1. Hostinger Git > GitHub Actions FTP - more reliable, faster
-2. Committing dist/ is required for Hostinger's Git integration
-3. PowerShell script provides better Windows DX than batch alone
-4. Environment variables should NEVER be committed (use .env, add to .gitignore)
+- **Bundle:** 192KB initial JS (60KB gzipped), 259KB articles loaded on demand
 
 #### Phase 1 (Q3 2026)
 - Consider Vercel/Netlify for better DX
 - Edge functions for form handling (eliminate webhook dependency)
 - Automatic deployments
+- Dynamic OG image generation
 
 #### Phase 2 (Q4 2026)
 - Backend API (Node.js or Go)
@@ -185,17 +188,17 @@ MottoBiz aims to become the go-to business automation partner for small business
 
 ### Testing Strategy
 
-#### Phase 1
+#### Phase 1 (Q3 2026)
 - [ ] Unit tests (Vitest + React Testing Library)
 - [ ] Component tests
 - [ ] Form validation tests
 
-#### Phase 2
+#### Phase 2 (Q4 2026)
 - [ ] E2E tests (Playwright)
 - [ ] Visual regression tests
 - [ ] Performance tests
 
-#### Phase 3
+#### Phase 3 (2027)
 - [ ] Load testing
 - [ ] Security testing
 - [ ] Accessibility audits
@@ -205,25 +208,27 @@ MottoBiz aims to become the go-to business automation partner for small business
 ## Success Metrics
 
 ### Traffic & Engagement
-| Metric | Current Target | Q2 Target | Q4 Target |
-|--------|---------------|-----------|-----------|
+| Metric | Current | Q2 Target | Q4 Target |
+|--------|---------|-----------|-----------|
 | Monthly visitors | - | 500 | 2,000 |
 | Avg. session duration | - | 2 min | 3 min |
 | Bounce rate | - | < 60% | < 50% |
+| Article pageviews | - | 200/month | 1,000/month |
 
 ### Conversion
-| Metric | Current Target | Q2 Target | Q4 Target |
-|--------|---------------|-----------|-----------|
+| Metric | Current | Q2 Target | Q4 Target |
+|--------|---------|-----------|-----------|
 | Form submissions | - | 10/month | 30/month |
 | WhatsApp clicks | - | 20/month | 50/month |
 | Conversion rate | - | 3% | 5% |
 
 ### SEO
-| Metric | Current Target | Q2 Target | Q4 Target |
-|--------|---------------|-----------|-----------|
+| Metric | Current | Q2 Target | Q4 Target |
+|--------|---------|-----------|-----------|
 | Organic traffic | - | 30% | 50% |
 | Keyword rankings | - | Top 10 local | Top 5 local |
-| Domain authority | - | 15 | 25 |
+| Pages indexed | 59 | 59+ | 80+ |
+| Featured snippets | 0 | 5 | 15 |
 
 ---
 
@@ -232,35 +237,17 @@ MottoBiz aims to become the go-to business automation partner for small business
 ### Technical Risks
 | Risk | Likelihood | Impact | Mitigation |
 |------|------------|--------|------------|
-| Performance degradation with features | Medium | High | Performance budget, lazy loading |
-| Security vulnerabilities | Low | High | Regular audits, dependency updates |
-| Hosting reliability | Low | Medium | Uptime monitoring, backup plan |
+| Bundle size growth | Medium | Medium | Code splitting + lazy loading ✅ |
+| SEO competition | Medium | High | 57 articles + local focus |
+| Form submissions lost | Low | High | WhatsApp fallback ✅ |
+| Hosting reliability | Low | Medium | Uptime monitoring |
 
 ### Business Risks
 | Risk | Likelihood | Impact | Mitigation |
 |------|------------|--------|------------|
 | Low lead conversion | Medium | High | A/B testing, UX improvements |
-| Competition increases | Medium | Medium | Differentiation, quality focus |
+| Competition increases | Medium | Medium | Differentiation, quality content |
 | Service demand changes | Low | Medium | Market monitoring, pivot capability |
-
----
-
-## Resource Requirements
-
-### Development
-- Primary: Solo development
-- Future: Consider contractor for specific features
-
-### Marketing
-- Content creation: Owner/contractor
-- SEO: Owner with tools
-- Social media: Owner
-
-### Budget Considerations
-- Hosting: ~$10/month (current)
-- Domain: ~$15/year
-- Tools (analytics, etc.): Free tiers initially
-- Future: Premium tools as needed
 
 ---
 
@@ -272,4 +259,4 @@ This roadmap is a living document and should be updated quarterly based on:
 - Technical learnings
 - Resource availability
 
-Last updated: 2026-04-13
+Last updated: 2026-04-16

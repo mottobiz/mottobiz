@@ -2,16 +2,22 @@
 
 ## System Overview
 
-MottoBiz is a statically-generated single-page application (SPA) designed for high performance, SEO optimization, and lead generation. The architecture follows a component-based approach with clear separation of concerns.
+MottoBiz is a React SPA with code-split routing, rich content rendering, and SEO optimization. The architecture follows a component-based approach with clear separation of concerns and a data-driven content system.
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
 │                         BROWSER                                  │
 ├─────────────────────────────────────────────────────────────────┤
 │  React App (SPA)                                                │
-│  ├── Components (UI Layer)                                      │
-│  ├── Hooks (State Management)                                   │
-│  └── Utils (Helper Functions)                                   │
+│  ├── Suspense + ErrorBoundary                                   │
+│  │   ├── HomePage (lazy)                                        │
+│  │   ├── ResourcesPage (lazy)                                   │
+│  │   ├── ArticlePage (lazy) ← rich content parser               │
+│  │   ├── PrivacyPolicy (lazy)                                   │
+│  │   └── TermsOfService (lazy)                                 │
+│  ├── Navbar + Footer                                            │
+│  ├── SEOHead + HelmetProvider                                   │
+│  └── CustomCursor + AnimatedBackground                         │
 └──────────────────────────┬──────────────────────────────────────┘
                            │
         ┌──────────────────┼──────────────────┐
@@ -19,7 +25,7 @@ MottoBiz is a statically-generated single-page application (SPA) designed for hi
         ▼                  ▼                  ▼
 ┌───────────────┐  ┌───────────────┐  ┌───────────────┐
 │  Google Fonts │  │   WhatsApp    │  │   Webhook     │
-│   (CDN)       │  │   (wa.me)     │  │  (n8n/Make)   │
+│   (CDN)       │  │   (wa.me)     │  │  (Make/n8n)   │
 └───────────────┘  └───────────────┘  └───────────────┘
 ```
 
@@ -27,105 +33,119 @@ MottoBiz is a statically-generated single-page application (SPA) designed for hi
 
 ## Component Architecture
 
-### Component Hierarchy
+### Page Hierarchy
 
 ```
-App
+App (Suspense + ErrorBoundary)
 ├── SEOHead                    # Meta tags, JSON-LD schema
-├── CustomCursor               # Pointer device cursor
+├── CustomCursor               # Pointer device cursor (fine media query)
 ├── AnimatedBackground         # Gradient orb effect
 │
-└── Page Container
-    ├── Navbar                 # Fixed navigation
-    │   ├── Logo
-    │   ├── Nav Links
-    │   └── CTA Button
-    │
-    ├── Main Content
-    │   ├── Hero               # Landing section
-    │   │   ├── Badge
-    │   │   ├── Headline
-    │   │   ├── Subheadline
-    │   │   ├── CTAs
-    │   │   ├── Stats
-    │   │   └── Scroll Indicator
-    │   │
-    │   ├── Pain               # Problem agitation
-    │   ├── Proof              # Credibility markers
-    │   │
-    │   ├── Services           # Service offerings
-    │   │   └── ServiceCard[]
-    │   │
-    │   ├── HowItWorks         # Process steps
-    │   ├── Qualifier          # Ideal client filter
-    │   ├── SocialProof        # Testimonials
-    │   │
-    │   ├── LeadMagnet         # Form section
-    │   │   ├── Form
-    │   │   ├── SuccessState
-    │   │   └── ErrorState
-    │   │
-    │   ├── FAQ                # Accordion Q&A
-    │   │   └── AccordionItem[]
-    │   │
-    │   └── FinalCTA           # Last conversion push
-    │
-    └── Footer
-        ├── Brand Info
-        ├── Contact Info
-        ├── Quick Links
-        └── WhatsApp FAB
+├── Routes
+│   ├── / → HomePage (lazy)
+│   │   ├── Navbar
+│   │   ├── Hero
+│   │   ├── Pain
+│   │   ├── Proof
+│   │   ├── Services
+│   │   ├── HowItWorks
+│   │   ├── Qualifier
+│   │   ├── SocialProof
+│   │   ├── LeadMagnet         # Form with WhatsApp fallback
+│   │   ├── FAQ
+│   │   ├── FinalCTA
+│   │   └── Footer
+│   │
+│   ├── /resources → ResourcesPage (lazy)
+│   │   ├── ResourcesHero
+│   │   ├── CategoryFilter
+│   │   ├── ArticleGrid
+│   │   └── ArticleCard (with thumbnails)
+│   │
+│   ├── /resources/:slug → ArticlePage (lazy)
+│   │   ├── ArticleThumbnailStatic
+│   │   ├── Content Parser → ParsedBlock[]
+│   │   │   ├── heading2, heading3
+│   │   │   ├── tldr → TLDRBox
+│   │   │   ├── comparisonTable → ComparisonTable
+│   │   │   ├── bulletList, numberedList
+│   │   │   ├── paragraph
+│   │   │   └── (injected from enrichment data)
+│   │   ├── FAQ Section (with schema markup)
+│   │   ├── Internal Links Section
+│   │   ├── Related Articles
+│   │   └── WhatsApp CTA
+│   │
+│   ├── /privacy → PrivacyPolicy (lazy)
+│   └── /terms → TermsOfService (lazy)
+│
+└── Footer
 ```
 
-### Component Categories
+### Resource Components (`components/resources/`)
 
-| Category | Components | Purpose |
-|----------|------------|---------|
-| Layout | Navbar, Footer | Page structure |
-| Sections | Hero, Services, FAQ, etc. | Content sections |
-| Effects | CustomCursor, AnimatedBackground | Visual enhancement |
-| Forms | LeadMagnet | User interaction |
-| SEO | SEOHead | Meta optimization |
+| Component | Purpose |
+|-----------|---------|
+| `ArticleCard.tsx` | Card + featured card with dynamic SVG thumbnail |
+| `ArticleComponents.tsx` | 8 interactive components (ComparisonTable, StatCards, Checklist, Steps, ProTip, Warning, CTABox, TLDRBox) |
+| `ArticleThumbnail.tsx` | Dynamic SVG thumbnail with category colors + emoji icons |
+| `ArticleGrid.tsx` | Responsive grid with load-more pagination |
+| `CategoryFilter.tsx` | Pill-based category filter + search |
+| `ResourcesHero.tsx` | Hero section with CTAs |
+| `ResourcesPage.tsx` | Full hub page composition |
+| `index.ts` | Barrel export |
+
+### Data Flow
+
+```
+articles.ts
+├── ARTICLES[]              # 57 metadata objects
+├── ARTICLE_CONTENT{}        # 57 content strings (markdown-like)
+├── TLDR_DATABASE{}          # 57 TL;DR entries (3-5 bullets)
+├── FAQ_DATABASE{}           # 57 FAQ entries (3 Q&As)
+│
+├── getEnrichedArticle(slug)
+│   → Returns: metadata + seo + faq + internalLinks + relatedSlugs + tldr
+│
+├── getRelatedArticlesEnriched(slug, limit)
+│   → Returns: 3 enriched related articles
+│
+└── getTLDR(slug)
+    → Returns: TL;DR bullets array
+```
+
+ArticlePage content parser detects:
+- `## Heading` → H2
+- `### Heading` → H3
+- `- Bullet items` → BulletList with colored dots
+- `1. **Title** — description` → NumberedList with badges
+- `| Table | rows |` → ComparisonTable component (3+ rows)
+- `**TL;DR**` lines → TLDRBox component
+- FAQ from `faq` array → FAQ section with FAQPage schema
+- Internal links from `internalLinks` array → Links section
+- TLDR from `TLDR_DATABASE` → Injected before first H2 if not in content
 
 ---
 
-## Data Flow
-
-### Lead Capture Flow
+## Configuration Architecture
 
 ```
-┌──────────┐    ┌──────────────┐    ┌──────────────┐    ┌─────────────┐
-│  User    │───▶│  Form Input  │───▶│  Validation  │───▶│  Webhook    │
-│          │    │  (Zod)       │    │  (Zod)       │    │  (n8n)      │
-└──────────┘    └──────────────┘    └──────────────┘    └─────────────┘
-                     │                    │                    │
-                     │                    │                    │
-                     ▼                    ▼                    ▼
-               ┌──────────┐         ┌──────────┐         ┌──────────┐
-               │ React    │         │ Error    │         │ Success  │
-               │ Hook     │         │ Messages │         │ State    │
-               │ Form     │         │ Display  │         │ Update   │
-               └──────────┘         └──────────┘         └──────────┘
-```
-
-### Configuration Flow
-
-```
-┌─────────────────┐
-│  config.ts      │  ← Single source of truth
-│  ├── WHATSAPP   │
-│  ├── EMAIL      │
-│  ├── SITE_URL   │
-│  └── WEBHOOK    │
-└────────┬────────┘
-         │
-         │ imports
-         │
-    ┌────┴────┬────────────┬────────────┐
-    ▼         ▼            ▼            ▼
-┌───────┐ ┌───────┐  ┌──────────┐ ┌──────────┐
-│ Hero  │ │ Footer│  │ SEOHead  │ │LeadMagnet│
-└───────┘ └───────┘  └──────────┘ └──────────┘
+.env → VITE_LEAD_WEBHOOK_URL
+                │
+config.ts ← ────┘
+├── WHATSAPP_NUMBER
+├── WHATSAPP_LINK
+├── EMAIL, PHONE_DISPLAY
+├── SITE_URL
+├── BUSINESS_* (address, geo)
+├── SERVICE_AREAS[]
+└── LEAD_WEBHOOK_URL (from env)
+        │
+        ├── LeadMagnet.tsx (form submission)
+        ├── Footer.tsx (contact info)
+        ├── Hero.tsx (WhatsApp CTA)
+        ├── FinalCTA.tsx (WhatsApp CTA)
+        └── SEOHead.tsx (schema markup)
 ```
 
 ---
@@ -137,154 +157,58 @@ Most components are stateless. State exists only where needed:
 
 | Component | State | Purpose |
 |-----------|-------|---------|
-| LeadMagnet | `submitted`, `submitError`, `isSubmitting` | Form handling |
-| FAQ | Internal accordion state | Expand/collapse |
-| Navbar | Mobile menu open/closed | Responsive nav |
-
-### Form State (LeadMagnet)
-```typescript
-interface FormState {
-  name: string
-  whatsapp: string
-  email: string
-  businessType: string
-}
-
-// Managed by react-hook-form
-const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<FormValues>()
-```
+| App | Route rendering, Suspense, ErrorBoundary | Page navigation |
+| LeadMagnet | `submitted`, `submitError`, `isSubmitting`, `dropdownOpen` | Form handling |
+| ResourcesPage | `selectedCategory`, `searchQuery` | Filtering |
+| ArticlePage | URL params, parsed content | Article rendering |
+| FAQ | Accordion open/close state | UX |
+| Navbar | `scrolled`, `mobileOpen` | Responsive behavior |
 
 ### No Global State
-The application does not require global state management (Redux, Zustand, etc.) due to its simplicity.
+The application does not require global state management. All data flows from:
+1. **Route params** (article slug from URL)
+2. **Config file** (business constants)
+3. **Static data** (articles.ts)
 
 ---
 
-## Styling Architecture
+## Build & Bundle Architecture
 
-### CSS Layers
+### Code Splitting
+```
+Initial Load (~192KB / 60KB gzipped):
+├── index.js         - React, Router, core libs
+├── index.css         - All styles
+├── proxy.js          - React Helmet, async chunks
+└── effects.js        - Custom cursor, animated background
 
-```css
-@layer base {
-  /* Reset, HTML/BODY styles */
-}
-
-@layer components {
-  /* Reusable component classes */
-  .glass { }
-  .card { }
-  .btn-primary { }
-  .btn-secondary { }
-}
-
-@layer utilities {
-  /* Animation utilities */
-  .animate-accordion-down { }
-}
+Lazy Loaded (on demand):
+├── HomePage.js       - Landing page sections (148KB)
+├── articles.js        - All 57 articles data (259KB)
+├── ResourcesPage.js   - Resources hub (14KB)
+├── ArticlePage.js     - Article detail + parser (10KB)
+├── PrivacyPolicy.js   - Legal page (7KB)
+└── TermsOfService.js  - Legal page (9KB)
 ```
 
-### Design Tokens (CSS Variables)
-
-```css
-@theme {
-  /* Colors */
-  --color-base: #0a0a0b;
-  --color-accent: #6366f1;
-  --color-gold: #f59e0b;
-  
-  /* Typography */
-  --font-display: 'Space Grotesk';
-  --font-body: 'Inter';
-  
-  /* Spacing & Radius */
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 16px;
-}
-```
-
-### Tailwind Utility Classes
-Component-specific styles use Tailwind utilities directly:
-- Layout: `flex`, `grid`, `gap-*`, `p-*`, `m-*`
-- Typography: `text-*`, `font-*`, `leading-*`
-- Colors: `bg-*`, `text-*`, `border-*`
-- Effects: `backdrop-blur`, `shadow-*`, `rounded-*`
-
----
-
-## Animation System
-
-### Framer Motion Integration
+### Error Handling
 
 ```typescript
-// lib/animations.ts
-export const staggerContainer = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.1 }
-  }
+// ErrorBoundary wraps all routes
+<ErrorBoundary>
+  <Suspense fallback={<PageLoader />}>
+    <Routes>...</Routes>
+  </Suspense>
+</ErrorBoundary>
+
+// Lead form graceful fallback
+if (!LEAD_WEBHOOK_URL) {
+  // Redirect to WhatsApp with form data
+  window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, '_blank')
+  setSubmitted(true)
+  return
 }
-
-export const staggerItem = {
-  hidden: { opacity: 0, y: 30 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }
-  }
-}
-```
-
-### Scroll Trigger Pattern
-```typescript
-const ref = useRef(null)
-const inView = useInView(ref, { once: true, margin: '-100px' })
-
-<motion.div
-  ref={ref}
-  variants={staggerContainer}
-  initial="hidden"
-  animate={inView ? 'visible' : 'hidden'}
->
-  {/* Content */}
-</motion.div>
-```
-
----
-
-## Build Process
-
-### Development
-```
-npm run dev
-    │
-    ▼
-Vite Dev Server
-    │
-    ├── Hot Module Replacement (HMR)
-    ├── TypeScript checking (on save)
-    └── Tailwind JIT compilation
-```
-
-### Production Build
-```
-npm run build
-    │
-    ├── TypeScript compiler (tsc)
-    │   └── Type checking
-    │
-    ├── Vite build
-    │   ├── Bundle JavaScript
-    │   ├── Process CSS
-    │   ├── Optimize assets
-    │   └── Generate hashes
-    │
-    └── Output to dist/
-        ├── index.html
-        ├── assets/
-        │   ├── index-[hash].js
-        │   └── index-[hash].css
-        └── (static assets)
+// If webhook POST fails, also fall back to WhatsApp
 ```
 
 ---
@@ -293,200 +217,83 @@ npm run build
 
 ### CI/CD Pipeline
 
-```yaml
-GitHub Actions (deploy.yml)
+```
+Developer Machine
     │
-    ├── Trigger: Push to main
+    ├──► npm run build ──► dist/ folder
     │
-    ├── Steps:
-    │   1. Checkout code
-    │   2. Setup Node.js 20
-    │   3. npm ci (install dependencies)
-    │   4. npm run build
-    │   5. FTP deploy to Hostinger
-    │
-    └── Output: dist/ → /public_html/
+    └──► git push origin main ──► GitHub
+                                         │
+                                         ▼
+                               Hostinger Git Integration
+                                         │
+                                         ▼
+                               Auto-deploy to /public_html/
 ```
 
-### Hosting Stack
-
-| Component | Provider | Details |
-|-----------|----------|---------|
-| Hosting | Hostinger | Shared hosting, FTP deploy |
-| Domain | Hostinger | mottobiz.com |
-| SSL | Let's Encrypt | Auto-renewal |
-| CDN | None currently | Future consideration |
-
----
-
-## Security Considerations
-
-### Frontend Security
-- No sensitive data stored client-side
-- Form validation both client and server-side
-- HTTPS enforced
-- External links use `rel="noopener noreferrer"`
-
-### Webhook Security
-- Webhook URL stored as environment constant
-- Server-side validation required
-- Rate limiting on webhook endpoint (n8n/Make)
-
-### XSS Prevention
-- React auto-escapes JSX
-- No `dangerouslySetInnerHTML` usage
-- CSP headers (server-side, future)
-
----
-
-## Performance Optimization
-
-### Current Optimizations
-- Static site generation (no server-side rendering)
-- Tailwind CSS purging (unused styles removed)
-- Font preloading
-- Image optimization (manual)
-- Minimal JavaScript bundle
-
-### Bundle Analysis
-```
-Main chunks:
-- React + ReactDOM: ~140KB (gzipped: ~45KB)
-- Framer Motion: ~50KB (gzipped: ~15KB)
-- Application code: ~20KB (gzipped: ~8KB)
-- CSS: ~10KB (gzipped: ~3KB)
-```
-
-### Future Optimizations
-- [ ] Lazy load below-fold sections
-- [ ] Code split by route (if multi-page)
-- [ ] Service worker for caching
-- [ ] Image CDN for optimization
-
----
-
-## Error Handling
-
-### Form Errors
-```typescript
-// Graceful fallback when webhook not configured
-if (!LEAD_WEBHOOK_URL) {
-  setSubmitError('Form temporarily unavailable. Please use WhatsApp.')
-  return
-}
-
-// Network error handling
-try {
-  const res = await fetch(LEAD_WEBHOOK_URL, { ... })
-  if (!res.ok) throw new Error(`Server error: ${res.status}`)
-  setSubmitted(true)
-} catch {
-  setSubmitError('Something went wrong. Please try WhatsApp instead.')
-}
-```
-
-### Component Error Boundaries
-Currently not implemented. Future consideration for:
-- Form component isolation
-- Animation fallbacks
+### Environment Variables
+- `VITE_LEAD_WEBHOOK_URL` — Make/n8n webhook endpoint. Empty = WhatsApp fallback.
 
 ---
 
 ## Scalability Considerations
 
 ### Current Limits
-- Single page, static content
-- No backend dependencies
-- Limited interactivity
+- Articles data loaded on demand (not in initial bundle)
+- No backend dependencies for article rendering
+- Content management requires code changes (no CMS)
 
 ### Scaling Paths
 
-| Need | Solution |
-|------|----------|
-| More pages | Add React Router or Next.js migration |
-| Backend API | Add Express/Fastify + database |
-| User auth | Add Clerk, Auth.js, or NextAuth |
-| CMS | Integrate Sanity, Contentful, or MDX |
-| Real-time | Add WebSocket server |
-
----
-
-## Monitoring & Observability
-
-### Current State
-- No monitoring implemented
-
-### Recommended Additions
-- [ ] Google Analytics 4
-- [ ] Error tracking (Sentry)
-- [ ] Performance monitoring (Web Vitals)
-- [ ] Uptime monitoring (UptimeRobot)
+| Need | Solution | Status |
+|------|----------|--------|
+| More articles | Add to `articles.ts` | ✅ Current approach |
+| CMS integration | Migrate toSanity/Contentful | Future |
+| Backend API | Add Express/Fastify + database | Future |
+| User auth | Add Clerk/Auth.js | Future |
+| Dynamic OG images | Add API endpoint | Future |
 
 ---
 
 ## Technical Debt
 
-| Item | Priority | Effort | Impact |
-|------|----------|--------|--------|
-| Add unit tests | Medium | Medium | High |
-| Add E2E tests | Low | Medium | Medium |
-| Implement error boundaries | Low | Low | Medium |
-| Add loading states | Low | Low | Low |
-| Documentation (JSDoc) | Low | Low | Low |
+| Item | Priority | Effort | Impact | Status |
+|------|----------|--------|--------|--------|
+| Per-article OG images | Medium | Medium | High | Pending |
+| Unit tests | Medium | Medium | High | Not Started |
+| E2E tests | Low | Medium | Medium | Not Started |
+| Loading skeletons | Low | Low | Low | Not Started |
 
 ---
 
-## Architecture Decisions Record (ADR)
+## Architecture Decisions Record
 
 ### ADR-001: Static Site vs SSR
 **Decision:** Static site (Vite SPA)  
-**Rationale:** Simplicity, performance, no server costs  
-**Consequences:** Limited dynamic features, client-side only
+**Rationale:** Simplicity, performance, no server costs, easy deployment  
+**Consequences:** No server-side rendering, client-side routing
 
-### ADR-002: Tailwind CSS v4
-**Decision:** Use Tailwind CSS v4 with @tailwindcss/vite  
-**Rationale:** Smaller bundle, faster builds, CSS-first config  
-**Consequences:** Learning curve for v4 syntax, less community examples
+### ADR-002: Code Splitting
+**Decision:** React.lazy + Suspense for all routes  
+**Rationale:** 740KB initial bundle was too large; articles data (259KB) only needed on resources pages  
+**Consequences:** Initial load 192KB, articles load on demand, small loading delay on navigation
 
-### ADR-003: Form Library
-**Decision:** react-hook-form + Zod  
-**Rationale:** Best-in-class DX, type safety, minimal re-renders  
-**Consequences:** Additional dependency, learning curve
+### ADR-003: Content in articles.ts (no CMS)
+**Decision:** Store all article data in a single TypeScript file  
+**Rationale:** No backend needed, type-safe, instant rendering, Git version control  
+**Consequences:** Code changes required for content updates; scaling to 200+ articles would warrant a CMS
 
-### ADR-004: Animation Library
-**Decision:** Framer Motion  
-**Rationale:** Declarative API, scroll triggers, gesture support  
-**Consequences:** Bundle size increase (~50KB)
+### ADR-004: TLDR_DATABASE + FAQ_DATABASE (separate maps)
+**Decision:** Store TL;DR and FAQ data in separate lookup maps, inject at render time  
+**Rationale:** Keeps article content strings clean, allows enrichment without modifying content, easy to update  
+**Consequences:** Need to maintain consistency between article slug and database keys
 
----
+### ADR-005: WhatsApp Fallback for Lead Form
+**Decision:** Redirect to WhatsApp with pre-filled form data when no webhook configured  
+**Rationale:** Zero data loss, better UX than error message, works immediately without backend setup  
+**Consequences:** Less structured data capture vs webhook POST; can upgrade to webhook when ready
 
-## File Dependencies Graph
-
-```
-main.tsx
-├── App.tsx
-│   ├── index.css (global styles)
-│   ├── components/SEOHead.tsx
-│   │   └── lib/config.ts
-│   ├── components/effects.tsx
-│   ├── components/Navbar.tsx
-│   ├── components/Hero.tsx
-│   │   ├── lib/animations.ts
-│   │   └── lib/config.ts
-│   ├── components/Pain.tsx
-│   ├── components/Proof.tsx
-│   ├── components/Services.tsx
-│   │   └── lib/animations.ts
-│   ├── components/HowItWorks.tsx
-│   ├── components/Qualifier.tsx
-│   ├── components/SocialProof.tsx
-│   ├── components/LeadMagnet.tsx
-│   │   ├── lib/animations.ts
-│   │   └── lib/config.ts
-│   ├── components/FAQ.tsx
-│   │   └── lib/animations.ts
-│   ├── components/FinalCTA.tsx
-│   └── components/Footer.tsx
-│       └── lib/config.ts
-└── react-helmet-async (HelmetProvider)
-```
+### ADR-006: Error Boundary
+**Decision:** Wrap all routes in ErrorBoundary with styled recovery UI  
+**Rationale:** Prevents white screen of death; provides user-friendly error message and refresh button  
+**Consequences:** Small bundle increase, error state needs to match design system

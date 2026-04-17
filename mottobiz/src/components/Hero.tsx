@@ -82,7 +82,7 @@ export function Hero() {
         {/* Social Proof Badge - Mere Exposure + Bandwagon Effect */}
         <motion.div variants={staggerItem} className="flex flex-col sm:flex-row justify-center items-center gap-3 mb-10">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-medium bg-emerald-500/10 border border-emerald-500/20 text-emerald-400">
-            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
               <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
             </svg>
             <span>{socialProof.clientsServed} trust us with their automation</span>
@@ -94,7 +94,7 @@ export function Hero() {
         </motion.div>
 
         {/* Rotating Headlines */}
-        <div className="relative min-h-[280px] sm:min-h-[320px] md:min-h-[380px] mb-8 flex flex-col justify-center">
+        <div className="relative min-h-[280px] sm:min-h-[320px] md:min-h-[380px] mb-8 flex flex-col justify-center" aria-live="polite" aria-atomic="true">
           <AnimatePresence mode="wait" initial={false}>
             <motion.div
               key={currentHeadline}
@@ -159,8 +159,8 @@ export function Hero() {
             className="btn-primary inline-flex items-center justify-center gap-2.5 text-base px-8 py-4"
           >
             Get Your Free Audit (Save ₹50,000+ on Salaries)
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M7 17L17 7M17 7H7M17 7V17" />
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                <path d="M7 17L17 7M17 7H7M17 7V17" />
             </svg>
           </a>
           
@@ -171,7 +171,7 @@ export function Hero() {
             rel="noopener noreferrer"
             className="btn-secondary inline-flex items-center justify-center gap-2.5"
           >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="#25D366">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#25D366" aria-hidden="true">
               <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
             </svg>
             Chat with 25+ Surat Businesses
@@ -179,21 +179,21 @@ export function Hero() {
         </motion.div>
 
         {/* Trust Indicators - Authority + Social Proof */}
-        <motion.div variants={staggerItem} className="flex flex-wrap justify-center gap-6 mb-16 text-xs text-white/40">
+        <motion.div variants={staggerItem} className="flex flex-wrap justify-center gap-6 mb-16 text-xs text-white/55">
           <div className="flex items-center gap-2">
-            <svg className="w-4 h-4 text-emerald-400" fill="currentColor" viewBox="0 0 20 20">
+            <svg className="w-4 h-4 text-emerald-400" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
               <path fillRule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
             </svg>
             {socialProof.satisfaction}
           </div>
           <div className="flex items-center gap-2">
-            <svg className="w-4 h-4 text-indigo-400" fill="currentColor" viewBox="0 0 20 20">
+            <svg className="w-4 h-4 text-indigo-400" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
               <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
             </svg>
             {socialProof.responseTime}
           </div>
           <div className="flex items-center gap-2">
-            <svg className="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
+            <svg className="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
               <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
             </svg>
             4.9/5 Average Rating
@@ -222,7 +222,7 @@ export function Hero() {
               >
                 {stat.value}
               </div>
-              <div className="text-sm sm:text-base text-white/40" itemProp="description">
+              <div className="text-sm sm:text-base text-white/55" itemProp="description">
                 {stat.label}
               </div>
               <div className="text-xs text-emerald-400/80 mt-1">{stat.description}</div>
@@ -255,7 +255,7 @@ export function Hero() {
           transition={{ duration: 2, repeat: Infinity }}
           className="w-6 h-10 rounded-full border border-white/20 flex items-start justify-center pt-2"
         >
-          <div className="w-1.5 h-1.5 rounded-full bg-indigo-400" />
+          <div className="w-1.5 h-1.5 rounded-full bg-indigo-400" aria-hidden="true" />
         </motion.div>
       </motion.div>
     </section>

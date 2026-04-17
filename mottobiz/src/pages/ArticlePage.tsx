@@ -4,9 +4,9 @@ import { Helmet } from 'react-helmet-async'
 import { SEOHead } from '@/components/SEOHead'
 import { ArticleCardComponent } from '@/components/resources/ArticleCard'
 import { ArticleThumbnailStatic } from '@/components/resources/ArticleThumbnail'
-import { ComparisonTable, StatCards, Checklist, ProTip, Warning, CTABox, TLDRBox } from '@/components/resources/ArticleComponents'
+import { ComparisonTable, StatCards, Checklist, Steps, ProTip, Warning, CTABox, TLDRBox } from '@/components/resources/ArticleComponents'
 import { CATEGORY_COLORS } from '@/types/article'
-import { getEnrichedArticle, getRelatedArticlesEnriched, getArticleContent } from '@/data/articles'
+import { getEnrichedArticle, getRelatedArticlesEnriched, getInteractiveBlocks, getArticleContent } from '@/data/articles'
 import { SITE_URL, WHATSAPP_LINK } from '@/lib/config'
 
 type ParsedBlock = 
@@ -16,6 +16,7 @@ type ParsedBlock =
   | { type: 'statCards'; stats: { value: string; label: string; context?: string }[] }
   | { type: 'comparisonTable'; data: { title: string; columns: string[]; rows: { feature: string; values: string[] }[]; recommendation?: { column: number; badge: string } } }
   | { type: 'checklist'; data: { title: string; items: { text: string; checked?: boolean }[] } }
+  | { type: 'steps'; steps: { step: string; title: string; description: string }[] }
   | { type: 'protip'; data: { tip: string; context?: string } }
   | { type: 'warning'; data: { title: string; message: string } }
   | { type: 'ctaBox'; data: { title: string; description: string; ctaText?: string; ctaLink?: string } }
@@ -97,7 +98,7 @@ export function ArticlePage() {
   let content: string
   try {
     article = getEnrichedArticle(routeSlug || '')
-    content = getArticleContent(routeSlug || '')
+    content = getArticleContent(routeSlug || '').replace(/https:\/\/wa\.me\/917487957972/g, WHATSAPP_LINK)
   } catch {
     return (
       <div className="min-h-screen bg-base flex items-center justify-center">
@@ -152,6 +153,30 @@ export function ArticlePage() {
     }
   }
 
+  // Inject interactive blocks from database (StatCards, Checklists, Steps, ProTips, Warnings)
+  const interactiveBlocks = getInteractiveBlocks(routeSlug || '')
+  for (const block of interactiveBlocks) {
+    if (block.type === 'statCards') {
+      // Inject StatCards after the TLDR box (or after the first H2 if no TLDR)
+      const insertAfter = parsedBlocks.findIndex(b => b.type === 'tldr')
+      const h2Idx = parsedBlocks.findIndex(b => b.type === 'heading2')
+      const insertAt = insertAfter !== -1 ? insertAfter + 1 : (h2Idx !== -1 ? h2Idx + 1 : 1)
+      parsedBlocks.splice(insertAt, 0, block)
+    } else if (block.type === 'protip') {
+      // Inject ProTips after the first paragraph at ~40% content depth
+      const insertAt = Math.min(Math.floor(parsedBlocks.length * 0.4), parsedBlocks.length)
+      parsedBlocks.splice(insertAt, 0, block)
+    } else if (block.type === 'warning') {
+      // Inject Warnings at ~60% content depth
+      const insertAt = Math.min(Math.floor(parsedBlocks.length * 0.6), parsedBlocks.length)
+      parsedBlocks.splice(insertAt, 0, block)
+    } else if (block.type === 'checklist' || block.type === 'steps') {
+      // Inject Checklists/Steps near the end, before the last 30% of content
+      const insertAt = Math.min(Math.floor(parsedBlocks.length * 0.7), parsedBlocks.length)
+      parsedBlocks.splice(insertAt, 0, block)
+    }
+  }
+
   // Build FAQ schema if article has FAQ
   const faqSchema = article.faq && article.faq.length > 0 ? {
     '@context': 'https://schema.org',
@@ -174,9 +199,17 @@ export function ArticlePage() {
     description: article.seo?.metaDescription || article.excerpt,
     url: `${SITE_URL}/resources/${article.slug}`,
     datePublished: article.publishDate,
+    dateModified: article.lastUpdated || article.publishDate,
     author: {
-      '@type': 'Organization',
-      name: 'MottoBiz',
+      '@type': 'Person',
+      name: article.author?.name || 'MottoBiz Team',
+      jobTitle: article.author?.title || 'Business Automation Consultants',
+      ...(article.author?.credentials && { description: article.author.credentials }),
+      worksFor: {
+        '@type': 'Organization',
+        name: 'MottoBiz',
+        url: SITE_URL,
+      },
       url: SITE_URL,
     },
     publisher: {
@@ -185,6 +218,15 @@ export function ArticlePage() {
       logo: { '@type': 'ImageObject', url: `${SITE_URL}/logo-static.svg` },
     },
     keywords: article.seo ? [article.seo.primaryKeyword, ...article.seo.secondaryKeywords].join(', ') : article.title,
+    about: {
+      '@type': 'Thing',
+      name: article.category,
+    },
+    image: `${SITE_URL}/og/${article.slug}.png`,
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `${SITE_URL}/resources/${article.slug}`,
+    },
   }
 
   return (
@@ -193,6 +235,7 @@ export function ArticlePage() {
         title={article.seo?.metaTitle || `${article.title} | Mottobiz`}
         description={article.seo?.metaDescription || article.excerpt}
         canonicalUrl={`${SITE_URL}/resources/${article.slug}`}
+        ogImage={`${SITE_URL}/og/${article.slug}.png`}
       />
       {/* Schema markup */}
       <Helmet>
@@ -225,12 +268,12 @@ export function ArticlePage() {
             />
 
             {/* Breadcrumb */}
-            <nav className="flex items-center gap-2 text-sm text-white/50 mb-6">
+            <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-sm text-white/50 mb-6">
               <Link to="/" className="hover:text-white transition-colors">Home</Link>
-              <span>/</span>
+              <span aria-hidden="true">/</span>
               <Link to="/resources" className="hover:text-white transition-colors">Resources</Link>
-              <span>/</span>
-              <span className="text-white">{article.title.slice(0, 30)}...</span>
+              <span aria-hidden="true">/</span>
+              <span className="text-white truncate" aria-label={article.title}>{article.title}</span>
             </nav>
 
             {/* Category & Pillar */}
@@ -247,7 +290,7 @@ export function ArticlePage() {
                  article.category.charAt(0).toUpperCase() + article.category.slice(1)}
               </span>
               {article.pillar && (
-                <span className="text-white/40 text-sm">{article.pillar}</span>
+                <span className="text-white/55 text-sm">{article.pillar}</span>
               )}
             </div>
 
@@ -275,10 +318,19 @@ export function ArticlePage() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.2 }}
-              className="flex items-center gap-6 text-sm text-white/40"
+              className="flex items-center gap-6 text-sm text-white/55"
             >
               <span>{article.readingTime} min read</span>
               <span>{formattedDate}</span>
+              {article.author && (
+                <span className="text-white/50">
+                  By {article.author.name}
+                  {article.author.title && ` • ${article.author.title}`}
+                </span>
+              )}
+              {article.lastUpdated && (
+                <span className="text-white/50">Updated: {new Date(article.lastUpdated).toLocaleDateString('en-IN', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
+              )}
               {article.difficulty && (
                 <span className="px-2 py-1 rounded bg-white/5">
                   {article.difficulty}
@@ -319,12 +371,14 @@ export function ArticlePage() {
                     return <ComparisonTable key={index} data={block.data} />
                   case 'checklist':
                     return <Checklist key={index} data={block.data} category={article.category} />
+                  case 'steps':
+                    return <Steps key={index} steps={block.steps} category={article.category} />
                   case 'protip':
                     return <ProTip key={index} data={block.data} />
                   case 'warning':
                     return <Warning key={index} data={block.data} />
                   case 'ctaBox':
-                    return <CTABox key={index} title={block.data.title} description={block.data.description} ctaText={block.data.ctaText || 'Chat on WhatsApp'} ctaLink={block.data.ctaLink || 'https://wa.me/917487957972?text=Hi%20MottoBiz'} />
+                    return <CTABox key={index} title={block.data.title} description={block.data.description} ctaText={block.data.ctaText || 'Chat on WhatsApp'} ctaLink={block.data.ctaLink || WHATSAPP_LINK} />
                   case 'bulletList':
                     return (
                       <ul key={index} className="list-none space-y-3 my-6">

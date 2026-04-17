@@ -1,3 +1,4 @@
+import { lazy, Suspense } from 'react'
 import { SEOHead } from '@/components/SEOHead'
 import { Navbar } from '@/components/Navbar'
 import { Hero } from '@/components/Hero'
@@ -7,16 +8,17 @@ import { Services } from '@/components/Services'
 import { HowItWorks } from '@/components/HowItWorks'
 import { Qualifier } from '@/components/Qualifier'
 import { SocialProof } from '@/components/SocialProof'
-import { LeadMagnet } from '@/components/LeadMagnet'
 import { FAQ } from '@/components/FAQ'
 import { FinalCTA } from '@/components/FinalCTA'
 import { Footer } from '@/components/Footer'
+
+const LeadMagnet = lazy(() => import('@/components/LeadMagnet').then(m => ({ default: m.LeadMagnet })))
 
 export function HomePage() {
   return (
     <>
       <SEOHead />
-      <main>
+      <main id="main-content">
         <Hero />
         <Pain />
         <Proof />
@@ -24,7 +26,9 @@ export function HomePage() {
         <HowItWorks />
         <Qualifier />
         <SocialProof />
-        <LeadMagnet />
+        <Suspense fallback={<div className="min-h-[60vh]" />}>
+          <LeadMagnet />
+        </Suspense>
         <FAQ />
         <FinalCTA />
       </main>

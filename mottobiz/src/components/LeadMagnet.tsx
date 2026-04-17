@@ -160,15 +160,15 @@ export function LeadMagnet() {
               <div className="grid grid-cols-3 gap-4">
                 <div className="text-center">
                   <div className="text-2xl font-bold text-white">{formSocialProof.bookedThisWeek}</div>
-                  <div className="text-xs text-white/40">Booked this week</div>
+                  <div className="text-xs text-white/55">Booked this week</div>
                 </div>
                 <div className="text-center">
                   <div className="text-2xl font-bold text-white">{formSocialProof.averageRating}</div>
-                  <div className="text-xs text-white/40">Avg. rating</div>
+                  <div className="text-xs text-white/55">Avg. rating</div>
                 </div>
                 <div className="text-center">
                   <div className="text-2xl font-bold text-white">{formSocialProof.totalAudits}</div>
-                  <div className="text-xs text-white/40">Total audits</div>
+                  <div className="text-xs text-white/55">Total audits</div>
                 </div>
               </div>
             </motion.div>
@@ -216,7 +216,7 @@ export function LeadMagnet() {
                     <input
                       {...register('name')}
                       placeholder="Rahul Shah"
-                      className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-white text-sm sm:text-base placeholder-white/30 focus:border-indigo-500/50 focus:outline-none transition-colors"
+                      className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-white text-sm sm:text-base placeholder-white/50 focus:border-indigo-500/50 focus:outline-none transition-colors"
                     />
                     {errors.name && <p className="mt-2 text-xs text-red-400">{errors.name.message}</p>}
                   </div>
@@ -226,7 +226,7 @@ export function LeadMagnet() {
                       {...register('whatsapp')}
                       type="tel"
                       placeholder="+91 98765 43210"
-                      className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-white text-sm sm:text-base placeholder-white/30 focus:border-indigo-500/50 focus:outline-none transition-colors"
+                      className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-white text-sm sm:text-base placeholder-white/50 focus:border-indigo-500/50 focus:outline-none transition-colors"
                     />
                     {errors.whatsapp && <p className="mt-2 text-xs text-red-400">{errors.whatsapp.message}</p>}
                   </div>
@@ -238,7 +238,7 @@ export function LeadMagnet() {
                     {...register('email')}
                     type="email"
                     placeholder="you@business.com"
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-white text-sm sm:text-base placeholder-white/30 focus:border-indigo-500/50 focus:outline-none transition-colors"
+                    className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-white text-sm sm:text-base placeholder-white/50 focus:border-indigo-500/50 focus:outline-none transition-colors"
                   />
                   {errors.email && <p className="mt-2 text-xs text-red-400">{errors.email.message}</p>}
                 </div>
@@ -250,13 +250,13 @@ export function LeadMagnet() {
                     onClick={() => setDropdownOpen(!dropdownOpen)}
                     className={`w-full bg-white/5 border rounded-xl px-5 py-4 text-left text-sm sm:text-base transition-colors focus:outline-none ${
                       dropdownOpen ? 'border-indigo-500/50' : 'border-white/10 hover:border-white/20'
-                    } ${selectedBusinessType ? 'text-white' : 'text-white/30'}`}
+                    } ${selectedBusinessType ? 'text-white' : 'text-white/50'}`}
                   >
                     <span className="block truncate">
                       {selectedBusinessType || 'Select your business type...'}
                     </span>
                     <span className="absolute right-4 top-[42px] pointer-events-none">
-                      <svg className={`w-5 h-5 text-white/40 transition-transform ${dropdownOpen ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <svg className={`w-5 h-5 text-white/55 transition-transform ${dropdownOpen ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                       </svg>
                     </span>
@@ -305,7 +305,7 @@ export function LeadMagnet() {
                 </button>
 
                 {/* Risk Reversal (Regret Aversion) */}
-                <div className="flex items-center justify-center gap-4 text-xs text-white/40">
+                <div className="flex items-center justify-center gap-4 text-xs text-white/55">
                   <span className="flex items-center gap-1">
                     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
