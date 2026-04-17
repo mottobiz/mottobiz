@@ -1,3 +1,4 @@
+import { useId } from 'react'
 import { CATEGORY_COLORS, ArticleCategory } from '@/types/article'
 
 interface ArticleThumbnailProps {
@@ -106,62 +107,10 @@ export function ArticleThumbnail({ category, title, size = 'md', className = '' 
   const colors = CATEGORY_COLORS[category]
   const dims = DIMENSIONS[size]
   const titleLines = getTitleLines(title, 35)
-
-  const svgContent = `
-<svg width="${dims.width}" height="${dims.height}" viewBox="0 0 ${dims.width} ${dims.height}" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <linearGradient id="bg-${category}" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:${colors.primary};stop-opacity:0.15" />
-      <stop offset="50%" style="stop-color:${colors.secondary};stop-opacity:0.1" />
-      <stop offset="100%" style="stop-color:#0A0A0B;stop-opacity:1" />
-    </linearGradient>
-    <linearGradient id="accent-${category}" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" style="stop-color:${colors.primary}" />
-      <stop offset="100%" style="stop-color:${colors.secondary}" />
-    </linearGradient>
-    <radialGradient id="glow-${category}" cx="30%" cy="30%" r="40%">
-      <stop offset="0%" style="stop-color:${colors.primary};stop-opacity:0.3" />
-      <stop offset="100%" style="stop-color:${colors.primary};stop-opacity:0" />
-    </radialGradient>
-  </defs>
-
-  <!-- Background -->
-  <rect width="${dims.width}" height="${dims.height}" fill="#0A0A0B" rx="16" />
-
-  <!-- Gradient overlay -->
-  <rect width="${dims.width}" height="${dims.height}" fill="url(#bg-${category})" rx="16" />
-
-  <!-- Glow effect -->
-  <circle cx="${dims.width * 0.25}" cy="${dims.height * 0.3}" r="${dims.width * 0.2}" fill="url(#glow-${category})" />
-  <circle cx="${dims.width * 0.8}" cy="${dims.height * 0.7}" r="${dims.width * 0.15}" fill="url(#glow-${category})" opacity="0.5" />
-
-  <!-- Decorative grid pattern -->
-  <g opacity="0.03" stroke="white" stroke-width="0.5">
-    <line x1="0" y1="${dims.height * 0.3}" x2="${dims.width}" y2="${dims.height * 0.3}" />
-    <line x1="0" y1="${dims.height * 0.6}" x2="${dims.width}" y2="${dims.height * 0.6}" />
-    <line x1="${dims.width * 0.3}" y1="0" x2="${dims.width * 0.3}" y2="${dims.height}" />
-    <line x1="${dims.width * 0.7}" y1="0" x2="${dims.width * 0.7}" y2="${dims.height}" />
-  </g>
-
-  <!-- Category accent line -->
-  <rect x="24" y="${dims.height - 8}" width="40" height="3" rx="1.5" fill="url(#accent-${category})" opacity="0.8" />
-
-  <!-- Title text -->
-  ${titleLines.map((line, i) => `
-    <text x="24" y="${dims.height - 40 + i * (dims.titleSize + 6)}" 
-      font-family="Space Grotesk, system-ui, sans-serif" 
-      font-weight="700" 
-      font-size="${i === 0 ? dims.titleSize : dims.titleSize - 2}" 
-      fill="white" 
-      opacity="${1 - i * 0.15}">
-      ${line.replace(/&/g, '&amp;').replace(/</g, '&lt;')}
-    </text>
-  `).join('')}
-
-  <!-- Top-right decorative element -->
-  <circle cx="${dims.width - 40}" cy="40" r="4" fill="${colors.primary}" opacity="0.6" />
-  <circle cx="${dims.width - 56}" cy="40" r="3" fill="${colors.secondary}" opacity="0.4" />
-</svg>`
+  const uid = useId()
+  const bgId = `bg-${category}-${uid}`
+  const accentId = `accent-${category}-${uid}`
+  const glowId = `glow-${category}-${uid}`
 
   return (
     <div
@@ -169,8 +118,84 @@ export function ArticleThumbnail({ category, title, size = 'md', className = '' 
       style={{
         background: `linear-gradient(135deg, ${colors.primary}20, ${colors.secondary}10, #0A0A0B)`,
       }}
-      dangerouslySetInnerHTML={{ __html: svgContent }}
-    />
+    >
+      <svg
+        width="100%"
+        height="100%"
+        viewBox={`0 0 ${dims.width} ${dims.height}`}
+        xmlns="http://www.w3.org/2000/svg"
+        className="block w-full h-full"
+        preserveAspectRatio="xMidYMid meet"
+      >
+        <defs>
+          <linearGradient id={bgId} x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor={colors.primary} stopOpacity={0.15} />
+            <stop offset="50%" stopColor={colors.secondary} stopOpacity={0.1} />
+            <stop offset="100%" stopColor="#0A0A0B" stopOpacity={1} />
+          </linearGradient>
+          <linearGradient id={accentId} x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor={colors.primary} />
+            <stop offset="100%" stopColor={colors.secondary} />
+          </linearGradient>
+          <radialGradient id={glowId} cx="30%" cy="30%" r="40%">
+            <stop offset="0%" stopColor={colors.primary} stopOpacity={0.3} />
+            <stop offset="100%" stopColor={colors.primary} stopOpacity={0} />
+          </radialGradient>
+        </defs>
+
+        <rect width={dims.width} height={dims.height} fill="#0A0A0B" rx={16} />
+        <rect width={dims.width} height={dims.height} fill={`url(#${bgId})`} rx={16} />
+
+        <circle
+          cx={dims.width * 0.25}
+          cy={dims.height * 0.3}
+          r={dims.width * 0.2}
+          fill={`url(#${glowId})`}
+        />
+        <circle
+          cx={dims.width * 0.8}
+          cy={dims.height * 0.7}
+          r={dims.width * 0.15}
+          fill={`url(#${glowId})`}
+          opacity={0.5}
+        />
+
+        <g opacity={0.03} stroke="white" strokeWidth={0.5}>
+          <line x1={0} y1={dims.height * 0.3} x2={dims.width} y2={dims.height * 0.3} />
+          <line x1={0} y1={dims.height * 0.6} x2={dims.width} y2={dims.height * 0.6} />
+          <line x1={dims.width * 0.3} y1={0} x2={dims.width * 0.3} y2={dims.height} />
+          <line x1={dims.width * 0.7} y1={0} x2={dims.width * 0.7} y2={dims.height} />
+        </g>
+
+        <rect
+          x={24}
+          y={dims.height - 8}
+          width={40}
+          height={3}
+          rx={1.5}
+          fill={`url(#${accentId})`}
+          opacity={0.8}
+        />
+
+        {titleLines.map((line, i) => (
+          <text
+            key={i}
+            x={24}
+            y={dims.height - 40 + i * (dims.titleSize + 6)}
+            fontFamily="Space Grotesk, system-ui, sans-serif"
+            fontWeight={700}
+            fontSize={i === 0 ? dims.titleSize : dims.titleSize - 2}
+            fill="white"
+            opacity={1 - i * 0.15}
+          >
+            {line}
+          </text>
+        ))}
+
+        <circle cx={dims.width - 40} cy={40} r={4} fill={colors.primary} opacity={0.6} />
+        <circle cx={dims.width - 56} cy={40} r={3} fill={colors.secondary} opacity={0.4} />
+      </svg>
+    </div>
   )
 }
 

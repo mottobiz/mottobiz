@@ -11,13 +11,15 @@ import { ResourcesHero, NewsletterCTA, WhatsAppCTA } from './ResourcesHero'
 import { CategoryFilter } from './CategoryFilter'
 import { ArticleGrid } from './ArticleGrid'
 import { FeaturedArticle } from './ArticleCard'
-import { ARTICLES } from '@/data/articles'
+import { ARTICLES, LOCATION_SERVICE_ARTICLES } from '@/data/articles'
 
 interface ResourcesPageProps {
   articles?: ArticleCard[]
 }
 
-export function ResourcesPage({ articles = ARTICLES }: ResourcesPageProps) {
+const ALL_ARTICLES = [...ARTICLES, ...LOCATION_SERVICE_ARTICLES]
+
+export function ResourcesPage({ articles = ALL_ARTICLES }: ResourcesPageProps) {
   const [activeCategory, setActiveCategory] = useState<ArticleCategory | 'all'>('all')
   const [searchQuery, setSearchQuery] = useState('')
   const [isDataPrefetched, setIsDataPrefetched] = useState(false)

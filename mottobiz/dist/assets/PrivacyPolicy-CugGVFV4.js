@@ -1,4 +1,4 @@
-import{h as e,p as t,t as n,u as r,v as i,w as a,x as o}from"./proxy-0FG9IUA0.js";import{t as s}from"./SEOHead-Bjve3gdN.js";import{t as c}from"./use-in-view-aF7JZ-4b.js";var l=a(o(),1),u=r(),d=`April 16, 2026`,f=[{id:`info-we-collect`,title:`Information We Collect`,content:`We collect information you provide directly to us, including:
+import{h as e,p as t,t as n,u as r,v as i,w as a,x as o}from"./proxy-0FG9IUA0.js";import{t as s}from"./SEOHead-Cpo7doED.js";import{t as c}from"./use-in-view-aF7JZ-4b.js";var l=a(o(),1),u=r(),d=`April 16, 2026`,f=[{id:`info-we-collect`,title:`Information We Collect`,content:`We collect information you provide directly to us, including:
 
 • Personal Information — When you submit our audit form, we collect your name, email address, WhatsApp number, and business type.
 • Communication Data — When you contact us via WhatsApp, email, or phone, we retain the content of those communications.

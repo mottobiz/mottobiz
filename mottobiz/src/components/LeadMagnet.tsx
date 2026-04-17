@@ -75,6 +75,14 @@ export function LeadMagnet() {
     setDropdownOpen(false)
   }
 
+  const openWhatsAppLead = (message: string) => {
+    window.open(
+      `https://wa.me/${WHATSAPP_NUMBER}?text=${message}`,
+      '_blank',
+      'noopener,noreferrer'
+    )
+  }
+
   const onSubmit = async (data: FormValues) => {
     setSubmitError(null)
 
@@ -93,7 +101,7 @@ export function LeadMagnet() {
         const msg = encodeURIComponent(
           `Hi MottoBiz, I'd like a free automation audit.\n\nName: ${data.name}\nWhatsApp: ${data.whatsapp}\nEmail: ${data.email}\nBusiness: ${data.businessType}`
         )
-        window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, '_blank')
+        openWhatsAppLead(msg)
         setSubmitted(true)
       }
       return
@@ -103,7 +111,7 @@ export function LeadMagnet() {
     const msg = encodeURIComponent(
       `Hi MottoBiz, I'd like a free automation audit.\n\nName: ${data.name}\nWhatsApp: ${data.whatsapp}\nEmail: ${data.email}\nBusiness: ${data.businessType}`
     )
-    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, '_blank')
+    openWhatsAppLead(msg)
     setSubmitted(true)
   }
 

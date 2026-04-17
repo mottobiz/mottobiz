@@ -1,5 +1,6 @@
 import { useParams, Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
+import type { ReactNode } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { SEOHead } from '@/components/SEOHead'
 import { ArticleCardComponent } from '@/components/resources/ArticleCard'
@@ -90,6 +91,49 @@ function parseArticleContent(content: string, category: string): ParsedBlock[] {
   }
 
   return blocks
+}
+
+function renderInlineLinks(text: string): ReactNode[] {
+  const parts: ReactNode[] = []
+  const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g
+  let lastIndex = 0
+  let match: RegExpExecArray | null
+
+  while ((match = linkRegex.exec(text)) !== null) {
+    const [fullMatch, label, href] = match
+
+    if (match.index > lastIndex) {
+      parts.push(text.slice(lastIndex, match.index))
+    }
+
+    if (href.startsWith('/')) {
+      parts.push(
+        <Link key={`${href}-${match.index}`} to={href} className="text-indigo-400 hover:text-indigo-300 transition-colors">
+          {label}
+        </Link>
+      )
+    } else {
+      parts.push(
+        <a
+          key={`${href}-${match.index}`}
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-indigo-400 hover:text-indigo-300 transition-colors"
+        >
+          {label}
+        </a>
+      )
+    }
+
+    lastIndex = match.index + fullMatch.length
+  }
+
+  if (lastIndex < text.length) {
+    parts.push(text.slice(lastIndex))
+  }
+
+  return parts.length > 0 ? parts : [text]
 }
 
 export function ArticlePage() {
@@ -419,7 +463,7 @@ export function ArticlePage() {
                   default:
                     return (
                       <p key={index} className="text-white/70 leading-relaxed mb-6">
-                        {block.text}
+                        {renderInlineLinks(block.text)}
                       </p>
                     )
                 }

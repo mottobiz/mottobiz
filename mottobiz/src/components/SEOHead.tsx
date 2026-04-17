@@ -211,17 +211,12 @@ const faqSchema = {
   ],
 }
 
-// WebSite schema for search sitelinks
+// WebSite schema for entity recognition
 const websiteSchema = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
   name: 'MottoBiz',
   url: SITE_URL,
-  potentialAction: {
-    '@type': 'SearchAction',
-    target: `${SITE_URL}/search?q={search_term_string}`,
-    'query-input': 'required name=search_term_string',
-  },
 }
 
 // Organization schema for AI entity recognition
@@ -330,6 +325,8 @@ export function SEOHead({
   canonicalUrl = SITE_URL,
   ogImage = `${SITE_URL}/og-image.png`
 }: SEOHeadProps = {}) {
+  const isHomePage = canonicalUrl === SITE_URL
+
   return (
     <Helmet>
       <title>{title}</title>
@@ -347,7 +344,7 @@ export function SEOHead({
       <meta name="last-modified" content="2026-04-13" />
       
       {/* Open Graph */}
-      <meta property="og:type" content={canonicalUrl === SITE_URL ? 'business.business' : 'article'} />
+      <meta property="og:type" content={isHomePage ? 'business.business' : 'article'} />
       <meta property="og:url" content={canonicalUrl} />
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
@@ -393,7 +390,9 @@ export function SEOHead({
 
       {/* Schema Markup */}
       <script type="application/ld+json">{JSON.stringify(localBusinessSchema)}</script>
-      <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
+      {isHomePage && (
+        <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
+      )}
       <script type="application/ld+json">{JSON.stringify(websiteSchema)}</script>
       <script type="application/ld+json">{JSON.stringify(organizationSchema)}</script>
       <script type="application/ld+json">{JSON.stringify(serviceSchema)}</script>

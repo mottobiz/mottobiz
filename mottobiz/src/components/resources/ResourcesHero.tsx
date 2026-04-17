@@ -1,5 +1,7 @@
+import type { FormEvent } from 'react'
 import { motion } from 'framer-motion'
 import { SearchBar } from './CategoryFilter'
+import { EMAIL, WHATSAPP_LINK } from '@/lib/config'
 
 interface ResourcesHeroProps {
   onSearch?: (value: string) => void
@@ -62,6 +64,20 @@ export function ResourcesHero({
 
 // Newsletter CTA for resources page
 export function NewsletterCTA() {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    const formData = new FormData(event.currentTarget)
+    const email = formData.get('email')?.toString().trim()
+    const subject = encodeURIComponent('Subscribe me to MottoBiz automation tips')
+    const body = encodeURIComponent(
+      email
+        ? `Please subscribe this email to MottoBiz automation updates:\n\n${email}`
+        : 'Please subscribe me to MottoBiz automation updates.'
+    )
+
+    window.location.href = `mailto:${EMAIL}?subject=${subject}&body=${body}`
+  }
+
   return (
     <section className="py-16 px-6">
       <div className="max-w-4xl mx-auto">
@@ -85,10 +101,12 @@ export function NewsletterCTA() {
               Weekly updates on Surat business automation and new guides. No spam, just actionable advice.
             </p>
             
-            <form className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+            <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
               <input
+                name="email"
                 type="email"
                 placeholder="Enter your email"
+                required
                 className="flex-1 px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/50 focus:outline-none focus:border-indigo-500/50"
               />
               <button
@@ -131,7 +149,7 @@ export function WhatsAppCTA() {
             </p>
             
             <a
-              href="https://wa.me/917487957972?text=Hi%20MottoBiz"
+              href={WHATSAPP_LINK}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-medium transition-colors"

@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "generate:og": "node scripts/generate-og-images.mjs"
+    "generate:og": "node scripts/generate-og-images.mjs",
+    "verify:predeploy": "npm run build && npm run generate:og -- --dry-run"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.2.2",
