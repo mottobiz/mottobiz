@@ -279,20 +279,20 @@ export function LeadMagnet() {
                         transition={{ duration: 0.15 }}
                         className="absolute z-50 w-full mt-2 bg-[#1a1a2e] border border-white/10 rounded-xl shadow-2xl overflow-hidden max-h-64 overflow-y-auto"
                       >
-                        {businessTypes.map((type) => (
-                          <button
-                            key={type}
-                            type="button"
-                            onClick={() => handleSelect(type)}
-                            className={`w-full px-5 py-3 text-left text-sm transition-colors hover:bg-indigo-500/20 ${
-                              selectedBusinessType === type 
-                                ? 'bg-indigo-500/20 text-white font-medium' 
-                                : 'text-white/80'
-                            }`}
-                          >
-                            {type}
-                          </button>
-                        ))}
+{businessTypes.map((type) => (
+  <button
+    key={type}
+    type="button"
+    onClick={() => handleSelect(type)}
+    className={`w-full px-5 py-3 text-left text-sm transition-colors hover:bg-indigo-500/20 ${
+      selectedBusinessType === type 
+        ? 'bg-indigo-500/20 text-white font-medium' 
+        : 'text-white'
+    }`}
+  >
+    {type}
+  </button>
+))}
                       </motion.div>
                     )}
                   </AnimatePresence>

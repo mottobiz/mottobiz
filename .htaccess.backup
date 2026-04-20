@@ -2,14 +2,6 @@
   RewriteEngine On
   RewriteBase /
 
-  # Redirect HTTP to HTTPS
-  RewriteCond %{HTTPS} off
-  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301,NE]
-
-  # Redirect www to non-www
-  RewriteCond %{HTTP_HOST} ^www\.mottobiz\.com$ [NC]
-  RewriteRule ^ https://mottobiz.com%{REQUEST_URI} [L,R=301,NE]
-
   # Explicitly allow all static asset paths through
   RewriteRule ^assets/ - [L]
   RewriteRule ^public/assets/ - [L]
