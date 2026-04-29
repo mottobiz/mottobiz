@@ -1,41 +1,274 @@
-# AI-optimized robots.txt for MottoBiz
-# Last updated: 2026-04-13
+# robots.txt for MottoBiz
+# https://www.mottobiz.com/robots.txt
+# Last updated: 2026-04-29
 
-# Allow all search engines and AI assistants
-User-agent: *
-Allow: /
+# ============================================
+# CONTENT SIGNALS - AI USAGE PREFERENCES
+# https://contentsignals.org/
+# ============================================
 
-# Specific AI Search Bots - ALLOW (can cite your content)
+# ai-train: Whether content can be used for AI training
+# Values: yes | no
+Content-Signal: ai-train=no
+
+# search: Whether content can be used for search indexing
+# Values: yes | no
+Content-Signal: search=yes
+
+# ai-input: Whether content can be used as input to AI systems
+# Values: yes | no
+Content-Signal: ai-input=yes
+
+# ai-generate: Whether AI can generate content based on this
+# Values: yes | no
+Content-Signal: ai-generate=no
+
+# ============================================
+# OPENAI BOTS
+# ============================================
+
+# GPTBot - OpenAI's web crawler for training
 User-agent: GPTBot
 Allow: /
 
+# ChatGPT-User - ChatGPT browsing plugin
 User-agent: ChatGPT-User
 Allow: /
 
-User-agent: PerplexityBot
+# OAI-SearchBot - OpenAI search crawler
+User-agent: OAI-SearchBot
 Allow: /
 
+# ============================================
+# ANTHROPIC BOTS
+# ============================================
+
+# ClaudeBot - Anthropic's web crawler
 User-agent: ClaudeBot
 Allow: /
 
+# Claude-Web - Anthropic search/assistant crawler
+User-agent: Claude-Web
+Allow: /
+
+# anthropic-ai - General Anthropic crawler
 User-agent: anthropic-ai
 Allow: /
 
+# Training opt-out
+User-agent: anthropic-ai-training
+Disallow: /
+
+# ============================================
+# GOOGLE AI BOTS
+# ============================================
+
+# Google-Extended - Google's AI crawler (Gemini, Bard, etc.)
 User-agent: Google-Extended
 Allow: /
 
+# Googlebot - Standard search crawler
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: Googlebot-News
+Allow: /
+
+User-agent: Googlebot-Video
+Allow: /
+
+# ============================================
+# PERPLEXITY BOTS
+# ============================================
+
+# PerplexityBot - Perplexity AI search
+User-agent: PerplexityBot
+Allow: /
+
+# ============================================
+# MICROSOFT BOTS
+# ============================================
+
+# Bingbot - Microsoft search
 User-agent: Bingbot
 Allow: /
 
-# Training crawlers - DISALLOW (opt-out of training data collection)
-User-agent: CCBot
-Disallow: /
+# Microsoft Copilot/AI crawlers
+User-agent: MicrosoftPreview
+Allow: /
 
+User-agent: msnbot
+Allow: /
+
+User-agent: msnbot-media
+Allow: /
+
+# ============================================
+# META/FACEBOOK BOTS
+# ============================================
+
+# Meta AI crawlers (training disallowed)
 User-agent: FacebookBot
 Disallow: /
 
-# Sitemap location
+User-agent: Meta-ExternalAgent
+Disallow: /
+
+User-agent: meta-externalfetcher
+Disallow: /
+
+# Facebook sharing bot (allowed)
+User-agent: facebookexternalhit
+Allow: /
+
+# ============================================
+# OTHER AI BOTS
+# ============================================
+
+# Applebot - Apple search/AI
+User-agent: Applebot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+# Amazonbot - Amazon AI (training disallowed)
+User-agent: Amazonbot
+Disallow: /
+
+# ByteDance/Crawlers
+User-agent: Bytespider
+Disallow: /
+
+# Common Crawl (training disallowed)
+User-agent: CCBot
+Disallow: /
+
+# Diffbot
+User-agent: Diffbot
+Allow: /
+
+# ============================================
+# SOCIAL MEDIA BOTS
+# ============================================
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+User-agent: WhatsApp
+Allow: /
+
+User-agent: TelegramBot
+Allow: /
+
+User-agent: Slackbot
+Allow: /
+
+User-agent: Discordbot
+Allow: /
+
+# ============================================
+# SEARCH ENGINE BOTS
+# ============================================
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: DuckDuckGo-Favicons-Bot
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
+
+User-agent: YandexBot
+Allow: /
+
+User-agent: YandexImages
+Allow: /
+
+User-agent: NaverBot
+Allow: /
+
+User-agent: SeznamBot
+Allow: /
+
+User-agent: Qwantify
+Allow: /
+
+User-agent: EcosiaBot
+Allow: /
+
+# ============================================
+# SEO/ARCHIVE BOTS
+# ============================================
+
+User-agent: AhrefsBot
+Allow: /
+Crawl-delay: 2
+
+User-agent: AhrefsSiteAudit
+Allow: /
+Crawl-delay: 2
+
+User-agent: SemrushBot
+Allow: /
+Crawl-delay: 2
+
+User-agent: SemrushBot-SA
+Allow: /
+Crawl-delay: 2
+
+User-agent: MJ12bot
+Allow: /
+Crawl-delay: 5
+
+User-agent: DotBot
+Allow: /
+Crawl-delay: 5
+
+User-agent: Screaming Frog SEO Spider
+Allow: /
+Crawl-delay: 5
+
+# ============================================
+# ALL OTHER BOTS - DEFAULT ALLOW
+# ============================================
+
+User-agent: *
+Allow: /
+
+# ============================================
+# DISALLOW RULES (Apply to all bots)
+# ============================================
+
+# Block access to sensitive paths
+Disallow: /admin/
+Disallow: /api/
+Disallow: /private/
+Disallow: /temp/
+Disallow: /draft/
+Disallow: /test/
+Disallow: /staging/
+
+# Block query parameters that create duplicate content
+Disallow: /*?*
+Allow: /*?utm_
+Allow: /*?fbclid
+
+# ============================================
+# SITEMAP
+# ============================================
+
 Sitemap: https://mottobiz.com/sitemap.xml
 
-# Host
+# ============================================
+# HOST
+# ============================================
+
 Host: https://mottobiz.com

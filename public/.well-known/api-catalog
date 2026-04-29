@@ -1,0 +1,81 @@
+{
+  "linkset": [
+    {
+      "anchor": "https://mottobiz.com/",
+      "rel": "https://mottobiz.com/",
+      "href": "https://mottobiz.com/",
+      "title": "MottoBiz Homepage"
+    },
+    {
+      "anchor": "https://mottobiz.com/api/v1/",
+      "rel": "service",
+      "href": "https://mottobiz.com/api/v1/",
+      "title": "MottoBiz API v1"
+    },
+    {
+      "anchor": "https://mottobiz.com/api/v1/",
+      "rel": "service-desc",
+      "href": "https://mottobiz.com/api/v1/openapi.json",
+      "title": "OpenAPI Specification",
+      "type": "application/vnd.oai.openapi+json;version=3.0"
+    },
+    {
+      "anchor": "https://mottobiz.com/api/v1/",
+      "rel": "service-doc",
+      "href": "https://mottobiz.com/resources/getting-started-business-automation",
+      "title": "API Documentation",
+      "type": "text/html"
+    },
+    {
+      "anchor": "https://mottobiz.com/api/v1/",
+      "rel": "status",
+      "href": "https://mottobiz.com/api/v1/health",
+      "title": "Health Check Endpoint"
+    },
+    {
+      "anchor": "https://mottobiz.com/api/v1/",
+      "rel": "author",
+      "href": "mailto:webmaster@mottobiz.com",
+      "title": "API Contact"
+    },
+    {
+      "anchor": "https://mottobiz.com/api/v1/",
+      "rel": "terms-of-service",
+      "href": "https://mottobiz.com/terms",
+      "title": "Terms of Service"
+    },
+    {
+      "anchor": "https://mottobiz.com/api/v1/",
+      "rel": "privacy-policy",
+      "href": "https://mottobiz.com/privacy",
+      "title": "Privacy Policy"
+    },
+    {
+      "anchor": "https://mottobiz.com/",
+      "rel": "sitemap",
+      "href": "https://mottobiz.com/sitemap.xml",
+      "title": "Sitemap",
+      "type": "application/xml"
+    },
+    {
+      "anchor": "https://mottobiz.com/",
+      "rel": "robots",
+      "href": "https://mottobiz.com/robots.txt",
+      "title": "Robots.txt"
+    },
+    {
+      "anchor": "https://mottobiz.com/",
+      "rel": "llms",
+      "href": "https://mottobiz.com/llms.txt",
+      "title": "LLM Context",
+      "type": "text/plain"
+    },
+    {
+      "anchor": "https://mottobiz.com/",
+      "rel": "pricing",
+      "href": "https://mottobiz.com/pricing.md",
+      "title": "Pricing Information",
+      "type": "text/markdown"
+    }
+  ]
+}

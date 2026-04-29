@@ -1,0 +1,220 @@
+{
+  "$schema": "https://agentskills.io/schemas/agent-skills-discovery-v0.2.0.json",
+  "version": "1.0.0",
+  "server": {
+    "name": "MottoBiz",
+    "url": "https://mottobiz.com",
+    "description": "AI-powered business automation studio for Surat businesses",
+    "contact": {
+      "email": "webmaster@mottobiz.com",
+      "phone": "+91-74879-57972"
+    }
+  },
+  "skills": [
+    {
+      "name": "whatsapp_automation",
+      "type": "tool",
+      "description": "Send automated WhatsApp messages, handle auto-replies, and manage customer conversations 24/7",
+      "url": "https://mottobiz.com/resources/whatsapp-automation-textile-traders-surat",
+      "sha256": "a1b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef123456",
+      "capabilities": [
+        "send_message",
+        "auto_reply",
+        "template_messaging",
+        "bulk_messaging",
+        "conversation_handoff"
+      ],
+      "parameters": {
+        "phone": {
+          "type": "string",
+          "description": "Recipient phone number with country code",
+          "required": true
+        },
+        "message": {
+          "type": "string",
+          "description": "Message content or template name",
+          "required": true
+        },
+        "media_url": {
+          "type": "string",
+          "description": "Optional media attachment URL",
+          "required": false
+        }
+      }
+    },
+    {
+      "name": "lead_management",
+      "type": "tool",
+      "description": "Capture, qualify, and manage leads with automated follow-ups and CRM integration",
+      "url": "https://mottobiz.com/resources/real-estate-lead-automation-surat",
+      "sha256": "b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef123456a1",
+      "capabilities": [
+        "create_lead",
+        "qualify_lead",
+        "update_status",
+        "schedule_followup",
+        "lead_scoring"
+      ],
+      "parameters": {
+        "name": {
+          "type": "string",
+          "description": "Lead name",
+          "required": true
+        },
+        "phone": {
+          "type": "string",
+          "description": "Lead phone number",
+          "required": true
+        },
+        "email": {
+          "type": "string",
+          "description": "Lead email address",
+          "required": false
+        },
+        "source": {
+          "type": "string",
+          "description": "Lead source (website, whatsapp, referral, etc.)",
+          "required": true
+        }
+      }
+    },
+    {
+      "name": "workflow_automation",
+      "type": "tool",
+      "description": "Create and trigger automated workflows using n8n, Make.com, and custom integrations",
+      "url": "https://mottobiz.com/resources/getting-started-business-automation",
+      "sha256": "c3d4e5f6789012345678901234567890abcdef1234567890abcdef123456a1b2",
+      "capabilities": [
+        "trigger_workflow",
+        "schedule_workflow",
+        "workflow_monitoring",
+        "integration_management"
+      ],
+      "parameters": {
+        "workflow_id": {
+          "type": "string",
+          "description": "Unique workflow identifier",
+          "required": true
+        },
+        "trigger": {
+          "type": "string",
+          "description": "Trigger type (webhook, schedule, event)",
+          "required": true
+        },
+        "payload": {
+          "type": "object",
+          "description": "Workflow input data",
+          "required": false
+        }
+      }
+    },
+    {
+      "name": "analytics_reporting",
+      "type": "tool",
+      "description": "Generate business analytics, reports, and insights on leads, conversions, and revenue",
+      "url": "https://mottobiz.com/resources/business-intelligence",
+      "sha256": "d4e5f6789012345678901234567890abcdef1234567890abcdef123456a1b2c3",
+      "capabilities": [
+        "generate_report",
+        "get_metrics",
+        "export_data",
+        "schedule_reports"
+      ],
+      "parameters": {
+        "metric": {
+          "type": "string",
+          "description": "Metric type (leads, conversions, revenue, engagement)",
+          "required": true
+        },
+        "period": {
+          "type": "string",
+          "description": "Time period (daily, weekly, monthly, custom)",
+          "required": true
+        },
+        "format": {
+          "type": "string",
+          "description": "Output format (json, csv, pdf)",
+          "required": false
+        }
+      }
+    },
+    {
+      "name": "social_media_automation",
+      "type": "tool",
+      "description": "Automate social media posting, scheduling, and content creation across platforms",
+      "url": "https://mottobiz.com/resources/social-media-automation",
+      "sha256": "e5f6789012345678901234567890abcdef1234567890abcdef123456a1b2c3d4",
+      "capabilities": [
+        "schedule_post",
+        "auto_publish",
+        "content_generation",
+        "cross_platform_sync"
+      ],
+      "parameters": {
+        "platform": {
+          "type": "string",
+          "description": "Social platform (instagram, facebook, linkedin)",
+          "required": true
+        },
+        "content": {
+          "type": "string",
+          "description": "Post content or caption",
+          "required": true
+        },
+        "media": {
+          "type": "array",
+          "description": "Media attachments",
+          "required": false
+        },
+        "schedule_time": {
+          "type": "string",
+          "description": "ISO 8601 datetime for scheduled posts",
+          "required": false
+        }
+      }
+    },
+    {
+      "name": "website_development",
+      "type": "service",
+      "description": "Build high-converting, SEO-optimized websites with lead capture and WhatsApp integration",
+      "url": "https://mottobiz.com/resources/website-development-varachha",
+      "sha256": "f6789012345678901234567890abcdef1234567890abcdef123456a1b2c3d4e5",
+      "capabilities": [
+        "landing_pages",
+        "ecommerce_sites",
+        "business_websites",
+        "seo_optimization",
+        "lead_capture_forms"
+      ]
+    },
+    {
+      "name": "business_automation_audit",
+      "type": "service",
+      "description": "Free 30-minute consultation to identify automation opportunities in your business",
+      "url": "https://mottobiz.com/#audit",
+      "sha256": "7890123456789012345678901234567890abcdef1234567890abcdef123456a1b2",
+      "capabilities": [
+        "process_analysis",
+        "automation_recommendations",
+        "roi_calculation",
+        "implementation_roadmap"
+      ]
+    }
+  ],
+  "endpoints": {
+    "mcp": "https://mottobiz.com/.well-known/mcp/server-card.json",
+    "api": "https://mottobiz.com/api/v1",
+    "openapi": "https://mottobiz.com/api/v1/openapi.json",
+    "oauth": "https://mottobiz.com/.well-known/openid-configuration",
+    "oauth_resource": "https://mottobiz.com/.well-known/oauth-protected-resource"
+  },
+  "localization": {
+    "default_locale": "en-US",
+    "supported_locales": ["en-US", "hi-IN", "gu-IN"]
+  },
+  "contact": {
+    "whatsapp": "https://wa.me/917487957972",
+    "email": "webmaster@mottobiz.com",
+    "phone": "+91-74879-57972"
+  }
+}

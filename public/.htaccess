@@ -2,7 +2,28 @@
   RewriteEngine On
   RewriteBase /
 
-  # Explicitly allow all static asset paths through
+  # ============================================
+  # WELL-KNOWN RESOURCES
+  # ============================================
+  RewriteRule ^\.well-known/api-catalog$ - [L]
+  RewriteRule ^\.well-known/openid-configuration$ - [L]
+  RewriteRule ^\.well-known/jwks\.json$ - [L]
+  RewriteRule ^\.well-known/oauth-protected-resource$ - [L]
+  RewriteRule ^\.well-known/mcp/server-card\.json$ - [L]
+  RewriteRule ^\.well-known/agent-skills/index\.json$ - [L]
+
+  # ============================================
+  # MARKDOWN CONTENT NEGOTIATION FOR AGENTS
+  # ============================================
+  RewriteCond %{HTTP:Accept} text/markdown [NC]
+  RewriteRule ^$ /llms.txt [L,E=MARKDOWN_REQUEST:1]
+  
+  RewriteCond %{HTTP:Accept} text/markdown [NC]
+  RewriteRule ^resources/?$ /pricing.md [L,E=MARKDOWN_REQUEST:1]
+
+  # ============================================
+  # STATIC ASSETS - ALLOW DIRECT ACCESS
+  # ============================================
   RewriteRule ^assets/ - [L]
   RewriteRule ^public/assets/ - [L]
   RewriteRule ^og/ - [L]
@@ -11,13 +32,142 @@
   RewriteRule ^favicon\.ico$ - [L]
   RewriteRule ^robots\.txt$ - [L]
   RewriteRule ^sitemap\.xml$ - [L]
+  RewriteRule ^llms\.txt$ - [L]
+  RewriteRule ^pricing\.md$ - [L]
+  RewriteRule ^\.well-known/ - [L]
   RewriteRule ^public/sitemap\.xml$ - [L]
   RewriteRule ^public/favicon\.svg$ - [L]
   RewriteRule ^public/robots\.txt$ - [L]
+  RewriteRule ^public/llms\.txt$ - [L]
+  RewriteRule ^public/pricing\.md$ - [L]
   RewriteRule ^logo.*\.(svg|png)$ - [L]
 
   # SPA fallback for all other routes
   RewriteRule ^ /index.html [L]
+</IfModule>
+
+# ============================================
+# API CATALOG CONTENT TYPE (RFC 9727)
+# ============================================
+
+<IfModule mod_headers.c>
+  <Files ".well-known/api-catalog">
+    Header set Content-Type "application/linkset+json"
+    Header set X-Content-Type-Options "nosniff"
+    Header set Cache-Control "max-age=3600, public"
+    Header set Access-Control-Allow-Origin "*"
+  </Files>
+  
+  <Files "openid-configuration">
+    Header set Content-Type "application/json"
+    Header set X-Content-Type-Options "nosniff"
+    Header set Cache-Control "max-age=3600, public"
+    Header set Access-Control-Allow-Origin "*"
+  </Files>
+  
+  <Files "jwks.json">
+    Header set Content-Type "application/json"
+    Header set X-Content-Type-Options "nosniff"
+    Header set Cache-Control "max-age=3600, public"
+    Header set Access-Control-Allow-Origin "*"
+  </Files>
+  
+  <Files "oauth-protected-resource">
+    Header set Content-Type "application/json"
+    Header set X-Content-Type-Options "nosniff"
+    Header set Cache-Control "max-age=3600, public"
+    Header set Access-Control-Allow-Origin "*"
+  </Files>
+  
+  <FilesMatch "mcp/.*\.json$">
+    Header set Content-Type "application/json"
+    Header set X-Content-Type-Options "nosniff"
+    Header set Cache-Control "max-age=3600, public"
+    Header set Access-Control-Allow-Origin "*"
+  </FilesMatch>
+  
+  <FilesMatch "agent-skills/.*\.json$">
+    Header set Content-Type "application/json"
+    Header set X-Content-Type-Options "nosniff"
+    Header set Cache-Control "max-age=3600, public"
+    Header set Access-Control-Allow-Origin "*"
+  </FilesMatch>
+</IfModule>
+
+# ============================================
+# MARKDOWN RESPONSE HEADERS
+# ============================================
+
+<IfModule mod_headers.c>
+  <FilesMatch "\.(md|txt)$">
+    Header set Content-Type "text/markdown; charset=utf-8"
+    Header set X-Content-Type-Options "nosniff"
+  </FilesMatch>
+  
+  <Files "llms.txt">
+    Header set Content-Type "text/markdown; charset=utf-8"
+    Header set X-Robots-Tag "all"
+  </Files>
+  
+  <Files "pricing.md">
+    Header set Content-Type "text/markdown; charset=utf-8"
+    Header set X-Robots-Tag "all"
+  </Files>
+</IfModule>
+
+# ============================================
+# LINK HEADERS FOR AGENT DISCOVERY (RFC 8288)
+# ============================================
+
+<IfModule mod_headers.c>
+  <Files "index.html">
+    Header set Link "</.well-known/api-catalog>; rel=api-catalog, </sitemap.xml>; rel=sitemap, </robots.txt>; rel=robots, </llms.txt>; rel=llms, </pricing.md>; rel=pricing, <https://mottobiz.com>; rel=canonical"
+    Header set Accept-CH "Sec-CH-UA-Platform, Sec-CH-UA-Platform-Version"
+    Header set Vary "Accept"
+  </Files>
+  
+  <LocationMatch "^/$">
+    Header set Link "</.well-known/api-catalog>; rel=api-catalog, </sitemap.xml>; rel=sitemap, </robots.txt>; rel=robots, </llms.txt>; rel=llms, </pricing.md>; rel=pricing, <https://mottobiz.com>; rel=canonical"
+    Header set Vary "Accept"
+  </LocationMatch>
+  
+  # CORS headers for API access
+  Header set Access-Control-Allow-Origin "*"
+  Header set Access-Control-Allow-Methods "GET, POST, OPTIONS"
+  Header set Access-Control-Allow-Headers "Content-Type, Authorization, Accept"
+  Header set Access-Control-Expose-Headers "Content-Type, X-Markdown-Tokens"
+</IfModule>
+
+# ============================================
+# CONTENT TYPE MAPPINGS
+# ============================================
+
+AddType text/markdown .md
+AddType text/markdown .txt
+AddType text/plain .txt
+
+# ============================================
+# CACHE CONTROL
+# ============================================
+
+<IfModule mod_headers.c>
+  <FilesMatch "\.(js|css|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot)$">
+    Header set Cache-Control "max-age=31536000, public, immutable"
+  </FilesMatch>
+  
+  <FilesMatch "\.html$">
+    Header set Cache-Control "no-cache, no-store, must-revalidate"
+    Header set Vary "Accept"
+  </FilesMatch>
+  
+  <FilesMatch "\.(md|txt)$">
+    Header set Cache-Control "max-age=3600, public"
+    Header set Content-Type "text/markdown; charset=utf-8"
+  </FilesMatch>
+  
+  <FilesMatch "(sitemap\.xml|robots\.txt)$">
+    Header set Cache-Control "max-age=3600, public"
+  </FilesMatch>
 </IfModule>
 
 # Fallback for servers without mod_rewrite
@@ -25,4 +175,13 @@
   <FilesMatch "\.(js|css|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot)$">
     Header set Cache-Control "max-age=31536000, public"
   </FilesMatch>
+</IfModule>
+
+# ============================================
+# OPTIONS REQUEST HANDLING (CORS PREFLIGHT)
+# ============================================
+
+<IfModule mod_rewrite.c>
+  RewriteCond %{REQUEST_METHOD} OPTIONS
+  RewriteRule ^ - [R=204,L]
 </IfModule>

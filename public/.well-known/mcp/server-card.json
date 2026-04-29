@@ -1,0 +1,159 @@
+{
+  "schema_version": "1.0",
+  "server_info": {
+    "name": "MottoBiz Automation API",
+    "version": "1.0.0",
+    "description": "AI-powered business automation services for Surat businesses - WhatsApp automation, lead management, workflow automation",
+    "vendor": {
+      "name": "MottoBiz",
+      "url": "https://mottobiz.com",
+      "contact": "webmaster@mottobiz.com"
+    },
+    "license": "Commercial",
+    "homepage": "https://mottobiz.com",
+    "documentation": "https://mottobiz.com/resources/getting-started-business-automation"
+  },
+  "transport": {
+    "type": "http",
+    "endpoint": "https://mottobiz.com/api/v1/mcp",
+    "protocol": "mcp",
+    "protocol_version": "2025-03-26",
+    "authentication": {
+      "type": "oauth2",
+      "authorization_endpoint": "https://mottobiz.com/api/v1/auth/authorize",
+      "token_endpoint": "https://mottobiz.com/api/v1/auth/token",
+      "scopes": ["mcp:read", "mcp:write"]
+    }
+  },
+  "capabilities": {
+    "tools": {
+      "listChanged": true,
+      "supported": [
+        {
+          "name": "send_whatsapp_message",
+          "description": "Send automated WhatsApp messages to customers",
+          "parameters": {
+            "phone": "string",
+            "message": "string",
+            "template": "string (optional)"
+          }
+        },
+        {
+          "name": "create_lead",
+          "description": "Create a new lead in the CRM system",
+          "parameters": {
+            "name": "string",
+            "phone": "string",
+            "email": "string (optional)",
+            "source": "string",
+            "notes": "string (optional)"
+          }
+        },
+        {
+          "name": "get_lead_status",
+          "description": "Check the status of a lead",
+          "parameters": {
+            "lead_id": "string"
+          }
+        },
+        {
+          "name": "schedule_followup",
+          "description": "Schedule an automated follow-up",
+          "parameters": {
+            "lead_id": "string",
+            "date": "string (ISO 8601)",
+            "type": "string (whatsapp|email|call)"
+          }
+        },
+        {
+          "name": "get_analytics",
+          "description": "Retrieve business analytics and reports",
+          "parameters": {
+            "metric": "string (leads|conversions|revenue)",
+            "period": "string (daily|weekly|monthly)"
+          }
+        },
+        {
+          "name": "trigger_workflow",
+          "description": "Trigger an automation workflow",
+          "parameters": {
+            "workflow_id": "string",
+            "payload": "object"
+          }
+        }
+      ]
+    },
+    "resources": {
+      "listChanged": true,
+      "subscribe": true,
+      "supported": [
+        {
+          "uri": "mcp://leads",
+          "name": "Leads Database",
+          "description": "Access to lead information",
+          "mimeType": "application/json"
+        },
+        {
+          "uri": "mcp://contacts",
+          "name": "Contacts",
+          "description": "Customer contact information",
+          "mimeType": "application/json"
+        },
+        {
+          "uri": "mcp://analytics",
+          "name": "Analytics",
+          "description": "Business analytics and metrics",
+          "mimeType": "application/json"
+        },
+        {
+          "uri": "mcp://workflows",
+          "name": "Workflows",
+          "description": "Automation workflow definitions",
+          "mimeType": "application/json"
+        }
+      ]
+    },
+    "prompts": {
+      "listChanged": false,
+      "supported": [
+        {
+          "name": "lead_qualification",
+          "description": "Qualify a lead based on conversation"
+        },
+        {
+          "name": "follow_up_suggestion",
+          "description": "Suggest follow-up actions for a lead"
+        },
+        {
+          "name": "whatsapp_template",
+          "description": "Generate WhatsApp message templates"
+        }
+      ]
+    },
+    "logging": {},
+    "sampling": {}
+  },
+  "localization": {
+    "default_locale": "en-US",
+    "supported_locales": ["en-US", "hi-IN", "gu-IN"]
+  },
+  "contact": {
+    "email": "webmaster@mottobiz.com",
+    "phone": "+91-74879-57972",
+    "whatsapp": "https://wa.me/917487957972"
+  },
+  "links": {
+    "openapi": "https://mottobiz.com/api/v1/openapi.json",
+    "documentation": "https://mottobiz.com/resources/getting-started-business-automation",
+    "terms_of_service": "https://mottobiz.com/terms",
+    "privacy_policy": "https://mottobiz.com/privacy",
+    "api_catalog": "https://mottobiz.com/.well-known/api-catalog",
+    "openid_configuration": "https://mottobiz.com/.well-known/openid-configuration",
+    "oauth_protected_resource": "https://mottobiz.com/.well-known/oauth-protected-resource"
+  },
+  "status": {
+    "state": "operational",
+    "health_endpoint": "https://mottobiz.com/api/v1/health",
+    "uptime_last_30_days": "99.9%"
+  }
+}

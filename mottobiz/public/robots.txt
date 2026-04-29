@@ -1,0 +1,135 @@
+# robots.txt for MottoBiz
+# https://www.mottobiz.com/robots.txt
+# Last updated: 2026-04-29
+
+# ============================================
+# AI SEARCH BOTS - ALLOW (Can cite content)
+# ============================================
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+# ============================================
+# SEARCH ENGINE BOTS - ALLOW
+# ============================================
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: Googlebot-News
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
+
+# ============================================
+# SOCIAL MEDIA BOTS - ALLOW
+# ============================================
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+User-agent: WhatsApp
+Allow: /
+
+# ============================================
+# TRAINING/CRAWL BOTS - DISALLOW
+# Opt-out of training data collection
+# ============================================
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: FacebookBot
+Disallow: /
+
+User-agent: Amazonbot
+Disallow: /
+
+User-agent: anthropic-ai-training
+Disallow: /
+
+# ============================================
+# SEO/ARCHIVE BOTS - ALLOW WITH LIMITS
+# ============================================
+
+User-agent: AhrefsBot
+Allow: /
+Crawl-delay: 2
+
+User-agent: SemrushBot
+Allow: /
+Crawl-delay: 2
+
+User-agent: MJ12bot
+Allow: /
+Crawl-delay: 5
+
+User-agent: DotBot
+Allow: /
+Crawl-delay: 5
+
+# ============================================
+# ALL OTHER BOTS - DEFAULT ALLOW
+# ============================================
+
+User-agent: *
+Allow: /
+
+# ============================================
+# DISALLOW RULES
+# ============================================
+
+# Block access to sensitive paths
+Disallow: /admin/
+Disallow: /api/
+Disallow: /private/
+Disallow: /temp/
+Disallow: /draft/
+
+# Block query parameters that create duplicate content
+Disallow: /*?*
+Allow: /*?utm_
+Allow: /*?fbclid
+
+# ============================================
+# SITEMAP
+# ============================================
+
+Sitemap: https://mottobiz.com/sitemap.xml
+
+# ============================================
+# HOST
+# ============================================
+
+Host: https://mottobiz.com
