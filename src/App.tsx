@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { SEOHead } from './components/SEOHead'
 import { CustomCursor, AnimatedBackground } from './components/effects'
 import { Navbar } from './components/Navbar'
+import { CookieConsent } from './components/CookieConsent'
 import { Footer } from './components/Footer'
 import { ErrorBoundary } from './components/ErrorBoundary'
 
@@ -43,6 +44,7 @@ function App() {
 
       <div className="relative z-10">
         <Navbar />
+        <CookieConsent />
         <ErrorBoundary>
           <Suspense fallback={<PageLoader />}>
             <Routes>
