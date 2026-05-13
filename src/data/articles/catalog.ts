@@ -983,4 +983,109 @@ export const LOCATION_SERVICE_ARTICLES: ArticleCard[] = [
   },
 ]
 
+// ==========================================
+// PILLAR 6: AI Agents & Agentic Automation
+// ==========================================
+export const AI_AGENT_ARTICLES: ArticleCard[] = [
+  {
+    id: 'ai-agent-small-business-surat',
+    title: "What is an AI Agent? A Plain-English Guide for Surat Business Owners",
+    excerpt: "AI agents are not chatbots. They reason, plan, and act on your behalf—24/7, without salary. Here's what that means for your Surat business in 2025.",
+    slug: 'ai-agent-small-business-surat',
+    category: 'guides',
+    pillar: 'AI Agents & Agentic Automation',
+    subPillar: 'AI Agent Fundamentals',
+    readingTime: 9,
+    publishDate: '2026-05-10',
+    featured: true,
+    difficulty: 'beginner'
+  },
+  {
+    id: 'replace-employee-ai-agent-india',
+    title: "Replace Your First Employee with an AI Agent: A Realistic Guide",
+    excerpt: "Hiring in India costs ₹3–5L per year—before training, leaves, and turnover. AI agents do specific jobs 24/7 for a fraction of that. Here's what's actually replaceable.",
+    slug: 'replace-employee-ai-agent-india',
+    category: 'guides',
+    pillar: 'AI Agents & Agentic Automation',
+    subPillar: 'AI Digital Employees',
+    readingTime: 10,
+    publishDate: '2026-05-09',
+    featured: true,
+    difficulty: 'intermediate'
+  },
+  {
+    id: 'agentic-workflow-automation-guide',
+    title: "Agentic Workflow Automation: What Small Businesses in Surat Need to Know",
+    excerpt: "Basic automation answers questions. Agentic workflows make decisions, learn from outcomes, and act without being told. Here's how to build them for your business.",
+    slug: 'agentic-workflow-automation-guide',
+    category: 'guides',
+    pillar: 'AI Agents & Agentic Automation',
+    subPillar: 'Agentic Workflows',
+    readingTime: 11,
+    publishDate: '2026-05-08',
+    difficulty: 'intermediate'
+  },
+  {
+    id: 'ai-digital-employee-cost-comparison',
+    title: "AI Digital Employee vs Human Employee: Real Cost Breakdown for India",
+    excerpt: "A human employee costs ₹4–8L/year in total cost. An AI digital employee handles specific roles for ₹5,000–25,000/month. Side-by-side comparison for Surat businesses.",
+    slug: 'ai-digital-employee-cost-comparison',
+    category: 'comparisons',
+    pillar: 'AI Agents & Agentic Automation',
+    subPillar: 'AI Digital Employees',
+    readingTime: 8,
+    publishDate: '2026-05-07',
+    difficulty: 'beginner'
+  },
+  {
+    id: 'n8n-ai-agent-setup-small-business',
+    title: "Build Your First AI Agent with n8n: A Step-by-Step Guide",
+    excerpt: "n8n is the most powerful free automation tool for small businesses. Here's how to build an actual AI agent—one that reasons and acts—without coding knowledge.",
+    slug: 'n8n-ai-agent-setup-small-business',
+    category: 'guides',
+    pillar: 'AI Agents & Agentic Automation',
+    subPillar: 'AI Agent Tools & Setup',
+    readingTime: 12,
+    publishDate: '2026-05-06',
+    difficulty: 'intermediate'
+  },
+  {
+    id: 'autonomous-lead-followup-agent',
+    title: "The Autonomous Lead Follow-Up Agent That Never Sleeps",
+    excerpt: "Every rupee you spend on advertising ends up in a lead. Most Surat businesses lose 60% of those leads to slow follow-up. An autonomous agent changes that completely.",
+    slug: 'autonomous-lead-followup-agent',
+    category: 'industries',
+    pillar: 'AI Agents & Agentic Automation',
+    subPillar: 'Agentic Workflows',
+    readingTime: 9,
+    publishDate: '2026-05-05',
+    difficulty: 'intermediate'
+  },
+  {
+    id: 'solopreneur-automation-india-2025',
+    title: "The Solopreneur Stack: Run a Full Business Alone with AI Agents in 2025",
+    excerpt: "A solopreneur in Surat can now do the work of a 5-person team. The secret is a coordinated stack of AI agents handling sales, operations, content, and client delivery.",
+    slug: 'solopreneur-automation-india-2025',
+    category: 'guides',
+    pillar: 'AI Agents & Agentic Automation',
+    subPillar: 'Solopreneur & SMB Automation',
+    readingTime: 11,
+    publishDate: '2026-05-04',
+    featured: true,
+    difficulty: 'intermediate'
+  },
+  {
+    id: 'ai-agent-vs-chatbot-difference',
+    title: "AI Agent vs Chatbot: What's Actually Different for Your Business?",
+    excerpt: "Both talk. Only one thinks, plans, and acts. If you've set up a chatbot and wondered why it feels limited—here's the real difference and why it matters for Surat businesses.",
+    slug: 'ai-agent-vs-chatbot-difference',
+    category: 'comparisons',
+    pillar: 'AI Agents & Agentic Automation',
+    subPillar: 'AI Agent Fundamentals',
+    readingTime: 8,
+    publishDate: '2026-05-03',
+    difficulty: 'beginner'
+  },
+]
+
 // Get article by slug - searches all article arrays

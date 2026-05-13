@@ -1,26 +1,26 @@
 ﻿import type { ArticleCard, ArticleEnrichment, FAQItem, InternalLink, SEOFields, StatCardData, ChecklistData, StepItem, ProTipData, WarningData } from '@/types/article'
-import { ARTICLES, LOCATION_SERVICE_ARTICLES } from './catalog'
+import { ARTICLES, LOCATION_SERVICE_ARTICLES, AI_AGENT_ARTICLES } from './catalog'
 import { TLDR_DATABASE, FAQ_DATABASE, STATCARDS_DATABASE, CHECKLISTS_DATABASE, STEPS_DATABASE, PROTIPS_DATABASE, WARNINGS_DATABASE } from './enrichment'
 
 // Helper and enrichment logic extracted from src/data/articles.ts.
 
 export function getArticleBySlug(slug: string): ArticleCard | undefined {
-  return ARTICLES.find(article => article.slug === slug) || LOCATION_SERVICE_ARTICLES.find(article => article.slug === slug)
+  return ARTICLES.find(article => article.slug === slug) || LOCATION_SERVICE_ARTICLES.find(article => article.slug === slug) || AI_AGENT_ARTICLES.find(article => article.slug === slug)
 }
 
 // Get articles by category
 export function getArticlesByCategory(category: string): ArticleCard[] {
-  return [...ARTICLES, ...LOCATION_SERVICE_ARTICLES].filter(article => article.category === category)
+  return [...ARTICLES, ...LOCATION_SERVICE_ARTICLES, ...AI_AGENT_ARTICLES].filter(article => article.category === category)
 }
 
 // Get articles by pillar
 export function getArticlesByPillar(pillar: string): ArticleCard[] {
-  return [...ARTICLES, ...LOCATION_SERVICE_ARTICLES].filter(article => article.pillar === pillar)
+  return [...ARTICLES, ...LOCATION_SERVICE_ARTICLES, ...AI_AGENT_ARTICLES].filter(article => article.pillar === pillar)
 }
 
 // Get featured articles
 export function getFeaturedArticles(): ArticleCard[] {
-  return ARTICLES.filter(article => article.featured)
+  return [...ARTICLES, ...AI_AGENT_ARTICLES].filter(article => article.featured)
 }
 
 // Get related articles
@@ -28,7 +28,7 @@ export function getRelatedArticles(currentSlug: string, limit: number = 3): Arti
   const currentArticle = getArticleBySlug(currentSlug)
   if (!currentArticle) return []
 
-  return ARTICLES
+  return [...ARTICLES, ...AI_AGENT_ARTICLES]
     .filter(article =>
       article.slug !== currentSlug &&
       (article.pillar === currentArticle.pillar || article.category === currentArticle.category)
@@ -89,7 +89,7 @@ const CATEGORY_KEYWORDS: Record<string, string> = {
 
 function generateFAQ(slug: string): FAQItem[] {
   if (FAQ_DATABASE[slug]) return FAQ_DATABASE[slug]
-  const article = ARTICLES.find(a => a.slug === slug) ?? LOCATION_SERVICE_ARTICLES.find(a => a.slug === slug)
+  const article = ARTICLES.find(a => a.slug === slug) ?? LOCATION_SERVICE_ARTICLES.find(a => a.slug === slug) ?? AI_AGENT_ARTICLES.find(a => a.slug === slug)
   if (!article) return []
   const pillarInfo = PILLAR_KEYWORDS[article.pillar || '']
   const categoryName = article.category === 'case-studies' ? 'Case Study' : article.category.charAt(0).toUpperCase() + article.category.slice(1)
@@ -101,7 +101,7 @@ function generateFAQ(slug: string): FAQItem[] {
 }
 
 function generateInternalLinks(slug: string): InternalLink[] {
-  const article = ARTICLES.find(a => a.slug === slug) ?? LOCATION_SERVICE_ARTICLES.find(a => a.slug === slug)
+  const article = ARTICLES.find(a => a.slug === slug) ?? LOCATION_SERVICE_ARTICLES.find(a => a.slug === slug) ?? AI_AGENT_ARTICLES.find(a => a.slug === slug)
   if (!article) return []
   const links: import('@/types/article').InternalLink[] = []
 
@@ -138,10 +138,10 @@ function generateInternalLinks(slug: string): InternalLink[] {
 }
 
 function generateRelatedSlugs(slug: string): string[] {
-  const article = ARTICLES.find(a => a.slug === slug) ?? LOCATION_SERVICE_ARTICLES.find(a => a.slug === slug)
+  const article = ARTICLES.find(a => a.slug === slug) ?? LOCATION_SERVICE_ARTICLES.find(a => a.slug === slug) ?? AI_AGENT_ARTICLES.find(a => a.slug === slug)
   if (!article) return []
 
-  const allArticles = [...ARTICLES, ...LOCATION_SERVICE_ARTICLES]
+  const allArticles = [...ARTICLES, ...LOCATION_SERVICE_ARTICLES, ...AI_AGENT_ARTICLES]
   const samePillar = allArticles.filter(a => a.pillar === article.pillar && a.slug !== slug)
   const sameCategory = allArticles.filter(a => a.category === article.category && a.slug !== slug && a.pillar !== article.pillar)
 
@@ -152,7 +152,7 @@ function generateRelatedSlugs(slug: string): string[] {
 }
 
 function generateSEO(slug: string): SEOFields {
-  const article = ARTICLES.find(a => a.slug === slug) ?? LOCATION_SERVICE_ARTICLES.find(a => a.slug === slug)
+  const article = ARTICLES.find(a => a.slug === slug) ?? LOCATION_SERVICE_ARTICLES.find(a => a.slug === slug) ?? AI_AGENT_ARTICLES.find(a => a.slug === slug)
   if (!article) return { metaTitle: 'Article | Mottobiz', metaDescription: 'Business automation guides for Surat businesses.', primaryKeyword: 'business automation Surat', secondaryKeywords: [], searchIntent: 'informational', targetAudience: 'Surat business owners' }
 
   const pillarInfo = PILLAR_KEYWORDS[article.pillar || '']
@@ -184,7 +184,7 @@ function generateSEO(slug: string): SEOFields {
 
 // Enrich all articles with SEO, FAQ, internal links, and related articles
 export function getEnrichedArticle(slug: string): ArticleCard & ArticleEnrichment {
-  const article = ARTICLES.find(a => a.slug === slug) ?? LOCATION_SERVICE_ARTICLES.find(a => a.slug === slug)
+  const article = ARTICLES.find(a => a.slug === slug) ?? LOCATION_SERVICE_ARTICLES.find(a => a.slug === slug) ?? AI_AGENT_ARTICLES.find(a => a.slug === slug)
   if (!article) throw new Error(`Article not found: ${slug}`)
 
   return {
@@ -200,7 +200,7 @@ export function getEnrichedArticle(slug: string): ArticleCard & ArticleEnrichmen
 // Get enriched related articles
 export function getRelatedArticlesEnriched(currentSlug: string, limit: number = 3): (ArticleCard & ArticleEnrichment)[] {
   const current = getEnrichedArticle(currentSlug)
-  const allArticles = [...ARTICLES, ...LOCATION_SERVICE_ARTICLES]
+  const allArticles = [...ARTICLES, ...LOCATION_SERVICE_ARTICLES, ...AI_AGENT_ARTICLES]
   const slugs = current.relatedArticleSlugs.length > 0
     ? current.relatedArticleSlugs
     : allArticles.filter(a => a.slug !== currentSlug && (a.pillar === current.pillar || a.category === current.category)).slice(0, limit).map(a => a.slug)

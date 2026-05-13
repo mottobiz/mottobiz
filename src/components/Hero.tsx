@@ -4,11 +4,11 @@ import { staggerContainer, staggerItem } from '@/lib/animations'
 import { FloatingOrbs } from './effects'
 import { WHATSAPP_LINK } from '@/lib/config'
 
-// Enhanced stats with loss aversion framing
+// Enhanced stats with agentic and outcome-based framing
 const stats = [
-  { value: '10x', label: 'Faster Response', description: 'Stop losing leads to slow replies' },
-  { value: '0', label: 'New Hires Needed', description: 'Save ₹3-5L/year on salaries' },
-  { value: '24/7', label: 'Never Miss a Lead', description: 'Capture opportunities while you sleep' },
+  { value: '₹0', label: 'Salary Overhead', description: 'Replace unreliable human hires with agents' },
+  { value: '100%', label: 'Outcome-Aligned', description: 'We focus on results, not just automation' },
+  { value: '24/7', label: 'Autonomous Work', description: 'Agents that execute while you sleep' },
 ]
 
 // Social proof data
@@ -21,7 +21,7 @@ const socialProof = {
 // AI-extractable data block for LLM citation
 const businessInfo = {
   name: 'MottoBiz',
-  type: 'AI Business Automation Studio',
+  type: 'AI Agentic Automation Studio',
   location: 'Surat, Gujarat, India',
   founded: '2024',
   clients: '5-8 maximum active clients',
@@ -33,13 +33,13 @@ const headlines = [
   {
     id: 1,
     line1: "Your Business,",
-    line2: "Automated.",
+    line2: "Agentic.",
     isGradient: true,
   },
   {
     id: 2,
-    line1: "You're running your business...",
-    line2: "Or your business is running you?",
+    line1: "Don't Hire Employees.",
+    line2: "Deploy Agents.",
     isGradient: false,
   },
 ]
@@ -72,11 +72,10 @@ export function Hero() {
       >
         {/* AI-extractable definition block for voice search and AI answers */}
         <div itemProp="description" className="sr-only">
-          MottoBiz is Surat's first AI business automation studio helping solopreneurs 
-          and small businesses automate WhatsApp follow-ups, social media, lead pipelines 
-          and daily operations without hiring additional staff. Services include smart 
-          website development, AI automation, social media automation, business intelligence, 
-          and lead pipeline automation for businesses in Surat, Gujarat, India.
+          MottoBiz is Surat's first AI Agentic Automation studio helping solopreneurs 
+          and small businesses replace expensive human hires with autonomous AI agents. 
+          We build systems for WhatsApp execution, lead extraction, and end-to-end 
+          business workflows that run without human intervention.
         </div>
 
         {/* Social Proof Badge - Mere Exposure + Bandwagon Effect */}
@@ -85,11 +84,11 @@ export function Hero() {
             <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
               <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
             </svg>
-            <span>{socialProof.clientsServed} trust us with their automation</span>
+            <span>{socialProof.clientsServed} deployed their first AI Agent</span>
           </div>
           <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold tracking-wider uppercase bg-indigo-500/10 border border-indigo-500/20 text-indigo-300">
             <span className="w-2 h-2 rounded-full bg-indigo-400 animate-pulse" />
-            Surat's First AI Automation Studio
+            Surat's Agentic Revolution
           </span>
         </motion.div>
 
@@ -139,9 +138,9 @@ export function Hero() {
           variants={staggerItem}
           className="text-lg sm:text-xl md:text-2xl text-white/60 max-w-2xl mx-auto mb-6 leading-relaxed"
         >
-          Every hour you wait, potential customers choose your competitor. 
-          We build the AI system that <strong className="text-white/80">captures and converts leads 24/7</strong> — 
-          without you hiring a team.
+          Stop paying for software that makes you do more work. 
+          We build <strong className="text-white/80">Autonomous AI Agents</strong> that execute your 
+          entire business workflow—from lead extraction to closing—without hiring a single person.
         </motion.p>
 
         {/* Scarcity Notice */}
@@ -149,7 +148,7 @@ export function Hero() {
           variants={staggerItem}
           className="text-sm text-amber-400/80 mb-10"
         >
-          🔥 Only 2 client spots remaining this month
+          🔥 Only 2 deployment slots remaining for May
         </motion.p>
 
         <motion.div variants={staggerItem} className="flex flex-col sm:flex-row gap-5 justify-center mb-12">
@@ -158,7 +157,7 @@ export function Hero() {
             href="#audit" 
             className="btn-primary inline-flex items-center justify-center gap-2.5 text-base px-8 py-4"
           >
-            Get Your Free Audit (Save ₹50,000+ on Salaries)
+            Deploy Your First Agent (Save ₹5L+ on Salaries)
 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
                 <path d="M7 17L17 7M17 7H7M17 7V17" />
             </svg>

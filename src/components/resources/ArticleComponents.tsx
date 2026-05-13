@@ -1,4 +1,5 @@
-import { motion } from 'framer-motion'
+import { motion, useInView } from 'framer-motion'
+import { useRef } from 'react'
 import { CATEGORY_COLORS, type ArticleCategory, type ComparisonTableData, type StatCardData, type ChecklistData, type ProTipData, type WarningData, type StepItem } from '@/types/article'
 
 interface ArticleComponentsProps {
@@ -223,5 +224,269 @@ export function TLDRBox({ items }: { items: string[] }) {
         ))}
       </ul>
     </div>
+  )
+}
+
+// ==========================================
+// StatBanner — single large stat + context
+// ==========================================
+export interface StatBannerData {
+  value: string
+  label: string
+  source?: string
+  color?: string
+}
+
+export function StatBanner({ data, category }: { data: StatBannerData } & ArticleComponentsProps) {
+  const colors = CATEGORY_COLORS[category]
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: true, margin: '-80px' })
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, scale: 0.97 }}
+      animate={isInView ? { opacity: 1, scale: 1 } : {}}
+      transition={{ duration: 0.5, ease: 'easeOut' }}
+      className="my-10 rounded-2xl overflow-hidden relative"
+      style={{
+        background: `linear-gradient(135deg, ${colors.primary}18 0%, ${colors.secondary}10 100%)`,
+        border: `1px solid ${colors.primary}35`
+      }}
+    >
+      {/* Glow blob */}
+      <div
+        className="absolute -top-16 -right-16 w-64 h-64 rounded-full blur-3xl pointer-events-none"
+        style={{ backgroundColor: `${colors.primary}20` }}
+      />
+      <div className="relative z-10 p-8 sm:p-10 text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 0.2, duration: 0.5 }}
+          className="font-display text-6xl sm:text-8xl font-extrabold mb-3"
+          style={{ color: colors.primary }}
+        >
+          {data.value}
+        </motion.div>
+        <p className="text-white/80 text-lg sm:text-xl font-medium max-w-xl mx-auto mb-3">
+          {data.label}
+        </p>
+        {data.source && (
+          <p className="text-white/40 text-xs uppercase tracking-wider">{data.source}</p>
+        )}
+      </div>
+    </motion.div>
+  )
+}
+
+// ==========================================
+// BarChart — animated horizontal bars
+// ==========================================
+export interface BarChartData {
+  title: string
+  bars: { label: string; value: number; formatted?: string }[]
+  unit: string
+  max: number
+}
+
+export function BarChart({ data, category }: { data: BarChartData } & ArticleComponentsProps) {
+  const colors = CATEGORY_COLORS[category]
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: true, margin: '-60px' })
+
+  const effectiveMax = data.max || Math.max(...data.bars.map(b => b.value)) * 1.15
+
+  const formatValue = (v: number, unit: string) => {
+    if (unit === 'Rs.' || unit === '₹') {
+      if (v >= 100000) return `₹${(v / 100000).toFixed(1)}L`
+      if (v >= 1000) return `₹${(v / 1000).toFixed(0)}k`
+      return `₹${v}`
+    }
+    if (v >= 1000000) return `${(v / 1000000).toFixed(1)}M`
+    if (v >= 1000) return `${(v / 1000).toFixed(0)}k`
+    return `${v}${unit}`
+  }
+
+  return (
+    <div ref={ref} className="my-8 rounded-2xl p-6 border border-white/10 bg-white/[0.02]">
+      <h3 className="font-display text-base font-semibold text-white mb-6">{data.title}</h3>
+      <div className="space-y-4">
+        {data.bars.map((bar, i) => {
+          const pct = Math.min((bar.value / effectiveMax) * 100, 100)
+          const display = bar.formatted || formatValue(bar.value, data.unit)
+          return (
+            <div key={i}>
+              <div className="flex justify-between items-center mb-1.5">
+                <span className="text-white/70 text-sm">{bar.label}</span>
+                <span className="text-white font-semibold text-sm">{display}</span>
+              </div>
+              <div className="h-2.5 rounded-full bg-white/5 overflow-hidden">
+                <motion.div
+                  className="h-full rounded-full"
+                  initial={{ width: 0 }}
+                  animate={isInView ? { width: `${pct}%` } : { width: 0 }}
+                  transition={{ delay: 0.1 + i * 0.08, duration: 0.7, ease: 'easeOut' }}
+                  style={{
+                    background: `linear-gradient(90deg, ${colors.primary}, ${colors.secondary})`
+                  }}
+                />
+              </div>
+            </div>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
+// ==========================================
+// ProcessFlow — step-by-step flow diagram
+// ==========================================
+export interface ProcessFlowData {
+  title: string
+  steps: string[]
+}
+
+export function ProcessFlow({ data, category }: { data: ProcessFlowData } & ArticleComponentsProps) {
+  const colors = CATEGORY_COLORS[category]
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: true, margin: '-60px' })
+
+  return (
+    <div ref={ref} className="my-10">
+      {data.title && (
+        <h3 className="font-display text-base font-semibold text-white mb-6 text-center">{data.title}</h3>
+      )}
+      {/* Desktop: horizontal row */}
+      <div className="hidden sm:flex items-start gap-0 overflow-x-auto pb-2">
+        {data.steps.map((step, i) => (
+          <div key={i} className="flex items-center flex-shrink-0">
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ delay: i * 0.08, duration: 0.4 }}
+              className="flex flex-col items-center gap-2 w-28 sm:w-32"
+            >
+              <div
+                className="w-10 h-10 rounded-xl flex items-center justify-center text-sm font-bold flex-shrink-0"
+                style={{ backgroundColor: `${colors.primary}25`, color: colors.primary, border: `1px solid ${colors.primary}40` }}
+              >
+                {i + 1}
+              </div>
+              <span className="text-white/70 text-xs text-center leading-snug px-1">{step}</span>
+            </motion.div>
+            {i < data.steps.length - 1 && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={isInView ? { opacity: 1 } : {}}
+                transition={{ delay: i * 0.08 + 0.15 }}
+                className="text-white/20 mx-1 flex-shrink-0 mb-4"
+                aria-hidden="true"
+              >
+                →
+              </motion.div>
+            )}
+          </div>
+        ))}
+      </div>
+      {/* Mobile: vertical stack */}
+      <div className="sm:hidden space-y-0">
+        {data.steps.map((step, i) => (
+          <div key={i} className="flex gap-3 items-start">
+            <div className="flex flex-col items-center flex-shrink-0">
+              <motion.div
+                initial={{ opacity: 0, x: -8 }}
+                animate={isInView ? { opacity: 1, x: 0 } : {}}
+                transition={{ delay: i * 0.07 }}
+                className="w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold"
+                style={{ backgroundColor: `${colors.primary}25`, color: colors.primary, border: `1px solid ${colors.primary}40` }}
+              >
+                {i + 1}
+              </motion.div>
+              {i < data.steps.length - 1 && (
+                <div className="w-px h-6 mt-0.5" style={{ backgroundColor: `${colors.primary}30` }} />
+              )}
+            </div>
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={isInView ? { opacity: 1 } : {}}
+              transition={{ delay: i * 0.07 + 0.1 }}
+              className="text-white/70 text-sm pt-1 pb-6"
+            >
+              {step}
+            </motion.p>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+// ==========================================
+// CostCompare — two-column cost comparison
+// ==========================================
+export interface CostCompareData {
+  title?: string
+  left: { label: string; value: string; sub?: string; color?: string }
+  right: { label: string; value: string; sub?: string; color?: string }
+  saving?: string
+}
+
+export function CostCompare({ data }: { data: CostCompareData }) {
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: true, margin: '-60px' })
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 16 }}
+      animate={isInView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.5 }}
+      className="my-10"
+    >
+      {data.title && (
+        <h3 className="font-display text-base font-semibold text-white mb-6 text-center">{data.title}</h3>
+      )}
+      <div className="grid grid-cols-2 gap-3 sm:gap-6">
+        {/* Left — human / old */}
+        <div className="rounded-2xl p-5 sm:p-7 border border-rose-500/25 bg-rose-500/5 text-center">
+          <div className="text-rose-400/70 text-xs font-semibold uppercase tracking-widest mb-2">
+            {data.left.label}
+          </div>
+          <div className="font-display text-3xl sm:text-4xl font-extrabold text-rose-400 mb-1">
+            {data.left.value}
+          </div>
+          {data.left.sub && (
+            <p className="text-white/45 text-xs mt-2 leading-relaxed">{data.left.sub}</p>
+          )}
+        </div>
+
+        {/* Right — AI / new */}
+        <div className="rounded-2xl p-5 sm:p-7 border border-emerald-500/25 bg-emerald-500/5 text-center">
+          <div className="text-emerald-400/70 text-xs font-semibold uppercase tracking-widest mb-2">
+            {data.right.label}
+          </div>
+          <div className="font-display text-3xl sm:text-4xl font-extrabold text-emerald-400 mb-1">
+            {data.right.value}
+          </div>
+          {data.right.sub && (
+            <p className="text-white/45 text-xs mt-2 leading-relaxed">{data.right.sub}</p>
+          )}
+        </div>
+      </div>
+
+      {/* Saving callout */}
+      {data.saving && (
+        <motion.div
+          initial={{ opacity: 0, scale: 0.96 }}
+          animate={isInView ? { opacity: 1, scale: 1 } : {}}
+          transition={{ delay: 0.3, duration: 0.4 }}
+          className="mt-3 rounded-xl py-3 px-5 text-center border border-emerald-500/20 bg-emerald-500/5"
+        >
+          <span className="text-emerald-400 font-semibold text-sm">{data.saving}</span>
+        </motion.div>
+      )}
+    </motion.div>
   )
 }

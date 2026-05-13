@@ -408,6 +408,65 @@ const TLDR_DATABASE: Record<string, string[]> = {
     'Set thresholds by revenue priority: top 20% items at 30% remaining, next 30% at 20%, and bottom 50% at 10%',
     'Identify your top 10 products by revenue, track stockout frequency for the past month, then automate supplier orders',
   ],
+  // ==========================================
+  // PILLAR 6: AI Agents & Agentic Automation
+  // ==========================================
+  'ai-agent-small-business-surat': [
+    'AI agents reason, plan, and act autonomously — they complete multi-step tasks while you sleep, unlike chatbots that just answer questions',
+    '5 AI agents Surat businesses already use: Lead Capture, Price Quote, Booking & Scheduling, Follow-Up, and Daily Reporting',
+    'Even one deployed AI agent typically saves Surat business owners 3-4 hours daily',
+    'AI agents work 24/7 across WhatsApp, Google Calendar, spreadsheets, and CRMs simultaneously — no human needed',
+    'You don\'t need to code — you need the right setup partner; agents are configured once and run indefinitely',
+  ],
+  'replace-employee-ai-agent-india': [
+    'A ₹20,000/month employee actually costs ₹35,000+/month including PF, ESI, leaves, training, and turnover',
+    'AI agents replace specific job functions for ₹5,000–25,000/month — no PF, no ESI, no resignation letter',
+    'Highest ROI replacements: WhatsApp inquiry responder, lead follow-up person, appointment scheduler, report compiler',
+    'Tasks to keep human: trust-building with VIP clients, complex negotiations, face-to-face meetings, emotional complaint handling',
+    'Most Surat businesses that replace one function with an AI agent see payback in under 60 days',
+  ],
+  'agentic-workflow-automation-guide': [
+    'Basic automation follows fixed rules; agentic workflows reason, adapt, and take multi-step action on novel inputs',
+    '4 levels of automation: Manual → Automated → Agentic → Autonomous — most Surat businesses are stuck at Level 2',
+    'Agentic example: reads WhatsApp → checks inventory → calculates discount → sends quote → logs CRM → sets follow-up',
+    'The best workflow to start with: high-volume (10+ daily), rule-following, and time-sensitive',
+    'Common mistakes: starting too complex, no human oversight, forgetting the human handoff, not measuring before vs. after',
+  ],
+  'ai-digital-employee-cost-comparison': [
+    'A ₹18,000/month employee actually costs ₹3.11L/year — add PF, ESI, leaves, bonuses, and recruiting',
+    'An AI digital employee handles one defined role for ₹60,000–3L/year total — no statutory compliance overhead',
+    'Year 1 savings replacing one human function: ₹85,000–3L; ongoing annual savings: ₹1.5–4.5L',
+    'Break-even point: most Surat businesses recover the AI setup cost in 45–90 days',
+    'AI wins on: 24/7 availability, unlimited scale, zero variance, perfect recall. Humans win on: trust, judgment, emotion.',
+  ],
+  'n8n-ai-agent-setup-small-business': [
+    'n8n is a free workflow automation tool with an AI Agent node — no coding needed to build your first agent',
+    'Setup requirements: n8n account (free), OpenAI API key (₹500–2000/month), WhatsApp Business API connection',
+    'The AI Agent node uses GPT-4 or Claude as a reasoning layer — it handles context and nuance, not just keywords',
+    '8 steps to your first agent: define job → create workflow → trigger → AI node → tools → reply node → test → activate',
+    'Get professional help when: 6+ workflow steps, real-time inventory, high-value transactions, or multi-language support',
+  ],
+  'autonomous-lead-followup-agent': [
+    '80% of sales require 5+ follow-ups — but 44% of salespeople stop after one; an agent follows up every single time',
+    'Ideal sequence: immediate → Day 2 check-in → Day 5 value → Day 10 urgency → Day 21 final → Day 45 nurture',
+    'Lead response within 5 minutes vs 30 minutes = 21x higher conversion rate (HBS data)',
+    'Highest impact industries in Surat: real estate (Vesu), textile (Varachha), coaching (Adajan), diamonds (Katargam)',
+    'Track 5 metrics before and after: response time, follow-up rate, reply rate, meeting rate, close rate',
+  ],
+  'solopreneur-automation-india-2025': [
+    'A solopreneur with the right AI agent stack can generate the output of a 3-5 person team at ₹4,000–15,000/month',
+    '5 core agents every solopreneur needs: Lead Qualifier, Follow-Up, Content, Client Onboarding, Reporting',
+    'Full solopreneur agent stack costs ₹4,000–15,000/month — vs ₹60,000–1,20,000/month for equivalent human staff',
+    '2025 is the best year for solopreneurs: AI reasoning is good enough, n8n/Make are accessible, WhatsApp API is open',
+    'Your job: strategy, high-trust conversations, creative work, sales closings, service delivery. Everything else = agent.',
+  ],
+  'ai-agent-vs-chatbot-difference': [
+    'A chatbot follows scripts for defined questions and fails on anything unexpected; an AI agent reasons through novel situations',
+    'The chatbot trap: paying ₹3,000-8,000 for a glorified FAQ in WhatsApp, then concluding automation doesn\'t work',
+    'AI agent capabilities chatbots lack: live data lookup, multi-step action, memory across messages, autonomous follow-up',
+    'Chatbots are fine for: under 10 daily inquiries, 3-5 fixed questions only, basic contact collection',
+    'You need an agent if: customers ask unexpected questions, workflow has 2+ steps, slow responses cost you deals',
+  ],
 }
 
 const FAQ_DATABASE: Record<string, import('@/types/article').FAQItem[]> = {
@@ -700,6 +759,50 @@ const FAQ_DATABASE: Record<string, import('@/types/article').FAQItem[]> = {
     { question: 'How much does business automation cost for a Surat small business?', answer: 'Real numbers: Level 1 is free (WhatsApp Business + Google Forms). Level 2 essential automation (full WhatsApp automation + lead capture) runs â‚¹3,000-8,000/month using Make or n8n. Level 3 professional (custom workflows + CRM + analytics) runs â‚¹8,000-25,000/month. Most small businesses see 2-4x ROI at Level 2.' },
     { question: 'Is DIY automation really free, or are there hidden costs?', answer: 'The tools can be free, but the hidden cost is your time: 4-6 hours for initial setup, 20-40 hours if you\'re connecting multiple tools, and 2-4 hours monthly for maintenance. Plus zero support when something breaks at 9 PM on a Friday. A Surat shop owner\'s time is worth â‚¹500-1,000/hour â€” that "free" setup can cost â‚¹10,000-40,000 in time.' },
     { question: 'What ROI can I expect from business automation?', answer: 'Small shops (10-20 inquiries/day): spend â‚¹3,000-5,000/month, recover â‚¹5,000-15,000/month in saved time and reclaimed leads â€” 2-4x ROI. Medium businesses (30-50 inquiries/day): spend â‚¹8,000-15,000/month, recover â‚¹20,000-50,000/month â€” 3-5x ROI. Growing businesses (50+ inquiries/day): spend â‚¹15,000-25,000/month, recover â‚¹50,000-1,00,000+/month â€” 4-8x ROI.' },
+  ],
+  // ==========================================
+  // PILLAR 6: AI Agents & Agentic Automation
+  // ==========================================
+  'ai-agent-small-business-surat': [
+    { question: 'What is an AI agent for small business?', answer: 'An AI agent is software that can reason, plan, and take autonomous action on your behalf. Unlike a chatbot that answers fixed questions, an AI agent can complete multi-step tasks including qualifying a lead, looking up inventory, sending a personalised quote, logging the interaction to your CRM, and setting a follow-up reminder — all without human intervention.' },
+    { question: 'How is an AI agent different from WhatsApp automation?', answer: 'WhatsApp automation sends pre-written replies when triggered. An AI agent uses reasoning powered by GPT-4 or Claude to understand context, handle unexpected questions, use multiple tools in sequence, and take action. It is the difference between a recorded message and a smart employee who can think.' },
+    { question: 'How much does an AI agent cost for a Surat business?', answer: 'A basic AI agent setup typically costs Rs.15,000-35,000 one-time plus Rs.5,000-15,000/month for management. Infrastructure adds Rs.3,000-8,000/month. Total Year 1: Rs.75,000-2.15L — compared to Rs.3-5L for a human employee doing the same job.' },
+    { question: 'Can I use an AI agent without technical knowledge?', answer: 'Yes. You need a clear description of what you want the agent to do, access to your business data, and a setup partner like MottoBiz. We handle the technical build; you approve the workflow logic.' },
+  ],
+  'replace-employee-ai-agent-india': [
+    { question: 'Can AI really replace a human employee in a small business?', answer: 'For specific functions — yes. AI agents can permanently replace WhatsApp inquiry handling, lead follow-up, appointment scheduling, and daily reporting. Where AI falls short: complex negotiations, relationship-building with VIP clients, face-to-face interactions, and emotional support conversations.' },
+    { question: 'What is the real cost of hiring an employee in India vs an AI agent?', answer: 'A Rs.20,000/month employee actually costs Rs.35,000+/month including employer PF, ESI, earned leave, annual bonus, training time, and recruiting cost — Rs.3.5-4.5L/year. An AI agent handling the same function costs Rs.60,000-2.15L per year with no compliance overhead, no turnover, and no sick days.' },
+    { question: 'Which employee functions are easiest to replace with AI in Surat businesses?', answer: 'The four highest-ROI replacements: (1) WhatsApp inquiry responder handling 60-80 daily messages 24/7. (2) Lead follow-up agent that never misses a touchpoint. (3) Appointment scheduler that connects to calendar directly. (4) Report compiler that pulls daily numbers automatically.' },
+  ],
+  'agentic-workflow-automation-guide': [
+    { question: 'What is agentic workflow automation?', answer: 'Agentic workflow automation uses AI reasoning to execute multi-step business processes autonomously. Unlike basic automation with fixed rules, an agentic workflow reads context, makes decisions, connects multiple tools, and handles situations it was not explicitly programmed for.' },
+    { question: 'How do I build an agentic workflow for my Surat business?', answer: 'The 5-phase approach: choose a high-volume time-sensitive workflow, map every step a human currently does, connect the tools needed, test with 20-30 scenarios, and monitor weekly for the first month. MottoBiz builds these workflows in 5-10 business days.' },
+    { question: 'What is the difference between basic automation and agentic automation?', answer: 'Basic automation uses pre-written replies triggered by keywords and fails on anything unexpected. Agentic automation uses AI reasoning to handle novel inputs, execute multi-step tasks, use multiple tools, and improve over time. Moving from Level 2 to Level 3 typically increases output by 3-5x without adding staff.' },
+  ],
+  'ai-digital-employee-cost-comparison': [
+    { question: 'How much does an AI digital employee cost in India?', answer: 'An AI digital employee handling one specific role costs Rs.5,000-25,000/month. One-time setup: Rs.15,000-35,000. Year 1 total: Rs.75,000-2.15L. Compare this to a human employee at Rs.3.5-8L/year all-in. Most Surat businesses see break-even within 45-90 days.' },
+    { question: 'Is it cheaper to hire a human or an AI agent for my Surat business?', answer: 'For defined repeatable functions — AI is significantly cheaper. A human WhatsApp responder costs Rs.12,000-18,000/month plus compliance overhead. An AI agent costs Rs.5,000-12,000/month with no PF, no ESI, no sick days, and 24/7 availability.' },
+    { question: 'What tasks can an AI digital employee handle that a human does today?', answer: 'High-confidence AI replacements: answering WhatsApp inquiries, lead capture and qualification, multi-step follow-up sequences, appointment scheduling, and daily business reports. These functions require no human judgment and happen at high volume.' },
+  ],
+  'n8n-ai-agent-setup-small-business': [
+    { question: 'What is n8n and how does it help small businesses build AI agents?', answer: 'n8n is a free workflow automation tool with an AI Agent node that connects to GPT-4 or Claude. Without coding, you can create WhatsApp inquiry agents, lead follow-up sequences, appointment schedulers, and daily reporting agents.' },
+    { question: 'How much does n8n cost for a small business?', answer: 'n8n cloud is free for basic use. Paid cloud: $20-50/month. Self-hosted VPS: Rs.400-800/month. OpenAI API for typical Surat business: Rs.500-2,000/month. Total infrastructure including WhatsApp API: Rs.3,000-8,000/month.' },
+    { question: 'Do I need coding skills to use n8n for AI agent automation?', answer: 'No coding required. n8n uses a visual drag-and-drop interface. You write the AI agent instructions in plain English. The main skill needed is clear thinking — defining exactly what you want the agent to do step by step.' },
+  ],
+  'autonomous-lead-followup-agent': [
+    { question: 'What is an autonomous lead follow-up agent?', answer: 'An autonomous follow-up agent contacts every lead automatically on a pre-set schedule with personalised messages based on the lead inquiry, name, and requirements. It never misses a follow-up and hands off to a human only when the lead responds or qualifies.' },
+    { question: 'How many follow-ups should a Surat business send before giving up?', answer: '80% of sales require 5+ follow-ups. 60% of buyers say no 4 times before saying yes. Recommended: 5 touchpoints over 21 days, then monthly nurture for 6+ months. A follow-up agent does this automatically — humans stop at 1-2 because persistence feels awkward.' },
+    { question: 'How fast should I respond to a new lead to maximise conversion?', answer: 'Within 5 minutes. Research shows leads contacted within 5 minutes are 21x more likely to convert than those contacted after 30 minutes. In Surat real estate and textile markets, buyers contact 3-5 businesses simultaneously — whoever responds first wins. An AI agent responds in under 30 seconds.' },
+  ],
+  'solopreneur-automation-india-2025': [
+    { question: 'How can a solopreneur in India run a business with AI agents in 2025?', answer: 'The solopreneur agent stack covers 5 functions: Lead Qualifier that screens inquiries, Follow-Up Agent for personalised touchpoints, Content Agent for drafts and broadcasts, Onboarding Agent for new client sequences, and Reporting Agent for daily business summaries. Total cost: Rs.4,000-15,000/month.' },
+    { question: 'What is the difference between using AI tools and having AI agents as a solopreneur?', answer: 'AI tools require you to manually use them one task at a time. AI agents work autonomously — set up once, execute recurring tasks without you. A tool is like a better calculator. An agent is like a staff member who handles a function permanently.' },
+    { question: 'How much can a solopreneur in Surat realistically earn with an AI agent stack?', answer: 'Service-based solopreneurs using agent stacks report handling 2-4x more clients without proportional workload increase. Revenue typically jumps 60-150% within 12 months — not because of better marketing, but because of better capacity utilisation and faster lead response.' },
+  ],
+  'ai-agent-vs-chatbot-difference': [
+    { question: 'What is the difference between an AI agent and a chatbot?', answer: 'A chatbot follows pre-programmed scripts and fails on anything unexpected. An AI agent uses a language model as a reasoning engine — it understands context, handles novel questions, connects to live data, takes multi-step action, and follows up autonomously. Chatbots answer. Agents act.' },
+    { question: 'Is a WhatsApp chatbot the same as an AI agent?', answer: 'No. A WhatsApp chatbot triggers pre-written replies based on keywords or buttons. A WhatsApp AI agent uses GPT-4 to understand what the customer wants, access your real data, respond contextually, complete multi-step tasks, and initiate follow-up messages.' },
+    { question: 'Does my Surat business need a chatbot or an AI agent?', answer: 'If under 10 daily inquiries all asking the same 3-4 questions — a chatbot is fine. If 20+ daily inquiries, customers ask unexpected questions, responses need live data, or slow responses are costing deals — you need an AI agent. Quick test: look at last 50 WhatsApp conversations. Count how many got the wrong reply or no reply.' },
   ],
 }
 
@@ -1207,6 +1310,18 @@ const PROTIPS_DATABASE: Record<string, ProTipData> = {
   'real-estate-automation-udhna': { tip: 'Udhna\'s commercial property buyers often come from outside Surat. Auto-send area overview, connectivity info, and video tour within 1 hour â€” NRIs and out-of-towners need fast, thorough responses.', context: 'Udhna real estate insight' },
   'restaurant-automation-piplod': { tip: 'Piplod families appreciate consistency. Send birthday offers automatically â€” 3 days before, day-of, and 3 days after. Birthday redemption rates are 70%, highest of any promotion type.', context: 'Piplod restaurant marketing' },
   'coaching-automation-city-light': { tip: 'City Light tutoring centers that send weekly WhatsApp progress reports to parents see 40% higher parent satisfaction scores and 30% better student retention.', context: 'City Light coaching insight' },
+
+// ==========================================
+  // PILLAR 6: AI Agents & Agentic Automation
+  // ==========================================
+  'ai-agent-small-business-surat': { tip: 'Start with one agent — not five. Pick your single most time-consuming repetitive task and build one agent for it. Most Surat business owners who start with a full system never finish it; those who start with one agent are running five within 90 days.', context: 'The single-agent-first approach succeeds 3x more often than full stack from Day 1' },
+  'replace-employee-ai-agent-india': { tip: 'Document your current process BEFORE building the agent. Write down every step a human takes for the task you want to automate. This documentation becomes the agent\'s System Prompt — and it saves 80% of the setup time.', context: 'The most common cause of agent failure is vague instructions, not technical problems' },
+  'agentic-workflow-automation-guide': { tip: 'Level 3 (agentic) feels intimidating until you realize every agentic workflow is just a sequence of simple steps powered by AI reasoning. Build the steps first as manual, then add AI to each step one at a time.', context: 'Practical approach used by MottoBiz for all client workflow builds' },
+  'ai-digital-employee-cost-comparison': { tip: 'Calculate your current employee\'s REAL total cost using: salary + 12% PF + 3.25% ESI + (annual salary / 12 for bonus) + (salary x 18/250 for leaves) + (1 month salary for recruiting, annualized). The number is usually 60-80% higher than what business owners think.', context: 'Most Surat business owners underestimate total employee cost by Rs.50,000-1.5L/year' },
+  'n8n-ai-agent-setup-small-business': { tip: 'Write your AI agent System Prompt as if you are writing a job description for a new employee on their first day. Include: their role, what they can access, what they should do, and what they should escalate to a human. Specific instructions always outperform vague ones.', context: 'The quality of the System Prompt determines 70% of the agent output quality' },
+  'autonomous-lead-followup-agent': { tip: 'The Day 5 message is the most important one. Most businesses follow up on Day 1 and Day 2. By Day 5, you are the only one still in the conversation — and the lead now sees you as persistent and professional. Make this message a genuine value add, not a sales pitch.', context: 'Day 5 follow-up has the highest response rate in the sequence for Surat businesses' },
+  'solopreneur-automation-india-2025': { tip: 'Audit your last 5 working days. List every task you did. Mark each one: (A) Only I can do this, (B) Someone else could do this with training, (C) A system could do this automatically. Everything marked C is your agent roadmap.', context: 'Most solopreneurs find 60-70% of their week is Category C on the first audit' },
+  'ai-agent-vs-chatbot-difference': { tip: 'Before upgrading from a chatbot to an AI agent, run this test: send your current chatbot 20 messages that customers actually sent but got no reply or wrong reply. If more than 5 fail, you have outgrown the chatbot. The upgrade cost pays for itself in the first 30 days of better lead conversion.', context: 'The chatbot-to-agent upgrade is the most common MottoBiz service request in 2025' },
 }
 
 // Warnings Database
@@ -1246,6 +1361,17 @@ const WARNINGS_DATABASE: Record<string, WarningData> = {
   'real-estate-automation-udhna': { title: 'Don\'t skip site visit confirmation', message: 'Udhna area agents often lose leads when scheduled visits fall through. Always send visit reminders 2 hours before and confirm 30 minutes prior â€” or 40% won\'t show.' },
   'restaurant-automation-piplod': { title: 'Don\'t forget dietary preferences', message: 'Piplod families have diverse dietary needs. Automate collection of preferences (vegetarian, Jain, no onion garlic) â€” it makes personalization easy and parents love it.' },
   'coaching-automation-city-light': { title: 'Don\'t send scores without context', message: 'A test score of 60/100 means nothing without context. Always include class average, trend from previous tests, and areas for improvement â€” not just the number.' },
+  // ==========================================
+  // PILLAR 6: AI Agents & Agentic Automation
+  // ==========================================
+  'ai-agent-small-business-surat': { title: 'Don\'t call it a chatbot', message: 'If you deploy an AI agent and describe it to customers as a "bot," they lower their expectations and engagement drops. Call it what it is: an AI assistant or digital team member. Language matters for customer trust.' },
+  'replace-employee-ai-agent-india': { title: 'Never fire someone and announce AI replaced them', message: 'If you replace a function with an AI agent, handle the staffing change sensitively. Redeployment, role change, or a respectful exit matters for team morale and your reputation as an employer in Surat\'s tight-knit business community.' },
+  'agentic-workflow-automation-guide': { title: 'Don\'t skip the human handoff point', message: 'Every agentic workflow needs a clear escalation rule: when does the agent stop and hand to a human? Without this, agents will attempt to handle situations beyond their capability — and customers will notice.' },
+  'ai-digital-employee-cost-comparison': { title: 'Don\'t compare apples and oranges', message: 'An AI agent that handles WhatsApp inquiries is not the same as an employee who does ten different jobs. AI agents excel at one defined function. Trying to make one agent do everything a full employee does leads to poor results on all fronts.' },
+  'n8n-ai-agent-setup-small-business': { title: 'Don\'t go live without testing edge cases', message: 'Always test your agent with unusual inputs before going live: messages in Gujarati, unclear requirements, requests for unavailable products, very long messages. Edge cases break most first-time setups — catch them in testing, not in front of customers.' },
+  'autonomous-lead-followup-agent': { title: 'Don\'t over-follow-up after a clear no', message: 'If a lead explicitly says they are not interested or have bought elsewhere, stop all automated sequences immediately. Continuing to message someone who has said no is spam — and can get your WhatsApp number blocked or reported.' },
+  'solopreneur-automation-india-2025': { title: 'Don\'t automate your client relationships', message: 'The reason clients pay premium rates to a solopreneur is the personal relationship. Automate lead qualification, onboarding, and reporting — but never automate the check-in calls, the personal updates, and the moments that build trust.' },
+  'ai-agent-vs-chatbot-difference': { title: 'Don\'t pay chatbot prices for agent promises', message: 'Some vendors sell chatbots with AI buzzwords at agent prices. Ask specifically: Can it handle questions it was not explicitly trained on? Can it look up live data from my systems? Can it take multi-step action? If the answer to any is no — it is a chatbot, not an agent.' },
 }
 
 

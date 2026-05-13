@@ -5,7 +5,8 @@ import { Helmet } from 'react-helmet-async'
 import { SEOHead } from '@/components/SEOHead'
 import { ArticleCardComponent } from '@/components/resources/ArticleCard'
 import { ArticleThumbnailStatic } from '@/components/resources/ArticleThumbnail'
-import { ComparisonTable, StatCards, Checklist, Steps, ProTip, Warning, CTABox, TLDRBox } from '@/components/resources/ArticleComponents'
+import { ComparisonTable, StatCards, Checklist, Steps, ProTip, Warning, CTABox, TLDRBox, StatBanner, BarChart, ProcessFlow, CostCompare } from '@/components/resources/ArticleComponents'
+import type { StatBannerData, BarChartData, ProcessFlowData, CostCompareData } from '@/components/resources/ArticleComponents'
 import { CATEGORY_COLORS } from '@/types/article'
 import { getEnrichedArticle, getRelatedArticlesEnriched, getInteractiveBlocks, getArticleContent } from '@/data/articles'
 import { SITE_URL, WHATSAPP_LINK } from '@/lib/config'
@@ -24,6 +25,10 @@ type ParsedBlock =
   | { type: 'bulletList'; items: string[] }
   | { type: 'numberedList'; items: { num: number; title: string; description: string }[] }
   | { type: 'paragraph'; text: string }
+  | { type: 'statBanner'; data: StatBannerData }
+  | { type: 'barChart'; data: BarChartData }
+  | { type: 'processFlow'; data: ProcessFlowData }
+  | { type: 'costCompare'; data: CostCompareData }
 
 function parseArticleContent(content: string, category: string): ParsedBlock[] {
   const blocks: ParsedBlock[] = []
@@ -83,6 +88,57 @@ function parseArticleContent(content: string, category: string): ParsedBlock[] {
         return { num: i + 1, title: simpleMatch ? simpleMatch[1] : l, description: '' }
       })
       blocks.push({ type: 'numberedList', items })
+      continue
+    }
+
+    // %%STATBANNER:value|label|source%%
+    if (trimmed.startsWith('%%STATBANNER:')) {
+      const inner = trimmed.slice('%%STATBANNER:'.length).replace(/%%$/, '')
+      const [value, label, source] = inner.split('|').map(s => s.trim())
+      blocks.push({ type: 'statBanner', data: { value, label, source } })
+      continue
+    }
+
+    // %%BARCHART:title|unit|max|label:value,label:value,...%%
+    if (trimmed.startsWith('%%BARCHART:')) {
+      const inner = trimmed.slice('%%BARCHART:'.length).replace(/%%$/, '')
+      const parts = inner.split('|')
+      const title = parts[0]?.trim() || ''
+      const unit = parts[1]?.trim() || ''
+      const max = parseFloat(parts[2] || '0')
+      const bars = (parts[3] || '').split(',').map(item => {
+        const colonIdx = item.lastIndexOf(':')
+        const label = item.slice(0, colonIdx).trim()
+        const value = parseFloat(item.slice(colonIdx + 1).trim()) || 0
+        return { label, value }
+      })
+      blocks.push({ type: 'barChart', data: { title, unit, max, bars } })
+      continue
+    }
+
+    // %%PROCESSFLOW:title|step1|step2|...%%
+    if (trimmed.startsWith('%%PROCESSFLOW:')) {
+      const inner = trimmed.slice('%%PROCESSFLOW:'.length).replace(/%%$/, '')
+      const parts = inner.split('|').map(s => s.trim())
+      const title = parts[0] || ''
+      const steps = parts.slice(1)
+      blocks.push({ type: 'processFlow', data: { title, steps } })
+      continue
+    }
+
+    // %%COSTCOMPARE:title|leftLabel|leftValue|leftSub|rightLabel|rightValue|rightSub|saving%%
+    if (trimmed.startsWith('%%COSTCOMPARE:')) {
+      const inner = trimmed.slice('%%COSTCOMPARE:'.length).replace(/%%$/, '')
+      const parts = inner.split('|').map(s => s.trim())
+      blocks.push({
+        type: 'costCompare',
+        data: {
+          title: parts[0] || undefined,
+          left: { label: parts[1] || '', value: parts[2] || '', sub: parts[3] || undefined },
+          right: { label: parts[4] || '', value: parts[5] || '', sub: parts[6] || undefined },
+          saving: parts[7] || undefined,
+        }
+      })
       continue
     }
 
@@ -463,9 +519,17 @@ export function ArticlePage() {
                   default:
                     return (
                       <p key={index} className="text-white/70 leading-relaxed mb-6">
-                        {renderInlineLinks(block.text)}
+                        {renderInlineLinks((block as { type: 'paragraph'; text: string }).text)}
                       </p>
                     )
+                  case 'statBanner':
+                    return <StatBanner key={index} data={block.data} category={article.category} />
+                  case 'barChart':
+                    return <BarChart key={index} data={block.data} category={article.category} />
+                  case 'processFlow':
+                    return <ProcessFlow key={index} data={block.data} category={article.category} />
+                  case 'costCompare':
+                    return <CostCompare key={index} data={block.data} />
                 }
               })}
             </motion.div>

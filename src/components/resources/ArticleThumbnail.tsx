@@ -73,6 +73,15 @@ const THUMBNAIL_ICONS: Record<string, string> = {
   'return-exchange-handling-automation': '🔄',
   'new-arrival-alerts-loyal-customers': '🆕',
   'supplier-order-automation': '🚚',
+  // Pillar 6: AI Agents & Agentic Automation
+  'ai-agent-small-business-surat': '🤖',
+  'replace-employee-ai-agent-india': '💼',
+  'agentic-workflow-automation-guide': '⚙️',
+  'ai-digital-employee-cost-comparison': '📊',
+  'n8n-ai-agent-setup-small-business': '🔧',
+  'autonomous-lead-followup-agent': '🎯',
+  'solopreneur-automation-india-2025': '🚀',
+  'ai-agent-vs-chatbot-difference': '🔍',
 }
 
 const DIMENSIONS = {

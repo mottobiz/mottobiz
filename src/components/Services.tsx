@@ -2,69 +2,69 @@ import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { staggerContainer, staggerItem } from '@/lib/animations'
 
-// Enhanced service data with AI-extractable details and statistics
+// Enhanced service data with Agentic terminology and outcome-based results
 const services = [
   {
     icon: '🌐',
-    title: 'Smart Website Development',
-    shortTitle: 'Smart Website',
-    description: 'A high-converting site that captures leads while you sleep.',
-    detailedDescription: 'Professional website development for Surat businesses with integrated lead capture, SEO optimization, and mobile-first design. Built to convert visitors into customers 24/7.',
-    features: ['Lead forms', 'SEO optimized', 'Mobile-first'],
+    title: 'AI-Native Web Engines',
+    shortTitle: 'Web Engines',
+    description: 'Not just a website—a digital storefront that extracts leads 24/7.',
+    detailedDescription: 'Professional website development for Surat businesses with integrated agentic lead capture and autonomous follow-up triggers. Built to convert visitors into customers without human intervention.',
+    features: ['Lead Extraction', 'Autonomous Triggers', 'Mobile-Native'],
     timeline: '2-3 weeks',
     targetAudience: 'Surat businesses needing online presence',
   },
   {
     icon: '🤖',
-    title: 'AI Automation',
-    shortTitle: 'AI Automation',
-    description: 'WhatsApp replies, follow-ups, and workflows on autopilot.',
-    detailedDescription: 'Intelligent automation using AI for WhatsApp business responses, automated follow-up sequences, and workflow management. Reduces response time by 10x while maintaining 24/7 availability.',
-    features: ['Auto-responses', 'Lead nurturing', '24/7 availability'],
+    title: 'Autonomous Communication Agents',
+    shortTitle: 'Agentic Chat',
+    description: 'WhatsApp, Email, and DMs managed by agents that remember your clients.',
+    detailedDescription: 'Intelligent AI agents for WhatsApp business that maintain context (Memory Mode), handle complex inquiries, and escalate to humans only when necessary. Reduces response time by 10x.',
+    features: ['Context Memory', 'Outcome Tracking', '24/7 Execution'],
     timeline: '2-4 weeks',
     targetAudience: 'Businesses with high customer communication volume',
-    stats: { metric: '10x', label: 'faster response time' },
+    stats: { metric: '10x', label: 'faster execution' },
   },
   {
     icon: '📱',
-    title: 'Social Media Automation',
-    shortTitle: 'Social Media',
-    description: 'Content creation and scheduling that runs itself.',
-    detailedDescription: 'Automated social media management for Instagram, Facebook, LinkedIn, and other platforms. AI-powered content creation with scheduled posting to maintain consistent presence without daily effort.',
-    features: ['Auto-posting', 'Content AI', 'Multi-platform'],
+    title: 'Self-Running Media Teams',
+    shortTitle: 'Autonomous Media',
+    description: 'Agents that research, create, and schedule your social content.',
+    detailedDescription: 'Automated social media management where agents study your brand voice and competitors to generate high-converting posts and schedule them across all platforms autonomously.',
+    features: ['Brand Voice Sync', 'Competitor Analysis', 'Auto-Growth'],
     timeline: '1-2 weeks',
     targetAudience: 'Businesses wanting consistent social presence',
   },
   {
-    icon: '📊',
-    title: 'Business Intelligence',
-    shortTitle: 'Business Intelligence',
-    description: 'Know exactly what drives revenue and where to focus.',
-    detailedDescription: 'Custom analytics dashboards and automated reporting systems that track key business metrics. Understand revenue drivers, customer behavior, and performance trends at a glance.',
-    features: ['Analytics', 'Reports', 'Insights'],
+    icon: '🧠',
+    title: 'Agentic Decision Support',
+    shortTitle: 'Decision Agents',
+    description: 'Know exactly what drives revenue and where your agent should focus.',
+    detailedDescription: 'Custom intelligence dashboards where agents analyze your business data to suggest improvements and execute optimizations in your lead pipeline automatically.',
+    features: ['Data Extraction', 'Auto-Optimization', 'Insights'],
     timeline: '3-4 weeks',
     targetAudience: 'Data-driven business owners',
   },
   {
     icon: '⚡',
-    title: 'Workflow Automation',
-    shortTitle: 'Workflow Automation',
-    description: 'Connect your tools and eliminate manual tasks.',
-    detailedDescription: 'Integration and automation of business tools using n8n, Make.com, and custom solutions. Connect CRMs, email, forms, and databases to eliminate repetitive manual work.',
-    features: ['Integrations', 'Triggers', 'Notifications'],
+    title: 'Digital Workforce Orchestration',
+    shortTitle: 'Digital Employees',
+    description: 'Connect your tools and deploy agents to replace manual admin.',
+    detailedDescription: 'Deploy "Digital Employees" that live inside your workflow (n8n/Make). They handle invoicing, document prep, and team coordination without you lifting a finger.',
+    features: ['No-Human-Required', 'End-to-end Logic', 'SOP Automation'],
     timeline: '2-4 weeks',
     targetAudience: 'Businesses using multiple software tools',
   },
   {
     icon: '🎯',
-    title: 'Lead Pipeline Automation',
-    shortTitle: 'Lead Pipeline',
-    description: 'Capture, qualify, and convert leads automatically.',
-    detailedDescription: 'End-to-end lead management automation including capture from multiple sources, automatic qualification, CRM synchronization, and intelligent routing to maximize conversion rates.',
-    features: ['CRM sync', 'Scoring', 'Routing'],
+    title: 'Revenue Extraction Pipelines',
+    shortTitle: 'Revenue Agents',
+    description: 'Capture, qualify, and close leads on autopilot.',
+    detailedDescription: 'End-to-end revenue agents that source leads, qualify them via AI conversation, and book meetings or process payments directly. Outcome-based performance.',
+    features: ['Lead Sourcing', 'AI Qualification', 'Auto-Closing'],
     timeline: '2-4 weeks',
     targetAudience: 'Sales-focused businesses',
-    stats: { metric: '2-4 weeks', label: 'to first results' },
+    stats: { metric: '₹0', label: 'Cost Per Seat' },
   },
 ]
 
@@ -137,7 +137,7 @@ export function Services() {
                 className="font-display text-xl sm:text-2xl font-semibold mb-3 text-white"
                 itemProp="name"
               >
-                {service.shortTitle}
+                {service.title}
               </h3>
               
               {/* Visible short description */}

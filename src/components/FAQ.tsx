@@ -4,14 +4,14 @@ import * as Accordion from '@radix-ui/react-accordion'
 import { staggerContainer, staggerItem } from '@/lib/animations'
 
 const faqs = [
-  { q: 'How much does this cost?', a: 'Retainer model — monthly fee covering management and updates. Exact quote after your free audit.' },
-  { q: 'Will I be stuck depending on you?', a: 'No. After one year, handover is optional. We document everything and train you.' },
-  { q: 'I\'m not technical. Will this work?', a: 'Built for non-technical owners. You don\'t touch the tech — we run it entirely.' },
-  { q: 'Hindi or Gujarati support?', a: 'Yes. All communication, calls, and docs available in Hindi or Gujarati.' },
-  { q: 'What happens after year one?', a: 'Continue on retainer, take full ownership, or upgrade. No lock-in.' },
-  { q: 'How long to see results?', a: 'Lead automation: 2-4 weeks. Full system: 60-90 days.' },
-  { q: 'Need a website already?', a: 'No. We build it. If you have one, we\'ll evaluate and improve or rebuild.' },
-  { q: 'How many clients do you take?', a: '5-8 active clients max. Quality over quantity.' },
+  { q: 'What is an "AI Agent" vs basic automation?', a: 'Basic automation follows fixed rules. AI Agents follow goals. They can reason, remember customer context, and execute entire business workflows autonomously without human input.' },
+  { q: 'Is this really cheaper than hiring an employee?', a: 'A reliable employee in Surat costs ₹3-5L/year plus management overhead. One Mottobiz agent costs a fraction of that, works 24/7/365, never burns out, and has perfect memory.' },
+  { q: 'What do you mean by "Outcome-Based"?', a: 'We don\'t just sell software; we sell results. We align our deployment with your KPIs—whether that is leads captured, lease renewals processed, or candidates sourced.' },
+  { q: 'Will I be stuck depending on you?', a: 'No. After one year, handover is optional. We document every agent workflow and can train you to manage them, though most clients prefer our managed service.' },
+  { q: 'Hindi or Gujarati support?', a: 'Yes. Our agents and our team support English, Hindi, and Gujarati natively to ensure your local Surat customers feel heard.' },
+  { q: 'How long to see results?', a: 'Your first agent is typically deployed within 2-4 weeks. You will see "Agentic" outcomes—like leads extracted or follow-ups executed—immediately after launch.' },
+  { q: 'What about security and data?', a: 'We build agents that run on secure pipelines. Your customer data and "Business Memory" are treated as your most valuable assets and are protected with enterprise-grade encryption.' },
+  { q: 'How many clients do you take?', a: 'To ensure every agent is perfectly tuned to the business workflow, we only take 5-8 active clients at any given time.' },
 ]
 
 export function FAQ() {
