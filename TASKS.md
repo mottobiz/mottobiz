@@ -74,7 +74,7 @@
 
 ### High Priority
 - [ ] Configure Make/n8n webhook URL (set VITE_LEAD_WEBHOOK_URL in .env)
-- [ ] Setup Google Analytics 4 (needs measurement ID)
+- [x] Setup Google Analytics 4 (Measurement ID: G-BRP7Y43MN6)
 - [ ] Setup Google Tag Manager
 
 ### Medium Priority

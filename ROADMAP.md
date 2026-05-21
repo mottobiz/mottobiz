@@ -33,7 +33,6 @@ MottoBiz aims to become the go-to business automation partner for small business
 
 ### Known Limitations
 - Per-article OG images (currently one generic image)
-- Google Analytics 4 not yet installed
 - No unit tests
 - No E2E tests
 
@@ -50,7 +49,7 @@ MottoBiz aims to become the go-to business automation partner for small business
 
 #### Must Have
 - [ ] Configure Make/n8n webhook URL
-- [ ] Setup Google Analytics 4
+- [x] Setup Google Analytics 4 (Measurement ID: G-BRP7Y43MN6)
 - [ ] Setup Google Tag Manager
 - [ ] Create per-article OG images (or dynamic generation)
 
