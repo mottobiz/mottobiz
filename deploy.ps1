@@ -55,6 +55,14 @@ git add .htaccess
 git add favicon.svg
 git add logo-static.svg
 git add logo-wordmark.svg
+# Root-level static files (copied from public/ by build plugin for Hostinger)
+git add sitemap.xml
+git add robots.txt
+git add llms.txt
+git add pricing.md
+git add og-image.png
+git add og-image-new.png
+git add icons.svg
 
 # Check if there are changes to commit
 $diff = git diff --cached --name-only

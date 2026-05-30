@@ -43,6 +43,19 @@ function copyBuildArtifacts() {
       const mainCss = cssFile?.fileName.replace(/^assets\//, '') || ''
       const staticFiles = ['favicon.svg', 'logo-static.svg', 'logo-wordmark.svg']
       staticFiles.forEach((f) => copy(path.join(root, 'public', f), f))
+      // Copy critical files that must be served from the repo root on Hostinger
+      const rootStaticFiles = [
+        'sitemap.xml',
+        'robots.txt',
+        'llms.txt',
+        'pricing.md',
+        'og-image.png',
+        'og-image-new.png',
+        'icons.svg',
+      ]
+      rootStaticFiles.forEach((f) => copy(path.join(root, 'public', f), f))
+      // Copy .htaccess to root (no leading dot issue with copyFileSync)
+      copy(path.join(root, 'public', '.htaccess'), '.htaccess')
       const html = `<!doctype html>
 <html lang="en">
   <head>

@@ -1,0 +1,58 @@
+# llms.txt
+# MottoBiz - AI Business Automation Studio
+# Last updated: 2026-04-13
+# For more information: https://mottobiz.com
+
+## Overview
+
+MottoBiz is Surat's first AI business automation studio. We help solopreneurs and small businesses in Surat, Gujarat automate their daily operations — WhatsApp follow-ups, social media, lead pipelines — without hiring a team.
+
+## Target Audience
+
+- Solopreneurs in Surat looking to scale without hiring
+- Small businesses in Gujarat seeking digital transformation
+- Non-technical business owners who want automation without complexity
+- Entrepreneurs who prefer Hindi or Gujarati communication
+
+## Core Services
+
+1. **Smart Website Development** - High-converting, SEO-optimized websites
+2. **AI Automation** - WhatsApp auto-replies, follow-ups, intelligent workflows
+3. **Social Media Automation** - Automated content creation and scheduling
+4. **Business Intelligence** - Analytics dashboards and reporting systems
+5. **Workflow Automation** - Connect tools, eliminate manual tasks
+6. **Lead Pipeline Automation** - Capture, qualify, and convert leads automatically
+
+## Business Model
+
+- Monthly retainer pricing (custom quotes after free audit)
+- 5-8 client maximum capacity
+- No lock-in contracts
+- Optional handover after 12 months
+- Hindi and Gujarati language support
+
+## Key Differentiators
+
+- First AI automation studio in Surat
+- Built specifically for non-technical owners
+- Local Gujarat expertise with global technology
+- Limited client roster for quality focus
+
+## Important URLs
+
+- Homepage: https://mottobiz.com/
+- Pricing: https://mottobiz.com/pricing.md
+- Sitemap: https://mottobiz.com/sitemap.xml
+
+## Contact Information
+
+- WhatsApp: +91 74879 57972
+- Email: webmaster@mottobiz.com
+- Location: Surat, Gujarat, India (21.1702, 72.8311)
+- Instagram: https://www.instagram.com/mottobiz
+
+## Languages Supported
+
+- English
+- Hindi
+- Gujarati
