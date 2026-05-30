@@ -162,7 +162,7 @@ export const CATEGORY_INFO: CategoryInfo[] = [
     name: 'Industry Tips',
     slug: 'industries',
     icon: '🏭',
-    count: 43,
+    count: 47,
     color: '#F59E0B',
     description: 'Tailored for your business type'
   },
@@ -178,7 +178,7 @@ export const CATEGORY_INFO: CategoryInfo[] = [
     name: 'Automation How-To',
     slug: 'guides',
     icon: '⚡',
-    count: 3,
+    count: 15,
     color: '#10B981',
     description: 'Step-by-step tutorials'
   },
@@ -206,7 +206,7 @@ export const INDUSTRY_HUBS: IndustryHub[] = [
     icon: '🧵',
     slug: 'textile-diamond',
     color: '#6366F1',
-    articles: 19,
+    articles: 22,
     description: 'Automation for textile traders and diamond merchants'
   },
   {

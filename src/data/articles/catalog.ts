@@ -1,4 +1,4 @@
-﻿import type { ArticleCard } from '@/types/article'
+import type { ArticleCard } from '@/types/article'
 
 // Catalog-only module (no helper logic).
 // Extracted from src/data/articles.ts to reduce merge/conflict risk.
@@ -736,6 +736,120 @@ export const ARTICLES: ArticleCard[] = [
     readingTime: 7,
     publishDate: '2026-02-01',
     difficulty: 'intermediate'
+  },
+  {
+    id: 'connect-tally-with-automation-tools-india',
+    title: 'How to Connect Tally ERP with WhatsApp and CRM Automation',
+    excerpt: 'Tally ERP handles your accounts, but manual entries waste hours. Learn how to connect Tally with WhatsApp and CRMs to automate invoices, sync orders, and eliminate errors.',
+    slug: 'connect-tally-with-automation-tools-india',
+    category: 'guides',
+    readingTime: 8,
+    publishDate: '2026-05-30',
+    difficulty: 'intermediate'
+  },
+  {
+    id: 'zapier-vs-make-vs-n8n-india-pricing',
+    title: 'Zapier vs Make vs n8n: The Ultimate Comparison for Indian Businesses (Rupees Pricing)',
+    excerpt: 'Choosing an automation tool? Compare Zapier, Make, and n8n in Indian Rupees. Learn about free plan limits, self-hosting costs, and integration with Indian apps.',
+    slug: 'zapier-vs-make-vs-n8n-india-pricing',
+    category: 'comparisons',
+    readingTime: 9,
+    publishDate: '2026-05-30',
+    difficulty: 'intermediate'
+  },
+  {
+    id: 'jewellery-shop-automation-whatsapp-crm-surat',
+    title: 'Surat Jewellery Showroom Automation: WhatsApp and Billing Sync',
+    excerpt: 'Automate your Surat jewellery showroom. Learn how to sync billing software with WhatsApp, manage clients with specialized CRMs, and automate invoices.',
+    slug: 'jewellery-shop-automation-whatsapp-crm-surat',
+    category: 'industries',
+    pillar: 'Textile & Diamond',
+    subPillar: 'Jewellery Shop Automation',
+    readingTime: 8,
+    publishDate: '2026-05-30',
+    difficulty: 'intermediate'
+  },
+  {
+    id: 'no-code-business-automation-solopreneurs-india',
+    title: 'No-Code Business Automation Stack for Indian Solopreneurs & Consultants',
+    excerpt: 'Run a full business alone. Discover the ultimate low-cost, no-code automation stack for Indian freelancers, consultants, and coaches to automate lead capture and onboarding.',
+    slug: 'no-code-business-automation-solopreneurs-india',
+    category: 'guides',
+    pillar: 'AI Agents & Agentic Automation',
+    subPillar: 'Solopreneur & SMB Automation',
+    readingTime: 8,
+    publishDate: '2026-05-30',
+    difficulty: 'beginner'
+  },
+  {
+    id: 'shopify-woocommerce-automation-guide-india',
+    title: 'Shopify & WooCommerce Automation: The Ultimate Guide for Indian E-commerce',
+    excerpt: 'Scale your store without scaling your team. Learn how to automate Shopify and WooCommerce orders, sync inventory, send WhatsApp alerts, and recover carts in India.',
+    slug: 'shopify-woocommerce-automation-guide-india',
+    category: 'guides',
+    pillar: 'AI Agents & Agentic Automation',
+    subPillar: 'Solopreneur & SMB Automation',
+    readingTime: 9,
+    publishDate: '2026-05-30',
+    difficulty: 'intermediate'
+  },
+  {
+    id: 'pabbly-connect-vs-zapier-indian-businesses',
+    title: 'Pabbly Connect vs Zapier: The Best Budget Automation Tool for Indian Businesses',
+    excerpt: 'Looking for a budget-friendly Zapier alternative? Compare Pabbly Connect and Zapier in Indian Rupees, including lifetime deals, task counts, and integration support.',
+    slug: 'pabbly-connect-vs-zapier-indian-businesses',
+    category: 'comparisons',
+    readingTime: 8,
+    publishDate: '2026-05-30',
+    difficulty: 'beginner'
+  },
+  {
+    id: 'automate-gst-billing-eway-bills-india',
+    title: 'How to Automate GST Billing & E-Way Bills for Indian Small Businesses',
+    excerpt: 'Eliminate manual data entry in your tax compliance. Learn how to automate GST invoicing and E-Way bills using APIs, spreadsheets, and billing ERPs.',
+    slug: 'automate-gst-billing-eway-bills-india',
+    category: 'guides',
+    pillar: 'AI Agents & Agentic Automation',
+    subPillar: 'Solopreneur & SMB Automation',
+    readingTime: 9,
+    publishDate: '2026-05-30',
+    difficulty: 'intermediate'
+  },
+  {
+    id: 'best-crm-setup-surat-businesses',
+    title: 'Best CRM Setup for Surat Businesses: Zoho, HubSpot, or WhatsApp CRM?',
+    excerpt: 'Choose the right CRM for your Surat business. Compare Zoho, HubSpot, and lightweight WhatsApp CRMs for real estate, retail showrooms, and textile traders.',
+    slug: 'best-crm-setup-surat-businesses',
+    category: 'guides',
+    pillar: 'AI Agents & Agentic Automation',
+    subPillar: 'Solopreneur & SMB Automation',
+    readingTime: 9,
+    publishDate: '2026-05-30',
+    difficulty: 'intermediate'
+  },
+  {
+    id: 'textile-business-automation-surat-guide',
+    title: 'Textile Business Automation in Surat: The Complete Guide',
+    excerpt: 'Surat textile markets on Ring Road and Varachha move fast. Learn how wholesale traders automate inventory, broker orders, and WhatsApp catalogs.',
+    slug: 'textile-business-automation-surat-guide',
+    category: 'guides',
+    pillar: 'Textile & Diamond',
+    subPillar: 'Inventory & Order Automation',
+    readingTime: 10,
+    publishDate: '2026-05-30',
+    difficulty: 'beginner'
+  },
+  {
+    id: 'best-jewellers-crm-surat-gujarat',
+    title: 'Best Jewellers CRM in Surat: Automating Billing & WhatsApp',
+    excerpt: 'Build trust with your customers. Compare custom CRM systems for Surat jewellery showrooms featuring gold rate updates and automated certificate sharing.',
+    slug: 'best-jewellers-crm-surat-gujarat',
+    category: 'industries',
+    pillar: 'Textile & Diamond',
+    subPillar: 'Lead Management for Diamond Merchants',
+    readingTime: 8,
+    publishDate: '2026-05-22',
+    difficulty: 'intermediate'
   }
 ]
 
@@ -1086,6 +1200,18 @@ export const AI_AGENT_ARTICLES: ArticleCard[] = [
     publishDate: '2026-05-03',
     difficulty: 'beginner'
   },
+  {
+    id: 'n8n-workflow-automation-india-guide',
+    title: 'n8n Workflow Automation: Self-Hosted Setup under ₹500/Month',
+    excerpt: 'Run unlimited business workflows without monthly charges. Learn how to deploy n8n self-hosted on a VPS, connect Indian APIs, and bypass RBI card blocks.',
+    slug: 'n8n-workflow-automation-india-guide',
+    category: 'guides',
+    pillar: 'AI Agents & Agentic Automation',
+    subPillar: 'AI Agent Tools & Setup',
+    readingTime: 11,
+    publishDate: '2026-05-15',
+    difficulty: 'intermediate'
+  }
 ]
 
 // Get article by slug - searches all article arrays

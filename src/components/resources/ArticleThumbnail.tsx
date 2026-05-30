@@ -82,6 +82,17 @@ const THUMBNAIL_ICONS: Record<string, string> = {
   'autonomous-lead-followup-agent': '🎯',
   'solopreneur-automation-india-2025': '🚀',
   'ai-agent-vs-chatbot-difference': '🔍',
+  'connect-tally-with-automation-tools-india': '🧾',
+  'zapier-vs-make-vs-n8n-india-pricing': '⚖️',
+  'jewellery-shop-automation-whatsapp-crm-surat': '💎',
+  'no-code-business-automation-solopreneurs-india': '🚀',
+  'shopify-woocommerce-automation-guide-india': '🛒',
+  'pabbly-connect-vs-zapier-indian-businesses': '🔌',
+  'automate-gst-billing-eway-bills-india': '🧾',
+  'best-crm-setup-surat-businesses': '🎯',
+  'textile-business-automation-surat-guide': '🧵',
+  'n8n-workflow-automation-india-guide': '⚙️',
+  'best-jewellers-crm-surat-gujarat': '💎',
 }
 
 const DIMENSIONS = {

@@ -121,13 +121,6 @@ const localBusinessSchema = {
     'Surat Business Technology',
     'Gujarat Small Business Solutions',
   ],
-  aggregateRating: {
-    '@type': 'AggregateRating',
-    ratingValue: '4.9',
-    reviewCount: '23',
-    bestRating: '5',
-    worstRating: '1',
-  },
   foundingDate: '2024',
   numberOfEmployees: {
     '@type': 'QuantitativeValue',
@@ -327,7 +320,7 @@ interface SEOHeadProps {
 }
 
 export function SEOHead({ 
-  title = 'AI Business Automation in Surat | MottoBiz — Free Audit',
+  title = 'Business Automation & Web Design in Surat | MottoBiz',
   description = "MottoBiz helps solopreneurs and small businesses in Surat automate their daily operations — WhatsApp follow-ups, social media, lead pipelines — without hiring a team. Book a free 30-min audit.",
   canonicalUrl = SITE_URL,
   ogImage = `${SITE_URL}/og-image.png`
@@ -348,7 +341,7 @@ export function SEOHead({
       {/* AI Search Optimization Meta Tags */}
       <meta name="AI-friendly" content="true" />
       <meta name="content-type" content="business-service" />
-      <meta name="last-modified" content="2026-05-30" />
+      <meta name="last-modified" content="2026-04-13" />
       
       {/* Open Graph */}
       <meta property="og:type" content={isHomePage ? 'business.business' : 'article'} />
@@ -366,7 +359,6 @@ export function SEOHead({
 
       {/* Twitter */}
       <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:site" content="@mottobiz" />
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={ogImage} />

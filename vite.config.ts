@@ -52,18 +52,40 @@ function copyBuildArtifacts() {
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
       gtag('config', 'G-BRP7Y43MN6');
     </script>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#0A0A0B" />
-    <title>Business Automation & Web Design in Surat | MottoBiz</title>
+    <title>AI Business Automation in Surat | MottoBiz — Free Audit</title>
+    <!-- Static fallback meta tags for crawlers & social bots -->
+    <meta name="description" content="MottoBiz helps solopreneurs and small businesses in Surat automate WhatsApp follow-ups, lead pipelines, and social media — without hiring a team. Book a free 30-min audit." />
+    <meta name="robots" content="index, follow" />
+    <meta name="author" content="MottoBiz" />
+    <link rel="canonical" href="https://mottobiz.com" />
+    <meta property="og:type" content="business.business" />
+    <meta property="og:url" content="https://mottobiz.com" />
+    <meta property="og:title" content="AI Business Automation in Surat | MottoBiz" />
+    <meta property="og:description" content="Surat's first AI business automation studio. WhatsApp automation, lead pipelines, smart websites — all done-for-you. Book a free audit today." />
+    <meta property="og:image" content="https://mottobiz.com/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="en_IN" />
+    <meta property="og:site_name" content="MottoBiz" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@mottobiz" />
+    <meta name="twitter:title" content="AI Business Automation in Surat | MottoBiz" />
+    <meta name="twitter:description" content="Surat's first AI business automation studio. WhatsApp automation, lead pipelines, smart websites — done-for-you." />
+    <meta name="twitter:image" content="https://mottobiz.com/og-image.png" />
+    <meta name="geo.region" content="IN-GJ" />
+    <meta name="geo.placename" content="Surat" />
+    <meta name="geo.position" content="21.1702;72.8311" />
+    <meta name="ICBM" content="21.1702, 72.8311" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet" />
-${mainCss ? `    <link rel="stylesheet" crossorigin href="./public/assets/${mainCss}">\n` : ''}    <script type="module" crossorigin src="./public/assets/${mainJs}"></script>
+${mainCss ? `    <link rel="stylesheet" crossorigin href="./assets/${mainCss}">\n` : ''}    <script type="module" crossorigin src="./assets/${mainJs}"></script>
   </head>
   <body>
     <div id="root"></div>
@@ -75,19 +97,25 @@ ${mainCss ? `    <link rel="stylesheet" crossorigin href="./public/assets/${main
   }
 }
 
-export default defineConfig({
-  plugins: [react(), tailwindcss(), copyBuildArtifacts()],
-  base: './',
-  build: {
-    outDir: 'public',
-    emptyOutDir: false,
-    rollupOptions: {
-      input: path.resolve(__dirname, 'src/main.tsx'),
+export default defineConfig(({ command }) => {
+  return {
+    plugins: [
+      react(),
+      tailwindcss(),
+      command === 'build' ? copyBuildArtifacts() : null
+    ].filter(Boolean),
+    base: './',
+    build: {
+      outDir: 'public',
+      emptyOutDir: false,
+      rollupOptions: {
+        input: path.resolve(__dirname, 'src/main.tsx'),
+      },
     },
-  },
-  resolve: {
-    alias: {
-      '@': path.resolve(__dirname, './src'),
+    resolve: {
+      alias: {
+        '@': path.resolve(__dirname, './src'),
+      },
     },
-  },
+  }
 })

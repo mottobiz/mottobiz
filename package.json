@@ -8,6 +8,8 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "generate:og": "node scripts/generate-og-images.mjs",
+    "prerender": "node scripts/prerender.mjs",
+    "build:full": "npm run build && npm run generate:og && npm run prerender",
     "verify:predeploy": "npm run build && npm run generate:og -- --dry-run"
   },
   "devDependencies": {
@@ -16,6 +18,8 @@
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.1",
+    "puppeteer": "^25.1.0",
+    "serve-handler": "^6.1.7",
     "sharp": "^0.34.5",
     "tailwindcss": "^4.2.2",
     "typescript": "~6.0.2",

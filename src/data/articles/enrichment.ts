@@ -1,4 +1,4 @@
-﻿import type { ChecklistData, ProTipData, StatCardData, StepItem, WarningData } from '@/types/article'
+import type { ChecklistData, ProTipData, StatCardData, StepItem, WarningData } from '@/types/article'
 
 // Extracted from src/data/articles.ts for maintainability.
 const TLDR_DATABASE: Record<string, string[]> = {
@@ -467,6 +467,77 @@ const TLDR_DATABASE: Record<string, string[]> = {
     'Chatbots are fine for: under 10 daily inquiries, 3-5 fixed questions only, basic contact collection',
     'You need an agent if: customers ask unexpected questions, workflow has 2+ steps, slow responses cost you deals',
   ],
+  'connect-tally-with-automation-tools-india': [
+    'Manual invoicing in Tally ERP consumes 5–10 hours per week for Surat wholesale and retail traders',
+    'Automation via Make, n8n, or Zapier creates ledger entries and drafts invoices automatically in real-time',
+    'Connecting Tally with WhatsApp allows instant GST-compliant PDF invoice delivery and automated payment links',
+    'Syncing Google Sheets with Tally eliminates copy-paste errors and saves hours of weekend data entry',
+    'Start by automating one workflow—like WhatsApp sales invoicing—before integrating full inventory sync',
+  ],
+  'zapier-vs-make-vs-n8n-india-pricing': [
+    'Zapier is highly user-friendly but extremely expensive for high transaction volumes, charging per task.',
+    'Make.com is a visual powerhouse, costing around one-fourth of Zapier, but charges for individual execution modules.',
+    'n8n self-hosted is the cheapest option, running on a VPS for ₹450-900/month with unlimited execution tasks.',
+    'Indian RBI credit card mandates make paying for US-based USD subscriptions a recurring operational challenge.',
+    'For non-technical founders, Make.com is the best starter, while tech-savvy teams should deploy self-hosted n8n.',
+  ],
+  'jewellery-shop-automation-whatsapp-crm-surat': [
+    'Surat jewellery showrooms (Ghod Dod Road, Bhagal, Choksi Bazar) face severe checkout bottlenecks during wedding seasons.',
+    'Automating the invoicing system allows instant delivery of digital invoices merged with BIS Hallmark, IGI, or GIA purity certificates on WhatsApp.',
+    'Personalizing daily gold rate alerts based on customer preferences gets higher engagement than generic SMS broadcasts.',
+    'Automating anniversary, birthday, and festival (Diwali, Dhanteras) campaigns drives high customer retention and showroom visits.',
+    'Connecting billing platforms (Marg ERP, Tally Prime) with CRM via secure APIs protects data integrity and reduces human administration.',
+  ],
+  'no-code-business-automation-solopreneurs-india': [
+    'Solo professionals (freelancers, consultants, coaches) in Surat spend up to 30 hours per month on repetitive admin tasks.',
+    'A low-cost no-code stack under ₹1,500/month can automate lead capture, qualification, proposals, and invoicing.',
+    'Tally.so is a highly capable and free form builder for intake questionnaires, replacing messy back-and-forth emails.',
+    'Connecting Google Sheets with Make or n8n allows automated proposal PDF generation via Google Docs templates.',
+    'WhatsApp Business API gateways automate client deliveries and payment link follow-ups, reducing invoice collection delay.',
+  ],
+  'shopify-woocommerce-automation-guide-india': [
+    'Surat brands expanding online face operational bottlenecks copy-pasting addresses and tracking details.',
+    'Integrating Shopify or WooCommerce with tools like n8n or Make automates the entire order-to-shipping workflow.',
+    'Automating shipping label creation in Shiprocket or Delhivery cuts checkout-to-dispatch delays by 90%.',
+    'Using WhatsApp Business APIs for abandoned cart recovery increases conversion rates by 15-25% in India.',
+    'Automated Cash on Delivery (COD) order verification via WhatsApp interactive buttons reduces RTO (Return to Origin) losses.',
+  ],
+  'pabbly-connect-vs-zapier-indian-businesses': [
+    'Zapier connects with 6,000+ apps but bills in USD, which often fails RBI card mandates.',
+    'Pabbly Connect bills in Rupees (INR) and offers affordable lifetime deal (LTD) one-time options.',
+    'Pabbly Connect only counts successful final action steps as billable tasks; filters and internal routers are free.',
+    'Zapier has deeper global SaaS app support, while Pabbly Connect natively supports local Indian tools like Razorpay.',
+  ],
+  'automate-gst-billing-eway-bills-india': [
+    'Manual invoicing and e-way bill generation is slow and highly vulnerable to manual typing mistakes.',
+    'Connecting billing ERPs (Tally Prime/Zoho) with GST APIs allows instant e-invoice generation on invoice save.',
+    'Courier API integrations (like Shiprocket) automate tracking details and vehicle logs to auto-draft E-Way bills.',
+    'Automating tax invoice deliveries to customer WhatsApp numbers cuts accounting administrative time by 80%.',
+  ],
+  'best-crm-setup-surat-businesses': [
+    'Traditional CRM projects fail in India because sales executives refuse to copy chats into complex CRM databases.',
+    'A localized CRM with direct WhatsApp API integration keeps sales agents operating within their primary communication tool.',
+    'Zoho CRM is highly customized and priced in Rupees, while mottoCRM operates directly inside WhatsApp.',
+    'Real estate brokers need visual pipelines and drip email, while boutiques need lightweight tag-based broadcasting.',
+  ],
+  'textile-business-automation-surat-guide': [
+    'Surat textile traders lose valuable customer orders to competitor shops due to slow manual fabric check responses.',
+    'Interactive WhatsApp Business catalogs let wholesale buyers explore designs and check rates instantly on demand.',
+    'Tally ERP XML integrations sync orders directly to your ledger, removing double-entry data errors.',
+    'Automating godown packing slip dispatches to warehouses reduces shipping delays from days to minutes.',
+  ],
+  'n8n-workflow-automation-india-guide': [
+    'n8n is a powerful open-source visual automation tool that allows running unlimited tasks without per-run billing.',
+    'Hosting n8n on a local Indian VPS under ₹500/month avoids recurring USD subscription fee escalations.',
+    'Self-hosting n8n bypasses recurring RBI card transaction auto-debit blocks and ensures operations stay online.',
+    'Native nodes allow direct secure connections to Indian applications like Zoho books, Razorpay, and Shiprocket.',
+  ],
+  'best-jewellers-crm-surat-gujarat': [
+    'Surat jewellery showrooms require premium customer care to track custom ornament orders and Karigar workshops.',
+    'A custom jewellers CRM automatically sends daily gold and silver metal rate alerts to purchase-intent buyers.',
+    'Automated certificate delivery matches GIA/IGI certificate PDFs with invoices and sends signed URLs to WhatsApp.',
+    'Karigar job cards track manufacturing stages (cast, set, polish) and keep clients updated with automated alerts.',
+  ],
 }
 
 const FAQ_DATABASE: Record<string, import('@/types/article').FAQItem[]> = {
@@ -802,7 +873,62 @@ const FAQ_DATABASE: Record<string, import('@/types/article').FAQItem[]> = {
   'ai-agent-vs-chatbot-difference': [
     { question: 'What is the difference between an AI agent and a chatbot?', answer: 'A chatbot follows pre-programmed scripts and fails on anything unexpected. An AI agent uses a language model as a reasoning engine — it understands context, handles novel questions, connects to live data, takes multi-step action, and follows up autonomously. Chatbots answer. Agents act.' },
     { question: 'Is a WhatsApp chatbot the same as an AI agent?', answer: 'No. A WhatsApp chatbot triggers pre-written replies based on keywords or buttons. A WhatsApp AI agent uses GPT-4 to understand what the customer wants, access your real data, respond contextually, complete multi-step tasks, and initiate follow-up messages.' },
-    { question: 'Does my Surat business need a chatbot or an AI agent?', answer: 'If under 10 daily inquiries all asking the same 3-4 questions — a chatbot is fine. If 20+ daily inquiries, customers ask unexpected questions, responses need live data, or slow responses are costing deals — you need an AI agent. Quick test: look at last 50 WhatsApp conversations. Count how many got the wrong reply or no reply.' },
+    { question: 'Does my Surat business need a chatbot or an AI agent?', answer: 'If under 10 daily inquiries all asking the same 3-4 questions — a chatbot is fine. If 20+ daily inquiries, customers ask unexpected questions, responses need live data, or slow responses are costing deals — you need an AI agent. Quick test: look at last 50 WhatsApp conversations. Count many got the wrong reply or no reply.' },
+  ],
+  'connect-tally-with-automation-tools-india': [
+    { question: 'How do you connect Tally ERP with online automation tools?', answer: 'Tally ERP has a built-in XML gateway that allows it to send and receive data. Using connectors or automation platforms like n8n or Make, we can build a bridge to send sales data from WhatsApp, sheets, or CRMs directly into Tally as vouchers.' },
+    { question: 'Can I send Tally invoices to customers automatically on WhatsApp?', answer: 'Yes. When an invoice is created in Tally, the automation can trigger a message containing the invoice PDF and a UPI payment link directly to the buyer\'s WhatsApp number, responding in under 10 seconds.' },
+    { question: 'Does Tally automation work with Tally Prime and older versions?', answer: 'Yes, Tally automation works with both Tally Prime and Tally ERP 9, as both versions share the core XML gateway. Desktop versions of Tally require a lightweight cloud connector to communicate with platforms like Make and n8n.' },
+  ],
+  'zapier-vs-make-vs-n8n-india-pricing': [
+    { question: 'Which tool has the cheapest pricing for Indian businesses?', answer: 'n8n self-hosted is the cheapest, costing around ₹450 to ₹900 per month for a private VPS (Virtual Private Server) with unlimited workflows. Make.com starts at around ₹750 ($9) per month, while Zapier starts at around ₹1,650 ($20) per month but scales up rapidly.' },
+    { question: 'How do RBI card rules affect paying for these automation tools?', answer: 'Zapier, Make.com, and n8n Cloud are priced in US Dollars (USD). Under RBI recurring mandate rules, automatic card renewals often fail. It is recommended to use credit cards enabled for international transactions and keep secondary payment fallback options ready.' },
+    { question: 'Can these tools integrate with Indian apps like Zoho, Razorpay, and Tally?', answer: 'Yes. Make.com and n8n have excellent native support for Zoho CRM and Razorpay. Connecting Tally ERP requires setting up local gateways or XML payloads, which n8n handles best within local networks.' },
+  ],
+  'jewellery-shop-automation-whatsapp-crm-surat': [
+    { question: 'How can a jewellery showroom connect billing ERP with WhatsApp?', answer: 'We build secure API connectors between your billing software (like Marg ERP, Tally Prime, or custom POS) and a WhatsApp Business API gateway. Every time a bill is generated, the system automatically triggers a WhatsApp message containing the PDF invoice and digital purity certificates.' },
+    { question: 'Is it possible to automate purity certificate delivery?', answer: 'Yes. The system matches the unique diamond certificate ID (GIA/IGI) on the invoice with your digital certificate vault and merges the document into a single PDF package, sending it to the client in under 10 seconds.' },
+    { question: 'How do you prevent duplicate customer records in the jewellery CRM?', answer: 'We implement strict validation based on mobile number and PAN card details. When billing, the system queries the CRM to match the customer before creating a new ledger, preserving clean purchase histories and loyalty point accuracy.' },
+  ],
+  'no-code-business-automation-solopreneurs-india': [
+    { question: 'What is the cheapest no-code automation stack for a freelancer in India?', answer: 'The cheapest stack uses Tally.so (free form builder), Google Sheets (free CRM), self-hosted n8n (₹450/month VPS), and a WhatsApp API connector (₹450-900/month). The entire setup can run for under ₹1,500/month.' },
+    { question: 'How can I automate custom proposal PDF creation?', answer: 'You can create a proposal template in Google Docs with placeholders (e.g., {{client_name}}). Using Make.com or n8n, you set a workflow to replace the placeholders with lead form submissions, export the document as a PDF, and upload it to Google Drive.' },
+    { question: 'Do I need coding skills to automate my consulting business?', answer: 'No coding skills are required. Modern visual workflow builders like Make.com let you drag and drop bubbles to link applications, while forms like Tally use simple text formatting blocks.' },
+  ],
+  'shopify-woocommerce-automation-guide-india': [
+    { question: 'How can Indian e-commerce stores reduce COD rejection (RTO) rates?', answer: 'You can use WhatsApp automation to send an interactive confirmation message immediately after a COD order is placed. The buyer confirms or cancels using buttons. Unconfirmed orders are put on hold or auto-cancelled, which typically cuts RTO rates by 25-40%.' },
+    { question: 'What is the best way to sync Shopify or WooCommerce orders with Shiprocket?', answer: 'Using workflow tools like n8n or Make, you can listen to "Order Paid" or "Order Confirmed" webhooks from Shopify/WooCommerce and automatically call the Shiprocket API to create a shipment, fetch rates, and generate a shipping label instantly.' },
+    { question: 'How do you set up automated WhatsApp tracking alerts for e-commerce?', answer: 'Connect your shipping aggregator (e.g. Shiprocket) webhooks to your automation platform. Whenever Shiprocket updates the tracking status (e.g., shipped, out for delivery), your scenario triggers a message through a WhatsApp Business API provider containing the tracking URL.' },
+  ],
+  'pabbly-connect-vs-zapier-indian-businesses': [
+    { question: 'Why is Pabbly Connect cheaper than Zapier for Indian businesses?', answer: 'Pabbly Connect bills in Indian Rupees (INR) and offers one-time lifetime licenses starting around ₹20,000. Additionally, Pabbly does not count filters, logic gates, or internal routing steps as billable tasks. Only the final action counts, which makes high-volume workflows up to 10x cheaper.' },
+    { question: 'Does Pabbly Connect support Indian payment gateways like Razorpay?', answer: 'Yes. Pabbly Connect has native, robust integrations for Razorpay, Instamojo, Zoho CRM, Zoho Books, and various Indian WhatsApp Business API providers, making it ideal for the local business ecosystem.' },
+    { question: 'What are the main limitations of Pabbly Connect compared to Zapier?', answer: 'Zapier supports over 6,000 applications, while Pabbly Connect currently integrates with 1,500+. If you rely on highly specific, niche global SaaS tools, Zapier has better out-of-the-box support.' },
+  ],
+  'automate-gst-billing-eway-bills-india': [
+    { question: 'How can small businesses automate e-invoice generation?', answer: 'By connecting your ERP (like Tally Prime or Zoho Books) to a GST Suvidha Provider (GSP) API (like ClearTax or Sandbox) via tools like n8n, invoices are sent automatically to the portal on save. The government returns the IRN and QR code in real-time.' },
+    { question: 'Is it legal to automate E-Way bill generation under GST rules?', answer: 'Yes, generating E-Way bills via authorized GSP APIs is fully compliant and legal. It reduces manual typing errors and mismatches between accounting entries and transportation logs.' },
+    { question: 'Can n8n or Make.com handle GST calculations automatically?', answer: 'Yes. Workflow tools can apply conditional logic to calculate IGST, CGST, and SGST based on customer delivery addresses and HSN codes before passing the payload to the invoicing portal.' },
+  ],
+  'best-crm-setup-surat-businesses': [
+    { question: 'Why do traditional CRMs fail for Indian sales teams?', answer: 'Most sales executives in India conduct operations entirely on WhatsApp. Traditional CRMs require agents to copy chat histories manually, resulting in low compliance. Local CRMs that work directly inside WhatsApp have a 3x higher adoption rate.' },
+    { question: 'How does Zoho CRM compare with HubSpot for a Surat business?', answer: 'Zoho CRM bills in Rupees, has local support, and features highly flexible modules at a fraction of HubSpot\'s cost. HubSpot is modern but priced in US Dollars, which is expensive for small sales teams.' },
+    { question: 'What is a WhatsApp CRM?', answer: 'A WhatsApp CRM links your WhatsApp Business API number directly to a sales pipeline. Agents can create deals, set follow-up reminders, tag leads, and update contact info directly from the WhatsApp chat screen.' },
+  ],
+  'textile-business-automation-surat-guide': [
+    { question: 'How can Surat textile wholesalers automate fabric catalogs?', answer: 'You can set up an interactive WhatsApp Business catalog where buyers view fabric designs, roll size, and prices by clicking menu buttons. A workflow tool like n8n or Make fetches the latest options from an Excel file or database and sends catalog photos instantly.' },
+    { question: 'Does Tally integration work for high-volume Ring Road traders?', answer: 'Yes. Tally has an XML gateway that allows billing data to flow between Tally and online databases. Order details confirmed on WhatsApp are synced automatically to draft sales vouchers in Tally, preventing double entry and typos.' },
+    { question: 'How does automated packing slip printing speed up godown dispatch?', answer: 'The moment your billing staff saves a sales voucher in Tally or Zoho Books, the automation compiles a simplified packing slip (design SKU, quantity, roll details) and dispatches it directly to your warehouse manager\'s phone via WhatsApp or local thermal printers.' },
+  ],
+  'n8n-workflow-automation-india-guide': [
+    { question: 'Why should Indian startups choose self-hosted n8n over Zapier?', answer: 'Self-hosted n8n is free, runs on a local Indian VPS for under ₹500/month, and has no task limit constraints. Zapier charges in USD and scales in cost rapidly. Additionally, n8n lets you process high-volume webhooks locally, keeping data secure.' },
+    { question: 'How do RBI credit card recurring payment rules affect n8n billing?', answer: 'RBI recurring transaction rules frequently fail for foreign USD SaaS subscriptions (like Zapier or Make). Self-hosted n8n runs on Indian VPS servers billed in Rupees via stable payment systems like UPI or NetBanking, eliminating payment failures.' },
+    { question: 'Is coding required to manage self-hosted n8n workflows?', answer: 'No coding is required. n8n features a visual node canvas. While deploying n8n requires simple copy-paste server commands to install Docker, the daily workflow construction is completely visual and drag-and-drop.' },
+  ],
+  'best-jewellers-crm-surat-gujarat': [
+    { question: 'What are the essential CRM features for Surat jewelry showrooms?', answer: 'Surat jewellers need three core CRM workflows: daily gold and silver metal rate alerts on WhatsApp, automated GIA/IGI certificate delivery matched to invoicing, and job card pipelines to track Karigar manufacturing progress.' },
+    { question: 'How do you automate gold price alerts to potential jewelry buyers?', answer: 'Your CRM pulls daily market rates from gold price APIs and matches buyers tagged with rate alert requests. The system automatically sends a personalized WhatsApp message (e.g., gold rate drop alerts) directly to the buyer\'s phone.' },
+    { question: 'Can the Jewellery CRM integrate with Tally and Marg billing software?', answer: 'Yes. By connecting billing software like Marg or Tally to your CRM via webhooks or local API bridges, invoice creation automatically updates client records, compiles certificate links, and triggers post-purchase feedback loops on WhatsApp.' },
   ],
 }
 
@@ -912,6 +1038,61 @@ const STATCARDS_DATABASE: Record<string, StatCardData[]> = {
     { value: '8-10hrs', label: 'Weekly admin time saved', context: 'Full automation' },
     { value: '40%', label: 'Higher parent satisfaction', context: 'With weekly updates' },
     { value: '30%', label: 'Better student retention', context: 'Parent communication' },
+  ],
+  'connect-tally-with-automation-tools-india': [
+    { value: '5-10h', label: 'Time saved weekly', context: 'On manual bookkeeping entry' },
+    { value: 'Zero', label: 'Invoicing data entry errors', context: 'Direct CRM & WhatsApp sync' },
+    { value: '<10s', label: 'Invoice delivery time', context: 'Auto-sent to WhatsApp' },
+  ],
+  'zapier-vs-make-vs-n8n-india-pricing': [
+    { value: '4-5x', label: 'Make.com savings vs Zapier', context: 'For average SME transaction volumes' },
+    { value: '₹450/m', label: 'Flat n8n self-hosted cost', context: 'Runs unlimited tasks on a VPS' },
+    { value: '6,000+', label: 'Apps supported by Zapier', context: 'Largest integration library globally' },
+  ],
+  'jewellery-shop-automation-whatsapp-crm-surat': [
+    { value: '70%+', label: 'Digital certificate adoption', context: 'Reduction in lost paper booklets' },
+    { value: '<10s', label: 'Bill delivery to WhatsApp', context: 'Auto-sent post checkout' },
+    { value: '3x', label: 'Higher anniversary campaign visits', context: 'Compared to traditional SMS blasts' },
+  ],
+  'no-code-business-automation-solopreneurs-india': [
+    { value: '30 hours', label: 'Wasted admin time saved monthly', context: 'Reclaimed for billable client work' },
+    { value: '<₹1,500', label: 'Monthly no-code stack cost', context: 'Affordable solo operational budget' },
+    { value: '80%', label: 'Lead qualification automated', context: 'Via smart intake forms' },
+  ],
+  'shopify-woocommerce-automation-guide-india': [
+    { value: '25-40%', label: 'RTO (COD rejection) reduction', context: 'Via WhatsApp interactive confirmation' },
+    { value: '15-25%', label: 'Cart recovery rate increase', context: 'Using automated WhatsApp recovery flows' },
+    { value: '<5 mins', label: 'Order-to-Shipment sync time', context: 'Direct API integration vs manual typing' },
+  ],
+  'pabbly-connect-vs-zapier-indian-businesses': [
+    { value: 'Up to 90%', label: 'Automation cost reduction', context: 'Compared to Zapier recurring USD pricing' },
+    { value: 'Zero', label: 'Filter task charges', context: 'Only final actions count as tasks' },
+    { value: '1,500+', label: 'Apps supported natively', context: 'With deep integrations for Indian software' },
+  ],
+  'automate-gst-billing-eway-bills-india': [
+    { value: '<2s', label: 'IRN & QR code generation time', context: 'Direct government portal API sync' },
+    { value: '80%', label: 'Billing admin hours saved', context: 'No manual portal entry needed' },
+    { value: 'Zero', label: 'E-way bill typing errors', context: 'Auto-populated from transporter logs' },
+  ],
+  'best-crm-setup-surat-businesses': [
+    { value: '3x', label: 'Higher sales team adoption', context: 'WhatsApp-based CRMs vs web portals' },
+    { value: '85%', label: 'Rupees pricing savings', context: 'Zoho CRM / mottoCRM vs HubSpot USD cost' },
+    { value: '100%', label: 'Lead qualification coverage', context: 'Instant automated qualification chats' },
+  ],
+  'textile-business-automation-surat-guide': [
+    { value: '40%', label: 'Reduction in order response lag', context: 'Instant automated fabric catalog replies' },
+    { value: '10+ hrs', label: 'Weekly administrative hours saved', context: 'Eliminating double Tally data entry' },
+    { value: '98%', label: 'Dispatch accuracy rate', context: 'With automated godown packing slips' },
+  ],
+  'n8n-workflow-automation-india-guide': [
+    { value: '₹450/m', label: 'Flat hosting cost on local VPS', context: 'Compared to ₹10,000+ USD SaaS limits' },
+    { value: 'Unlimited', label: 'Monthly task executions', context: 'No extra charges for loops and routers' },
+    { value: '100%', label: 'Failed auto-debit immunity', context: 'Billed in Rupees via standard UPI' },
+  ],
+  'best-jewellers-crm-surat-gujarat': [
+    { value: '<10s', label: 'Certificate delivery response', context: 'Instant GIA/IGI URL shares on WhatsApp' },
+    { value: '4.9/5', label: 'Average customer service rating', context: 'Reported by local showrooms after setup' },
+    { value: '95%', label: 'Workshop pipeline visibility', context: 'Real-time job card tracking for Karigars' },
   ],
 }
 
@@ -1201,6 +1382,117 @@ const CHECKLISTS_DATABASE: Record<string, ChecklistData> = {
       { text: 'Test with parents of existing students' },
     ],
   },
+  'connect-tally-with-automation-tools-india': {
+    title: 'Tally ERP Automation Setup Checklist',
+    items: [
+      { text: 'Enable ODBC and XML Gateway in Tally configuration' },
+      { text: 'Document your standard HSN codes, tax rates, and ledger mappings' },
+      { text: 'Select an automation platform (Make or n8n self-hosted)' },
+      { text: 'Set up WhatsApp Business API connection via 360dialog or Twilio' },
+      { text: 'Build the invoicing sync workflow (WhatsApp/Sheets → Tally draft invoice)' },
+      { text: 'Test with 5 sample transactions to verify GST and discount calculations' },
+    ],
+  },
+  'zapier-vs-make-vs-n8n-india-pricing': {
+    title: 'Choosing & Setting Up Your Automation Tool',
+    items: [
+      { text: 'Calculate your average monthly task runs (leads, billing entries, messages)' },
+      { text: 'Verify if your business credit card is compliant with RBI recurring mandates' },
+      { text: 'Determine if you have the technical skills to manage a self-hosted server' },
+      { text: 'Check native connector availability for your key apps (e.g. Zoho, Sheets)' },
+      { text: 'Build a small proof-of-concept workflow on free tiers before upgrading' },
+    ],
+  },
+  'jewellery-shop-automation-whatsapp-crm-surat': {
+    title: 'Showroom Automation Setup Checklist',
+    items: [
+      { text: 'Verify if your ERP (Marg, Tally, custom POS) supports API hooks or file exports' },
+      { text: 'Establish a digital vault for BIS Hallmark, GIA, and IGI purity certificates' },
+      { text: 'Register for a verified WhatsApp Business API number (Green Tick recommended)' },
+      { text: 'Train showroom sales staff to collect birthdates and wedding anniversaries' },
+      { text: 'Build the loyalty points trigger and define points-to-rupees redemption rules' },
+    ],
+  },
+  'no-code-business-automation-solopreneurs-india': {
+    title: 'Solopreneur Automation Setup Checklist',
+    items: [
+      { text: 'Create a free Tally.so client intake form with budget and timeline fields' },
+      { text: 'Set up a master Google Sheet to log form entries and track client status' },
+      { text: 'Draft a master proposal template in Google Docs with template tags' },
+      { text: 'Choose your automation platform (Make.com or n8n Cloud)' },
+      { text: 'Configure WhatsApp templates for proposal delivery and follow-ups' },
+    ],
+  },
+  'shopify-woocommerce-automation-guide-india': {
+    title: 'E-commerce Automation Setup Checklist',
+    items: [
+      { text: 'Set up Shopify/WooCommerce webhooks for order creation, payments, and cart abandonment' },
+      { text: 'Connect your storefront webhook trigger to Make.com or n8n' },
+      { text: 'Integrate your Shiprocket or Delhivery API keys to enable automatic shipping order creation' },
+      { text: 'Obtain WhatsApp Business API access and approve templates for order confirmation, shipping alerts, and recovery' },
+      { text: 'Configure a master inventory spreadsheet and sync rules to automatically adjust stock values across channels' },
+    ],
+  },
+  'pabbly-connect-vs-zapier-indian-businesses': {
+    title: 'Tool Selection Checklist',
+    items: [
+      { text: 'Calculate your monthly execution tasks and estimate the Zapier equivalent cost' },
+      { text: 'Verify if your primary software tools are supported natively in Pabbly Connect\'s app library' },
+      { text: 'Check the availability of Pabbly Connect\'s lifetime deal payment options in Rupees' },
+      { text: 'Map out multi-step scenarios to check if you need advanced logic or conditional routers' },
+      { text: 'Test lead form capture to verify webhook speed and data transformation rules' },
+    ],
+  },
+  'automate-gst-billing-eway-bills-india': {
+    title: 'GST & E-Way Bill Automation Setup Checklist',
+    items: [
+      { text: 'Check if your accounting/POS software supports JSON/XML data exports or API webhooks' },
+      { text: 'Sign up for a licensed GSP (GST Suvidha Provider) account to obtain government gateway API credentials' },
+      { text: 'Configure tax logic rules (IGST, CGST, SGST) in your visual automation builder' },
+      { text: 'Link your logistics aggregator API (like Shiprocket) to retrieve tracking IDs and vehicle data' },
+      { text: 'Prepare WhatsApp templates for digital invoice and e-way bill delivery to transport teams' },
+    ],
+  },
+  'best-crm-setup-surat-businesses': {
+    title: 'Surat CRM Implementation Checklist',
+    items: [
+      { text: 'Audit sales executives\' communication methods to confirm if they work primarily on WhatsApp' },
+      { text: 'Determine whether you need a full deal-pipeline CRM (Zoho) or a chat-centric CRM (mottoCRM)' },
+      { text: 'Integrate inbound lead forms (Facebook Ads, website) to automatically route into your CRM' },
+      { text: 'Configure WhatsApp templates for quick replies, qualifying lead questions, and appointments' },
+      { text: 'Define criteria for auto-assigning leads to sales staff to prevent lead ownership disputes' },
+    ],
+  },
+  'textile-business-automation-surat-guide': {
+    title: 'Textile Business Automation Setup Checklist',
+    items: [
+      { text: 'Export and clean your fabric designs list, catalog numbers, and bulk wholesale rates' },
+      { text: 'Build an interactive WhatsApp Business catalog representing your primary collections' },
+      { text: 'Configure Tally Prime XML or Zoho Books webhooks to export invoice vouchers' },
+      { text: 'Link your warehouse manager\'s phone to automatically receive printed packaging slips' },
+      { text: 'Set up broker commission tables in your inventory database for automated month-end calculations' },
+    ],
+  },
+  'n8n-workflow-automation-india-guide': {
+    title: 'n8n VPS Self-Hosting Checklist',
+    items: [
+      { text: 'Purchase a Linux VPS located in the India region with Rupee-based UPI billing' },
+      { text: 'Install Docker, Docker Compose, and setup server reverse proxy networks' },
+      { text: 'Configure Let\'s Encrypt SSL certificates for secure HTTPS visual editor access' },
+      { text: 'Deploy the n8n container in standard background mode' },
+      { text: 'Configure custom error alert channels (like Telegram or WhatsApp webhooks)' },
+    ],
+  },
+  'best-jewellers-crm-surat-gujarat': {
+    title: 'Surat Jewellers CRM Setup Checklist',
+    items: [
+      { text: 'Organize your VIP showroom customer database, including purchase anniversaries and sizes' },
+      { text: 'Connect gold and silver market rate API feeds to your broadcast list builder' },
+      { text: 'Upload GIA/IGI diamond certificates to an authenticated secure cloud storage vault' },
+      { text: 'Map Karigar workshop stages (casting, settings, polishing) to CRM job cards' },
+      { text: 'Link showroom billing POS software to trigger post-purchase WhatsApp workflows' },
+    ],
+  },
 }
 
 // Steps Database
@@ -1239,6 +1531,83 @@ const STEPS_DATABASE: Record<string, StepItem[]> = {
     { step: '3', title: 'Set Up Instant Response', description: 'Configure auto-reply: "Thanks for your interest in Surat properties! We\'ll match you within 2 hours."' },
     { step: '4', title: 'Build Qualification System', description: 'Score leads as Hot (ready in 30 days), Warm (3-6 months), Cold (6+ months). Route hot leads to your phone immediately.' },
     { step: '5', title: 'Create Follow-Up Cadence', description: 'Hot: same day call + 24h property matches. Warm: weekly market updates. Cold: monthly newsletter + check-in.' },
+  ],
+  'connect-tally-with-automation-tools-india': [
+    { step: '1', title: 'Document Your Ledgers', description: 'Make sure customer names and item codes in Tally match the data on WhatsApp, Google Sheets, or Zoho CRM.' },
+    { step: '2', title: 'Configure Tally Gateway', description: 'Enable XML gateway port (default 9000) in Tally configuration to allow cloud apps to send voucher details.' },
+    { step: '3', title: 'Choose Integration Tool', description: 'Pick Make for quick visual setup or n8n for cost-effective self-hosting at high transaction volumes.' },
+    { step: '4', title: 'Build Draft-Invoice Flow', description: 'Set up the automation to generate draft sales vouchers first. Verify them manually before hitting save.' },
+    { step: '5', title: 'Enable Auto-WhatsApp', description: 'Link your WhatsApp API so that once an invoice is saved, the system auto-sends the PDF and payment link to the buyer.' },
+  ],
+  'zapier-vs-make-vs-n8n-india-pricing': [
+    { step: '1', title: 'Audit Task Volume', description: 'Estimate how many actions (e.g. sending a lead to spreadsheet and CRM) your business triggers daily.' },
+    { step: '2', title: 'Choose Hosting Model', description: 'Select cloud hosting for instant setup, or self-hosted VPS if running more than 20,000 runs monthly.' },
+    { step: '3', title: 'Map Out Integrations', description: 'Check if your local Indian tools (Razorpay, Tally, Zoho) require premium plans or custom API webhooks.' },
+    { step: '4', title: 'Build Core Flow', description: 'Start by linking one trigger (e.g., lead form submit) to one action (WhatsApp message) to test delays.' },
+    { step: '5', title: 'Monitor & Optimize', description: 'Check error logs weekly. Zapier and Make notify on failures; self-hosted n8n requires manual notification triggers.' },
+  ],
+  'jewellery-shop-automation-whatsapp-crm-surat': [
+    { step: '1', title: 'Audit Sales Desk', description: 'Measure checkout time per customer during weekend rush hours. Identify administrative delays (printing, certificate matching).' },
+    { step: '2', title: 'Connect Inventory & Certificates', description: 'Link your inventory item SKU codes to digital GIA/IGI certificate PDF files in a secure cloud bucket.' },
+    { step: '3', title: 'Deploy Billing API', description: 'Configure a lightweight webhook connector that triggers immediately when a sales voucher is saved in ERP.' },
+    { step: '4', title: 'Build CRM Profile Sync', description: 'Map billing data to customer profiles in your CRM, matching purchase history to phone numbers.' },
+    { step: '5', title: 'Configure Auto-Scheduler', description: 'Set up rules to trigger rate alerts, anniversary notifications 10 days in advance, and Dhanteras offers.' },
+  ],
+  'no-code-business-automation-solopreneurs-india': [
+    { step: '1', title: 'List Admin Tasks', description: 'Log every task you did this week that was not client delivery (billing, proposal typing, following up).' },
+    { step: '2', title: 'Set Up Intake Form', description: 'Create a 5-question Tally.so questionnaire to collect lead requirements and budget specificity upfront.' },
+    { step: '3', title: 'Create Template Document', description: 'Design a professional Google Docs proposal layout using custom placeholder brackets for lead inputs.' },
+    { step: '4', title: 'Link Sheet to Docs', description: 'Build an automation scenario that reads Sheet rows, populates the Google Doc, and exports it as a PDF.' },
+    { step: '5', title: 'Automate WhatsApp Dispatch', description: 'Connect Twilio or 360dialog to send the proposal PDF directly to the lead on WhatsApp instantly.' },
+  ],
+  'shopify-woocommerce-automation-guide-india': [
+    { step: '1', title: 'Audit Operations', description: 'Log order fulfillment steps from payment to courier pickup. Count manual copy-paste actions and tracking lookups.' },
+    { step: '2', title: 'Connect Store Webhooks', description: 'Configure storefront order creation, cart abandonment, and payout notification webhook URLs to point to your automation platform.' },
+    { step: '3', title: 'Configure Shipping API', description: 'Set up automatic shipping order drafts in Shiprocket or Delhivery directly from webhook data payload fields.' },
+    { step: '4', title: 'Build Recovery Flow', description: 'Design a 30-minute cart recovery scenario linking abandonment webhooks with interactive WhatsApp discount templates.' },
+    { step: '5', title: 'Enable Delivery Alerts', description: 'Connect courier transit status update webhooks to trigger real-time, automated shipping status notifications on WhatsApp.' },
+  ],
+  'pabbly-connect-vs-zapier-indian-businesses': [
+    { step: '1', title: 'Determine Volume', description: 'Log in to your current workflows and count how many total tasks you run monthly.' },
+    { step: '2', title: 'List Integrations', description: 'Verify which of your business tools (CRMs, payment gateways, WhatsApp providers) require native connections.' },
+    { step: '3', title: 'Test the Visual Builder', description: 'Try Pabbly Connect\'s drag-and-drop workflow canvas with a simple webhook-to-sheets test to evaluate response speeds.' },
+    { step: '4', title: 'Purchase Deal & Setup', description: 'Choose a Pabbly Connect lifetime plan in Rupees to secure long-term savings.' },
+    { step: '5', title: 'Migrate High-Volume Flows', description: 'Move your highest task-consuming scenarios (e.g. data syncing, lead capture) to Pabbly Connect first.' },
+  ],
+  'automate-gst-billing-eway-bills-india': [
+    { step: '1', title: 'Audit Billing Data', description: 'Verify that HSN codes, customer tax ledgers, and shipping addresses are formatted correctly in your billing software.' },
+    { step: '2', title: 'Connect Government Portals', description: 'Link your ERP system to a GSP (GST Suvidha Provider) to enable secure API access to government servers.' },
+    { step: '3', title: 'Configure Calculation Rules', description: 'Build rules to calculate state GST (CGST/SGST) vs interstate GST (IGST) automatically based on recipient addresses.' },
+    { step: '4', title: 'Integrate Logistics API', description: 'Link courier tools (like Shiprocket) to automatically fetch shipping labels and transporter vehicle logs.' },
+    { step: '5', title: 'Automate Dispatch Alerts', description: 'Set up workflows to auto-send invoice PDFs, IRN barcodes, and e-way bill receipts directly to transporters and clients.' },
+  ],
+  'best-crm-setup-surat-businesses': [
+    { step: '1', title: 'Analyze Sales Chats', description: 'Map how your sales executives interact with clients. Count the proportion of leads closed via WhatsApp vs phone calls.' },
+    { step: '2', title: 'Choose CRM Platform', description: 'Select Zoho CRM if you require custom deal pipelines and report dashboards, or a WhatsApp CRM for chat-centric operations.' },
+    { step: '3', title: 'Set Up Lead Capture', description: 'Connect website forms, Indiamart listings, and Facebook Ads webhooks to flow directly into your CRM database.' },
+    { step: '4', title: 'Build Auto-Replies', description: 'Configure automated WhatsApp welcome templates to qualify inbound leads based on budget and requirements.' },
+    { step: '5', title: 'Train Sales Team', description: 'Train your agents to update lead statuses, add follow-up tasks, and send approved template messages directly from their phones.' },
+  ],
+  'textile-business-automation-surat-guide': [
+    { step: '1', title: 'Clean Fabric Data', description: 'Clean your fabric catalogs and assign unique SKU numbers, color codes, and rates in a spreadsheet.' },
+    { step: '2', title: 'Configure Catalog Auto-Replies', description: 'Build interactive WhatsApp button lists so buyers can request design folders and pricing lists on demand.' },
+    { step: '3', title: 'Enable ERP Gateway', description: 'Configure the XML gateway in your Tally Prime or Busy Accounting software to support data export/import.' },
+    { step: '4', title: 'Automate Godown Slips', description: 'Link invoice creation to send packaging rolls list directly to your dispatch godown via WhatsApp or print servers.' },
+    { step: '5', title: 'Set Broker Calculations', description: 'Set up database queries to track order dispatches by broker ID, calculating commissions automatically at month-end.' },
+  ],
+  'n8n-workflow-automation-india-guide': [
+    { step: '1', title: 'Select Local VPS', description: 'Rent a VPS located in an Indian region (like Mumbai) billed in Rupees via stable payment systems.' },
+    { step: '2', title: 'Deploy Container Stack', description: 'Configure Docker Compose to run PostgreSQL (database), n8n (visual editor), and Nginx (SSL reverse proxy).' },
+    { step: '3', title: 'Configure HTTPS SSL', description: 'Install Let\'s Encrypt SSL certificates to ensure secure dashboard connections from your browser.' },
+    { step: '4', title: 'Link App Credentials', description: 'Link API keys for your CRM, payment gateways, and WhatsApp BSPs inside n8n\'s secure credentials vault.' },
+    { step: '5', title: 'Build Alert Webhooks', description: 'Create an error reverse webhook that sends server alerts to your phone if the container ever runs out of memory.' },
+  ],
+  'best-jewellers-crm-surat-gujarat': [
+    { step: '1', title: 'Log Showroom VIPs', description: 'Log your premium customer list, including anniversary dates, ring sizes, and metal preference categories.' },
+    { step: '2', title: 'Link Gold Price Feed', description: 'Connect real-time gold and silver rate API feeds to automatically update showroom pricing databases.' },
+    { step: '3', title: 'Create Certificate Vault', description: 'Set up secure cloud storage bucket policies to store GIA/IGI diamond certificates as authenticated PDF links.' },
+    { step: '4', title: 'Define Workshop Stages', description: 'Build a workshop pipeline containing custom job card lists (casting, diamond setting, polishing) for Karigars.' },
+    { step: '5', title: 'Connect Billing POS', description: 'Link POS billing systems to automatically trigger customer surveys and certificate downloads upon checkout.' },
   ],
 }
 
@@ -1322,6 +1691,17 @@ const PROTIPS_DATABASE: Record<string, ProTipData> = {
   'autonomous-lead-followup-agent': { tip: 'The Day 5 message is the most important one. Most businesses follow up on Day 1 and Day 2. By Day 5, you are the only one still in the conversation — and the lead now sees you as persistent and professional. Make this message a genuine value add, not a sales pitch.', context: 'Day 5 follow-up has the highest response rate in the sequence for Surat businesses' },
   'solopreneur-automation-india-2025': { tip: 'Audit your last 5 working days. List every task you did. Mark each one: (A) Only I can do this, (B) Someone else could do this with training, (C) A system could do this automatically. Everything marked C is your agent roadmap.', context: 'Most solopreneurs find 60-70% of their week is Category C on the first audit' },
   'ai-agent-vs-chatbot-difference': { tip: 'Before upgrading from a chatbot to an AI agent, run this test: send your current chatbot 20 messages that customers actually sent but got no reply or wrong reply. If more than 5 fail, you have outgrown the chatbot. The upgrade cost pays for itself in the first 30 days of better lead conversion.', context: 'The chatbot-to-agent upgrade is the most common MottoBiz service request in 2025' },
+  'connect-tally-with-automation-tools-india': { tip: 'Always configure Tally automation to create invoices as "draft" or "optional" vouchers first. This lets your accountant review them for compliance before they become permanent financial entries.', context: 'Recommended best practice for Tally integration safety' },
+  'zapier-vs-make-vs-n8n-india-pricing': { tip: 'If you choose self-hosted n8n, configure a Telegram or WhatsApp webhook error-alert. If the server runs out of memory, you will get an instant alert on your phone instead of finding out days later.', context: 'Essential server monitoring tip for small teams' },
+  'jewellery-shop-automation-whatsapp-crm-surat': { tip: 'Use the WhatsApp interactive buttons (e.g. "Reserve Rate" or "Book Appointment") in your daily gold rate broadcasts. Allowing clients to act with one tap increases conversions by 40% compared to text-only links.', context: 'Best practice for gold retail marketing' },
+  'no-code-business-automation-solopreneurs-india': { tip: 'Always include a budget selector dropdown on your intake form. If a lead selects a budget below your threshold, configure the automation to send a polite automated referral email instead of booking a call.', context: 'Saves hours of discovery calls with unqualified leads' },
+  'shopify-woocommerce-automation-guide-india': { tip: 'Always offer a 10% discount template in your WhatsApp cart recovery sequence. Indian shoppers are highly discount-sensitive, and a small nudge recovers 20% more carts.', context: 'Proven strategy for Indian D2C brands' },
+  'pabbly-connect-vs-zapier-indian-businesses': { tip: 'Use Pabbly Connect\'s multi-step routers to filter out non-Indian phone numbers if you only ship domestically. This saves task runs and WhatsApp template fees.', context: 'Indian business strategy' },
+  'automate-gst-billing-eway-bills-india': { tip: 'Always build a secondary backup scenario that writes all invoice errors to a dedicated Google Sheet and alerts your accountant on WhatsApp, preventing compliance delays.', context: 'Compliance reliability practice' },
+  'best-crm-setup-surat-businesses': { tip: 'Set up your CRM to send an automated WhatsApp template when a lead goes cold for 14 days, offering a quick option to unsubscribe or receive updates. It keeps lists clean.', context: 'Best practice for database hygiene' },
+  'textile-business-automation-surat-guide': { tip: 'Configure a webhook lookup that checks the customer\'s state code on your invoice. If they are located outside Gujarat, set the system to calculate IGST automatically in Tally, preventing audit issues.', context: 'State tax calculation best practice' },
+  'n8n-workflow-automation-india-guide': { tip: 'Enable automated daily server snapshots and database dumps of your VPS. If a system update crashes n8n, you can restore your entire automation dashboard in under 3 minutes.', context: 'Essential VPS disaster recovery practice' },
+  'best-jewellers-crm-surat-gujarat': { tip: 'Set up automated WhatsApp templates containing a gold rate lock button. Let potential buyers lock in the metal rate for 4 hours by placing a small holding deposit via UPI.', context: 'Surat retail showroom conversion strategy' },
 }
 
 // Warnings Database
@@ -1372,6 +1752,17 @@ const WARNINGS_DATABASE: Record<string, WarningData> = {
   'autonomous-lead-followup-agent': { title: 'Don\'t over-follow-up after a clear no', message: 'If a lead explicitly says they are not interested or have bought elsewhere, stop all automated sequences immediately. Continuing to message someone who has said no is spam — and can get your WhatsApp number blocked or reported.' },
   'solopreneur-automation-india-2025': { title: 'Don\'t automate your client relationships', message: 'The reason clients pay premium rates to a solopreneur is the personal relationship. Automate lead qualification, onboarding, and reporting — but never automate the check-in calls, the personal updates, and the moments that build trust.' },
   'ai-agent-vs-chatbot-difference': { title: 'Don\'t pay chatbot prices for agent promises', message: 'Some vendors sell chatbots with AI buzzwords at agent prices. Ask specifically: Can it handle questions it was not explicitly trained on? Can it look up live data from my systems? Can it take multi-step action? If the answer to any is no — it is a chatbot, not an agent.' },
+  'connect-tally-with-automation-tools-india': { title: 'Don\'t skip ledger verification', message: 'If a customer name or inventory item has a typo on WhatsApp or Google Sheets, the Tally sync will fail or create a duplicate ledger. Implement strict name validation or mapping rules to keep your accounting data clean.' },
+  'zapier-vs-make-vs-n8n-india-pricing': { title: 'Don\'t run complex loops in Make.com', message: 'Every visual bubble and iterator loop in Make.com counts as an operation. A poorly designed loop can eat through your monthly 10,000 operations limit in a single afternoon.' },
+  'jewellery-shop-automation-whatsapp-crm-surat': { title: 'Always encrypt digital certificates', message: 'Diamond certificates and invoices contain high-value purchase data. Never store them in public cloud directories without authenticated URL tokens. Use temporary signed URLs for client delivery.' },
+  'no-code-business-automation-solopreneurs-india': { title: 'Don\'t automate original creative work', message: 'Use no-code stacks to handle invoices, onboarding forms, and appointment calendars. Never automate your core creative output, custom strategies, or the initial kickoff call.' },
+  'shopify-woocommerce-automation-guide-india': { title: 'Don\'t spam templates on WhatsApp', message: 'WhatsApp enforces strict template guidelines and spam limits. If customers block your number for unsolicited tracking alerts or aggressive cart recovery, Meta will suspend your WhatsApp Business API account.' },
+  'pabbly-connect-vs-zapier-indian-businesses': { title: 'Don\'t delete active webhooks', message: 'If you delete an active webhook URL inside Pabbly Connect, your source software (e.g. lead form) will fail to send data. Always pause the workflow instead of deleting endpoints.' },
+  'automate-gst-billing-eway-bills-india': { title: 'Never bypass validation checks', message: 'Never bypass validation checks for GST numbers and pin codes. If you send bad data to the GST portal, the API returns a hard rejection and your E-way bill won\'t draft, blocking shipping dispatches.' },
+  'best-crm-setup-surat-businesses': { title: 'Don\'t buy CRM features you don\'t use', message: 'HubSpot and Zoho have expensive premium tiers. Start with basic pipelines and contact forms. Only upgrade when you have fully trained your sales staff to log daily chats.' },
+  'textile-business-automation-surat-guide': { title: 'Don\'t automate broker relations', message: 'Surat\'s textile trade relies heavily on broker trust. Use automation to track dispatches and verify balances, but always keep negotiations, pricing disputes, and partnership talks personal.' },
+  'n8n-workflow-automation-india-guide': { title: 'Self-hosted means self-secured', message: 'Since your VPS will process client CRM records and webhooks, enforce strict firewall settings, use strong passwords, and never leave n8n dashboard ports open without SSL/HTTPS enabled.' },
+  'best-jewellers-crm-surat-gujarat': { title: 'Tone matters for premium luxury', message: 'Luxury jewelry buyers expect personalized care. Avoid spamming automated marketing templates or sending robotic follow-ups. Keep messages short, custom-tailored, and focused on trust.' },
 }
 
 

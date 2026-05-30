@@ -329,6 +329,32 @@ export function ArticlePage() {
     },
   }
 
+  // Build BreadcrumbList schema for rich results
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: SITE_URL,
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Resources',
+        item: `${SITE_URL}/resources`,
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: article.title,
+        item: `${SITE_URL}/resources/${article.slug}`,
+      },
+    ],
+  }
+
   return (
     <>
       <SEOHead
@@ -343,6 +369,7 @@ export function ArticlePage() {
           <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
         )}
         <script type="application/ld+json">{JSON.stringify(articleSchema)}</script>
+        <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
       </Helmet>
 
       <article className="min-h-screen bg-base">
