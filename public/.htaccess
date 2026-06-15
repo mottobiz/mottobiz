@@ -3,6 +3,27 @@
   RewriteBase /
 
   # ============================================
+  # FORCE HTTPS & NON-WWW (CANONICAL DOMAIN)
+  # ============================================
+  # 1. Force HTTPS
+  RewriteCond %{HTTPS} off
+  RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+
+  # 2. Force Non-WWW (Strip www.)
+  RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+  RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+
+  # ============================================
+  # LEGACY 301 REDIRECTS (WP/BLOGGER FALLBACKS)
+  # ============================================
+  RewriteRule ^home/?$ / [R=301,L,NC]
+  RewriteRule ^home-page/?$ / [R=301,L,NC]
+  RewriteRule ^category/uncategorized/?$ /resources [R=301,L,NC]
+  RewriteRule ^hello-world/?$ / [R=301,L,NC]
+  RewriteRule ^author/godfather/?$ / [R=301,L,NC]
+  RewriteRule ^2014/06/determine-college-profesor\.html$ / [R=301,L,NC]
+
+  # ============================================
   # WELL-KNOWN RESOURCES
   # ============================================
   RewriteRule ^\.well-known/api-catalog$ - [L]
@@ -121,7 +142,7 @@
 
 <IfModule mod_headers.c>
   <Files "index.html">
-    Header set Link "</.well-known/api-catalog>; rel=api-catalog, </sitemap.xml>; rel=sitemap, </robots.txt>; rel=robots, </llms.txt>; rel=llms, </pricing.md>; rel=pricing, <https://mottobiz.com>; rel=canonical"
+    Header set Link "</.well-known/api-catalog>; rel=api-catalog, </sitemap.xml>; rel=sitemap, </robots.txt>; rel=robots, </llms.txt>; rel=llms, </pricing.md>; rel=pricing"
     Header set Accept-CH "Sec-CH-UA-Platform, Sec-CH-UA-Platform-Version"
     Header set Vary "Accept"
   </Files>
