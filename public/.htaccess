@@ -45,9 +45,9 @@
   # ============================================
   # STATIC ASSETS - ALLOW DIRECT ACCESS
   # ============================================
-  RewriteRule ^assets/(.*)$ public/assets/$1 [L]
+  RewriteRule ^assets/ - [L]
   RewriteRule ^public/assets/ - [L]
-  RewriteRule ^og/(.*)$ public/og/$1 [L]
+  RewriteRule ^og/ - [L]
   RewriteRule ^public/og/ - [L]
   RewriteRule ^favicon\.svg$ - [L]
   RewriteRule ^favicon\.ico$ - [L]
