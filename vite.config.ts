@@ -4,6 +4,25 @@ import tailwindcss from '@tailwindcss/vite'
 import path from 'path'
 import fs from 'fs'
 
+function copyDir(src: string, dest: string) {
+  if (!fs.existsSync(src)) return
+  if (fs.existsSync(dest)) {
+    fs.rmSync(dest, { recursive: true, force: true })
+  }
+  fs.mkdirSync(dest, { recursive: true })
+  const entries = fs.readdirSync(src, { withFileTypes: true })
+  for (const entry of entries) {
+    const srcPath = path.join(src, entry.name)
+    const destPath = path.join(dest, entry.name)
+    if (entry.isDirectory()) {
+      copyDir(srcPath, destPath)
+    } else {
+      fs.copyFileSync(srcPath, destPath)
+    }
+  }
+  console.log(`Copied directory ${src} → ${dest}`)
+}
+
 function copyBuildArtifacts() {
   let generated = false
   return {
@@ -20,6 +39,16 @@ function copyBuildArtifacts() {
       if (fs.existsSync(assetsDir)) {
         fs.rmSync(assetsDir, { recursive: true, force: true })
         console.log('Cleared public/assets/ before build')
+      }
+      const rootAssets = path.join(root, 'assets')
+      if (fs.existsSync(rootAssets)) {
+        fs.rmSync(rootAssets, { recursive: true, force: true })
+        console.log('Cleared root assets/ before build')
+      }
+      const rootOg = path.join(root, 'og')
+      if (fs.existsSync(rootOg)) {
+        fs.rmSync(rootOg, { recursive: true, force: true })
+        console.log('Cleared root og/ before build')
       }
     },
     writeBundle(_options: any, bundle: Record<string, any>) {
@@ -56,6 +85,11 @@ function copyBuildArtifacts() {
       rootStaticFiles.forEach((f) => copy(path.join(root, 'public', f), f))
       // Copy .htaccess to root (no leading dot issue with copyFileSync)
       copy(path.join(root, 'public', '.htaccess'), '.htaccess')
+      
+      // Copy assets and og directories to root
+      copyDir(path.join(root, 'public/assets'), path.join(root, 'assets'))
+      copyDir(path.join(root, 'public/og'), path.join(root, 'og'))
+
       const html = `<!doctype html>
 <html lang="en">
   <head>

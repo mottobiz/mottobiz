@@ -50,6 +50,8 @@ try {
 Write-Host "Staging deploy artifacts..." -ForegroundColor Yellow
 git add public/
 git add dist/
+git add assets/
+git add og/
 git add index.html
 git add .htaccess
 git add favicon.svg
