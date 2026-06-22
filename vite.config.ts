@@ -68,7 +68,7 @@ function copyBuildArtifacts() {
       gtag('config', 'G-BRP7Y43MN6');
     </script>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#0A0A0B" />
     <title>AI Business Automation in Surat | MottoBiz — Free Audit</title>
@@ -97,7 +97,7 @@ function copyBuildArtifacts() {
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet" />
-${mainCss ? `    <link rel="stylesheet" crossorigin href="./assets/${mainCss}">\n` : ''}    <script type="module" crossorigin src="./assets/${mainJs}"></script>
+${mainCss ? `    <link rel="stylesheet" crossorigin href="/assets/${mainCss}">\n` : ''}    <script type="module" crossorigin src="/assets/${mainJs}"></script>
   </head>
   <body>
     <div id="root"></div>
@@ -116,7 +116,7 @@ export default defineConfig(({ command }) => {
       tailwindcss(),
       command === 'build' ? copyBuildArtifacts() : null
     ].filter(Boolean),
-    base: './',
+    base: '/',
     build: {
       outDir: 'public',
       emptyOutDir: false,
