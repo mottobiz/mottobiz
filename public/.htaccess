@@ -120,10 +120,20 @@
 # ============================================
 
 <IfModule mod_headers.c>
-  <FilesMatch "\.(md|txt)$">
+  <FilesMatch "\.md$">
     Header set Content-Type "text/markdown; charset=utf-8"
     Header set X-Content-Type-Options "nosniff"
   </FilesMatch>
+  
+  <Files "llms.txt">
+    Header set Content-Type "text/markdown; charset=utf-8"
+    Header set X-Content-Type-Options "nosniff"
+  </Files>
+  
+  <Files "robots.txt">
+    Header set Content-Type "text/plain; charset=utf-8"
+    Header set X-Content-Type-Options "nosniff"
+  </Files>
   
   <Files "llms.txt">
     Header set Content-Type "text/markdown; charset=utf-8"
@@ -164,7 +174,6 @@
 # ============================================
 
 AddType text/markdown .md
-AddType text/markdown .txt
 AddType text/plain .txt
 
 # ============================================
@@ -181,10 +190,20 @@ AddType text/plain .txt
     Header set Vary "Accept"
   </FilesMatch>
   
-  <FilesMatch "\.(md|txt)$">
+  <FilesMatch "\.md$">
     Header set Cache-Control "max-age=3600, public"
     Header set Content-Type "text/markdown; charset=utf-8"
   </FilesMatch>
+  
+  <Files "llms.txt">
+    Header set Cache-Control "max-age=3600, public"
+    Header set Content-Type "text/markdown; charset=utf-8"
+  </Files>
+  
+  <Files "robots.txt">
+    Header set Cache-Control "max-age=3600, public"
+    Header set Content-Type "text/plain; charset=utf-8"
+  </Files>
   
   <FilesMatch "(sitemap\.xml|robots\.txt)$">
     Header set Cache-Control "max-age=3600, public"
