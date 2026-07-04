@@ -64,6 +64,9 @@
   RewriteRule ^logo.*\.(svg|png)$ - [L]
 
   # SPA fallback for all other routes
+  RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} !-f
+  RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} !-d
+  RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI}/index.html !-f
   RewriteRule ^ /index.html [L]
 </IfModule>
 
