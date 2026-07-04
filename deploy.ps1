@@ -29,16 +29,13 @@ if ($status) {
     }
 }
 
-# Build the project
-Write-Host "Building project..." -ForegroundColor Yellow
+# Build the project (includes OG image generation and pre-rendering)
+Write-Host "Building project and pre-rendering all routes..." -ForegroundColor Yellow
 
 try {
-    npm.cmd run build 2>&1 | ForEach-Object {
-        Write-Host $_
-    }
-
+    npm.cmd run build:full
     if ($LASTEXITCODE -ne 0) {
-        throw "Build failed"
+        throw "Build/Prerender failed with exit code $LASTEXITCODE"
     }
 } catch {
     Write-Host "Build failed!" -ForegroundColor Red
@@ -65,6 +62,13 @@ git add pricing.md
 git add og-image.png
 git add og-image-new.png
 git add icons.svg
+
+# Pre-rendered routes at repository root level for Hostinger
+if (Test-Path "resources") { git add resources/ }
+if (Test-Path "industries") { git add industries/ }
+if (Test-Path "locations") { git add locations/ }
+if (Test-Path "privacy") { git add privacy/ }
+if (Test-Path "terms") { git add terms/ }
 
 # Check if there are changes to commit
 $diff = git diff --cached --name-only

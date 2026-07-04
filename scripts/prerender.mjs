@@ -68,13 +68,22 @@ async function prerenderRoute(page, baseUrl, route) {
 
   // Determine output path
   const routePath = route === '/' ? '/index.html' : `${route}/index.html`
-  const outputPath = join(PUBLIC_DIR, routePath)
-  const outputDir = dirname(outputPath)
-  mkdirSync(outputDir, { recursive: true })
-  writeFileSync(outputPath, html, 'utf8')
+  
+  // 1. Write to public/ for local preview compatibility
+  const outputPathPublic = join(PUBLIC_DIR, routePath)
+  const outputDirPublic = dirname(outputPathPublic)
+  mkdirSync(outputDirPublic, { recursive: true })
+  writeFileSync(outputPathPublic, html, 'utf8')
+
+  // 2. Write to repository root for Hostinger static deployment
+  const ROOT_DIR = join(dirname(PUBLIC_DIR))
+  const outputPathRoot = join(ROOT_DIR, routePath)
+  const outputDirRoot = dirname(outputPathRoot)
+  mkdirSync(outputDirRoot, { recursive: true })
+  writeFileSync(outputPathRoot, html, 'utf8')
 
   console.log(`  ✓ ${route}`)
-  return outputPath
+  return outputPathRoot
 }
 
 async function main() {

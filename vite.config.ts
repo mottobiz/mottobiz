@@ -138,7 +138,8 @@ ${mainCss ? `    <link rel="stylesheet" crossorigin href="/assets/${mainCss}">\n
   </body>
 </html>`
       fs.writeFileSync(path.join(root, 'index.html'), html)
-      console.log(`Generated index.html with ${mainJs}`)
+      fs.writeFileSync(path.join(root, 'public/index.html'), html)
+      console.log(`Generated index.html and public/index.html with ${mainJs}`)
     },
   }
 }
