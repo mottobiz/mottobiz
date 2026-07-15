@@ -3,9 +3,9 @@
 ## Product Overview
 
 **Product Name:** MottoBiz Landing Page + Resources Hub  
-**Version:** 2.5  
+**Version:** 3.0  
 **Status:** Production Ready (Live at https://mottobiz.com)  
-**Last Updated:** 2026-04-16  
+**Last Updated:** 2026-07-15  
 **Next Review:** See ROADMAP.md for upcoming features
 
 ---
@@ -153,6 +153,7 @@ MottoBiz is a business automation studio based in Surat, Gujarat, India. The web
 | Code splitting (React.lazy) | High | Done |
 | Error boundary | Medium | Done |
 | Responsive design | High | Done |
+| Static Pre-Rendering (SSG) | High | Done |
 
 ---
 
@@ -263,10 +264,11 @@ MottoBiz is a business automation studio based in Surat, Gujarat, India. The web
 
 ---
 
-## Recent Changes (v2.5)
+## Recent Changes (v3.0)
 
 | Date | Change | Impact |
 |------|--------|--------|
+| 2026-07-04 | Static Pre-Rendering (SSG) via Puppeteer | Pre-renders 112 routes to HTML to solve indexing blank body issues |
 | 2026-04-16 | Code splitting with React.lazy | 740KB → 192KB initial bundle |
 | 2026-04-16 | Error boundary for crash resilience | Styled error screen with refresh |
 | 2026-04-16 | TLDR_DATABASE for all 57 articles | Key takeaways on every article |

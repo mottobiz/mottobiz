@@ -4,9 +4,9 @@
 
 This file serves as the **single source of truth** for the current state of the MottoBiz project. It captures recent changes, execution learnings, troubleshooting steps, architectural decisions, and strategic context.
 
-**Last Updated:** 2026-05-21
+**Last Updated:** 2026-07-15
 **Project Status:** Production Ready (v2.9)
-**Current Focus:** Google Analytics 4 Integration
+**Current Focus:** Mobile Navigation Toggle Fix
 
 ---
 
@@ -33,6 +33,7 @@ This file serves as the **single source of truth** for the current state of the 
 | Enrichment Databases | ✅ Complete | StatCards, Checklist, ProTip, Warning for all 75 articles |
 | WhatsApp Links | ✅ Fixed | Config-based replacement at render time |
 | Google Analytics | ✅ Installed | Google tag (gtag.js) with ID G-BRP7Y43MN6 |
+| Static Pre-Rendering | ✅ Installed | Puppeteer crawling engine (`build:full`) pre-generating 112 HTML routes |
 
 ---
 
@@ -111,6 +112,13 @@ dist/                          # Production build output (deployed to Hostinger)
 
 ## Recent Execution Log
 
+### 2026-07-04: Static Pre-Rendering (SSG) Integration
+
+1. **SSG Crawler Script:** Created `scripts/prerender.mjs` using Puppeteer and `serve-handler` to crawl all 112 routes (hubs, static pages, and 98 articles) and save them as static HTML.
+2. **Build Configuration Fix:** Resolved build-time stale template loop by outputting `index.html` to both root and `public/` directories in `vite.config.ts`.
+3. **Rewrite Rules Update:** Updated `public/.htaccess` to use robust `%{DOCUMENT_ROOT}%{REQUEST_URI}` existence conditions to bypass SPA redirects and serve static pre-rendered routes directly.
+4. **Deployment Automation:** Updated `deploy.ps1` to use `build:full` and track pre-rendered subdirectories.
+
 ### 2026-05-21: Google Analytics 4 Setup
 
 1. **GA4 Code Integration:** Added the Google tag (gtag.js) script block with Measurement ID `G-BRP7Y43MN6` to the `<head>` of `index.html`.
@@ -162,6 +170,7 @@ dist/                          # Production build output (deployed to Hostinger)
 | Per-Article OG Images | Done | ✅ | 58 PNGs auto-generated |
 | Google Analytics 4 | Medium | Done | Setup in index.html with ID G-BRP7Y43MN6 |
 | Webhook URL Configuration | Medium | Ready | VITE_LEAD_WEBHOOK_URL configured |
+| Static Pre-Rendering (SSG) | Done | ✅ | All 112 routes pre-rendered statically to solve blank-page indexing issues |
 
 ---
 
@@ -174,5 +183,5 @@ dist/                          # Production build output (deployed to Hostinger)
 
 ---
 
-**Last Updated:** 2026-05-21
-**Version:** 2.9 — Google Analytics 4 installed, build passes
+**Last Updated:** 2026-07-15
+**Version:** 3.0 — Static Pre-Rendering (SSG) pipeline fully integrated, all 112 routes pre-rendered
