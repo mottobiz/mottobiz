@@ -553,13 +553,6 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://mottobiz.com/resources/website-development-varachha-location</loc>
-    <lastmod>2026-04-29</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <url>
     <loc>https://mottobiz.com/resources/textile-automation-athwa</loc>
     <lastmod>2026-04-29</lastmod>
     <changefreq>monthly</changefreq>
@@ -595,7 +588,15 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
-  <!-- Pillar 6: AI Agents & Agentic Automation (New 2026) -->
+  <!-- AI Agents & Agentic Automation Hub -->
+  <url>
+    <loc>https://mottobiz.com/industries/ai-agents</loc>
+    <lastmod>2026-05-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Pillar 6: AI Agents & Agentic Automation -->
   <url>
     <loc>https://mottobiz.com/resources/ai-agent-small-business-surat</loc>
     <lastmod>2026-05-10</lastmod>

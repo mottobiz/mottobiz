@@ -22,6 +22,17 @@
   RewriteRule ^hello-world/?$ / [R=301,L,NC]
   RewriteRule ^author/godfather/?$ / [R=301,L,NC]
   RewriteRule ^2014/06/determine-college-profesor\.html$ / [R=301,L,NC]
+  
+  # ============================================
+  # TYPO / GHOST PATH 301 → CORRECT URL
+  # (These appeared in GSC as "Alternate page with proper canonical tag"
+  #  failures from pre-React WordPress-era external links)
+  # ============================================
+  RewriteRule ^industries/locations/varachha/?$ /locations/varachha [R=301,L,NC]
+  RewriteRule ^industries/locations/katargam/?$ /locations/katargam [R=301,L,NC]
+  RewriteRule ^industries/locations/vesu/?$ /locations/vesu [R=301,L,NC]
+  RewriteRule ^industries/locations/adajan/?$ /locations/adajan [R=301,L,NC]
+  RewriteRule ^industries/locations/other/?$ /locations/other [R=301,L,NC]
 
   # ============================================
   # WELL-KNOWN RESOURCES
