@@ -1,0 +1,67 @@
+name: Deploy to Hostinger (SSH pull)
+
+# Fully automated: push to main → GitHub Actions SSHes into Hostinger →
+# invalidates hPanel's stale cached ref → git reset --hard origin/main → live.
+#
+# Last updated: 2026-07-22
+# Tested on: mottobiz.com on Hostinger (hPanel), shared plan, repo mottobiz/mottobiz
+#
+# Companion doc: ../DEPLOYMENT.md
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      # --- Webhook first (free, may silently no-op for transferred repos) ---
+      - name: Trigger Hostinger deploy webhook
+        continue-on-error: true
+        run: |
+          HTTP_CODE=$(curl -sS -o /dev/null -w "%{http_code}" \
+            -X POST "https://webhooks.hostinger.com/deploy/${{ secrets.HOSTINGER_DEPLOY_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            -d '{"event":"push","branch":"main"}')
+          echo "Hostinger webhook: HTTP=$HTTP_CODE (non-200 is fine; SSH step is the real deploy)"
+
+      # --- Real deploy: SSH pull on Hostinger public_html ---
+      - name: SSH pull to Hostinger public_html
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.HOSTINGER_SSH_HOST }}
+          port: ${{ secrets.HOSTINGER_SSH_PORT }}
+          username: ${{ secrets.HOSTINGER_SSH_USER }}
+          key: ${{ secrets.HOSTINGER_SSH_KEY }}
+          command_timeout: 5m
+          script: |
+            set -e
+            DOCROOT=/home/${{ secrets.HOSTINGER_SSH_USER }}/domains/mottobiz.com/public_html
+            cd "$DOCROOT"
+
+            # Make sure origin is reachable via SSH (HTTPS path is flaky on hPanel).
+            git remote set-url origin git@github.com:mottobiz/mottobiz.git || true
+
+            # Invalidate cached remote ref so the next fetch hits the network.
+            rm -f .git/refs/remotes/origin/main
+
+            # Preserve any FTP/File Manager edits on the server.
+            git stash push -u -m "deploy-pre-pull $(date +%s)" || true
+
+            git fetch origin main
+            LOCAL=$(git rev-parse HEAD)
+            REMOTE=$(git rev-parse origin/main)
+            echo "local=$LOCAL remote=$REMOTE"
+            if [ "$LOCAL" != "$REMOTE" ]; then
+              git reset --hard origin/main
+              git log -1 --oneline
+            else
+              echo "already at origin/main; nothing to do"
+            fi
+
+            # Hostinger's Apache needs 755 dirs / 644 files outside .git.
+            find "$DOCROOT" -type d -not -path '*/.git*' -exec chmod 755 {} \; 2>/dev/null
+            find "$DOCROOT" -type f -not -path '*/.git*' -exec chmod 644 {} \; 2>/dev/null
