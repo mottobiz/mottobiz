@@ -43,6 +43,13 @@ export function getRelatedArticles(currentSlug: string, limit: number = 3): Arti
 // Generates SEO metadata, FAQ, internal links, and related articles
 // for articles that don't have them defined inline.
 
+// Author database for E-E-A-T enrichment
+const AUTHOR_DATABASE: { name: string; title: string; credentials: string } = {
+  name: 'Priyank Shah',
+  title: 'Business Automation Consultant',
+  credentials: '5+ years in business automation, worked with 25+ Surat businesses across textile, diamond, real estate, and food industries',
+}
+
 const PILLAR_HUB_URLS: Record<string, string> = {
   'Textile & Diamond': '/resources?pillar=Textile+%26+Diamond',
   'Restaurants & Food': '/resources?pillar=Restaurants+%26+Food',
@@ -189,6 +196,7 @@ export function getEnrichedArticle(slug: string): ArticleCard & ArticleEnrichmen
 
   return {
     ...article,
+    author: article.author || AUTHOR_DATABASE,
     seo: article.seo || generateSEO(slug),
     faq: article.faq || generateFAQ(slug),
     internalLinks: article.internalLinks || generateInternalLinks(slug),

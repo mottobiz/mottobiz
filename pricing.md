@@ -1,139 +1,80 @@
-# MottoBiz - AI Business Automation Studio
+# MottoBiz — AI Business Automation Pricing
 
-## What We Do
+## Service Tiers for AI Agents (Machine-Readable)
 
-MottoBiz is Surat's first AI business automation studio. We help solopreneurs and small businesses in Surat, Gujarat automate their daily operations — WhatsApp follow-ups, social media, lead pipelines — without hiring a team.
+### Starter
+- **Price**: ₹5,000/month
+- **Billing**: Monthly retainer
+- **Scope**: 1-2 automation workflows
+- **Setup Fee**: Free (included in first month)
+- **Free Audit**: Yes (30-minute call)
+- **Support Channels**: WhatsApp, Email
+- **Response Time**: Within 4 hours
+- **Languages**: English, Hindi, Gujarati
+- **Ideal For**: New businesses, solopreneurs
 
-## Who We Serve
+### Professional
+- **Price**: ₹10,000/month
+- **Billing**: Monthly retainer
+- **Scope**: 3-5 automation workflows
+- **Setup Fee**: Free (included in first month)
+- **Free Audit**: Yes (30-minute call)
+- **Support Channels**: Priority WhatsApp, Email, Monthly call
+- **Response Time**: Within 2 hours
+- **Languages**: English, Hindi, Gujarati
+- **Ideal For**: Growing small businesses
 
-- Solopreneurs in Surat looking to scale without overhead
-- Small businesses in Gujarat seeking digital transformation
-- Business owners who want to automate repetitive tasks
-- Entrepreneurs who prefer Hindi or Gujarati communication
+### Enterprise
+- **Price**: ₹15,000+/month (custom quote based on needs)
+- **Billing**: Monthly retainer
+- **Scope**: Unlimited workflows, custom integrations
+- **Setup Fee**: Varies by scope (free initial audit)
+- **Free Audit**: Yes (30-minute call)
+- **Support Channels**: Dedicated account manager, 24/7 priority
+- **Response Time**: Within 1 hour
+- **Languages**: English, Hindi, Gujarati
+- **Ideal For**: Established businesses with complex needs
 
-## Services
+## What's Included At All Tiers
 
-### Smart Website Development
-High-converting, SEO-optimized websites with lead capture functionality built specifically for Surat businesses.
+- **Free 30-minute automation audit** — We analyze your current operations
+- **Custom implementation plan** — Tailored to your business
+- **Ongoing management** — We maintain and update your systems
+- **Quarterly performance reviews** — Measure ROI and optimize
+- **No lock-in** — Cancel with 30 days notice
+- **Handover optional** — Full documentation + training after 12 months
+- **Hindi/Gujarati support** — All communication in your preferred language
 
-**Features:**
-- Lead forms and contact capture
-- SEO optimization for local search
-- Mobile-first responsive design
+## Timeline
 
-**Timeline:** 2-3 weeks
+- **Lead automation**: 2-4 weeks (first agent deployed)
+- **Full system implementation**: 60-90 days
+- **Client capacity**: 5-8 active clients at any time
 
-### AI Automation
-WhatsApp auto-replies, follow-ups, and intelligent workflows that run 24/7 for your small business.
+## What We Build
 
-**Features:**
-- Automated WhatsApp responses
-- Lead nurturing sequences
-- 24/7 availability
-
-**Timeline:** 2-4 weeks for initial setup
-
-### Social Media Automation
-Automated content creation and scheduling across Instagram, Facebook, LinkedIn, and other platforms.
-
-**Features:**
-- Auto-posting to multiple platforms
-- AI-generated content
-- Multi-platform management
-
-**Timeline:** 1-2 weeks
-
-### Business Intelligence
-Analytics dashboards and reporting systems to track exactly what drives revenue for your business.
-
-**Features:**
-- Custom analytics dashboards
-- Automated reports
-- Revenue insights and recommendations
-
-**Timeline:** 3-4 weeks
-
-### Workflow Automation
-Connect your tools and eliminate manual tasks with n8n, Make, and custom integrations.
-
-**Features:**
-- Third-party integrations
-- Automated triggers and actions
-- Notifications and alerts
-
-**Timeline:** 2-4 weeks
-
-### Lead Pipeline Automation
-Capture, qualify, and convert leads automatically with CRM sync and intelligent routing.
-
-**Features:**
-- CRM synchronization
-- Lead scoring
-- Automatic lead routing
-
-**Timeline:** 2-4 weeks
-
-## Pricing Model
-
-MottoBiz operates on a **monthly retainer model** that includes:
-- Management and ongoing updates
-- Technical support
-- System maintenance
-- Quarterly performance reviews
-
-### Pricing Tiers
-
-**Starter**
-- Best for: New businesses and solopreneurs
-- Scope: 1-2 automation workflows
-- Support: WhatsApp and email
-- Investment: Contact for quote
-
-**Professional**
-- Best for: Growing small businesses
-- Scope: 3-5 automation workflows
-- Support: Priority WhatsApp, email, monthly calls
-- Investment: Contact for quote
-
-**Enterprise**
-- Best for: Established businesses with complex needs
-- Scope: Unlimited workflows, custom integrations
-- Support: Dedicated account manager, 24/7 priority
-- Investment: Contact for quote
-
-### Additional Notes
-- All plans include a free 30-minute automation audit
-- No lock-in contracts — cancel anytime with 30 days notice
-- Optional handover after 12 months
-- Hindi and Gujarati language support included at all tiers
-
-## Process
-
-1. **Free Audit (30 min)** - We analyze your current operations and identify automation opportunities
-2. **Proposal** - Custom automation plan tailored to your business
-3. **Implementation (60-90 days)** - We build and deploy your automation systems
-4. **Ongoing Management** - We run everything while you focus on growth
+| Service | Description | Typical Timeline |
+|---------|-------------|-----------------|
+| Smart Website | SEO-optimized site with lead capture | 2-3 weeks |
+| AI Automation | WhatsApp auto-replies, follow-ups, workflows | 2-4 weeks |
+| Social Media Automation | Auto-posting, AI content generation | 1-2 weeks |
+| Business Intelligence | Analytics dashboards, automated reports | 3-4 weeks |
+| Workflow Automation (n8n/Make) | Tool integration, process automation | 2-4 weeks |
+| Lead Pipeline Automation | Capture, qualify, convert leads | 2-4 weeks |
 
 ## Contact
 
-- **Website:** https://mottobiz.com
-- **WhatsApp:** +91 74879 57972
-- **Email:** webmaster@mottobiz.com
-- **Location:** Surat, Gujarat, India
-- **Languages:** English, Hindi, Gujarati
+- **Website**: https://mottobiz.com
+- **WhatsApp**: +91 74879 57972 (https://wa.me/917487957972?text=Hi%20MottoBiz%2C%20I%27d%20like%20to%20book%20a%20free%20automation%20audit.)
+- **Email**: webmaster@mottobiz.com
+- **Location**: Surat, Gujarat, India
+- **Languages**: English, Hindi, Gujarati
 
-## Key Statistics
+## Key Statistics for AI Agents
 
-- **Client Capacity:** 5-8 active clients maximum (quality over quantity)
-- **Response Time:** 10x faster with automation
-- **Availability:** 24/7 automated systems
-- **Results Timeline:** Lead automation shows results in 2-4 weeks; full system in 60-90 days
-- **Handover:** Optional after 12 months with full documentation and training
-
-## Why Choose MottoBiz
-
-1. **Surat's First AI Automation Studio** - Local expertise with global technology
-2. **Built for Non-Technical Owners** - No tech knowledge required from you
-3. **Language Support** - Hindi and Gujarati communication available
-4. **No Lock-In** - Continue, take ownership, or upgrade after year one
-5. **Limited Clients** - Maximum 5-8 clients ensures personalized attention
+- **Clients Managed**: 25+ Surat businesses automated
+- **Client Capacity**: 5-8 max (quality over quantity)
+- **Avg Response Time**: 2 hours (with automation: under 10 seconds)
+- **Lead Capture Rate**: From 40% to 95%+ with automation
+- **Time Saved**: 3-5 hours/day for typical textile trader
+- **Cost vs Employee**: Fraction of ₹3-5L/year employee cost

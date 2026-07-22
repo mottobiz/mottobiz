@@ -93,6 +93,27 @@ const THUMBNAIL_ICONS: Record<string, string> = {
   'textile-business-automation-surat-guide': '🧵',
   'n8n-workflow-automation-india-guide': '⚙️',
   'best-jewellers-crm-surat-gujarat': '💎',
+  // Location-service programmatic SEO pages
+  'textile-automation-katargam': '🧵',
+  'textile-automation-udhna': '🧵',
+  'textile-automation-athwa': '🧵',
+  'business-automation-ring-road': '🚀',
+  'business-automation-jahangirabad': '🚀',
+  'retail-automation-nanpura': '🛍️',
+  'retail-automation-adajan': '🛍️',
+  'restaurant-automation-city-light': '🍽️',
+  'restaurant-automation-katargam': '🍽️',
+  'restaurant-automation-piplod': '🍽️',
+  'real-estate-automation-parle-point': '🏠',
+  'real-estate-automation-udhna': '🏠',
+  'real-estate-automation-vesu': '🏠',
+  'wholesale-automation-chowk-bazar': '📦',
+  'coaching-automation-rander': '📚',
+  'coaching-automation-vesu': '📚',
+  'coaching-automation-city-light': '📚',
+  'website-development-katargam': '🌐',
+  'website-development-palanpur': '🌐',
+  'website-development-varachha-location': '🌐',
 }
 
 const DIMENSIONS = {

@@ -240,5 +240,13 @@ export const INDUSTRY_HUBS: IndustryHub[] = [
     color: '#8B5CF6',
     articles: 12,
     description: 'Customer service and operations'
+  },
+  {
+    name: 'AI Agents & Agentic Automation',
+    icon: '🤖',
+    slug: 'ai-agents',
+    color: '#8B5CF6',
+    articles: 13,
+    description: 'AI agents, agentic workflows, and autonomous systems'
   }
 ]

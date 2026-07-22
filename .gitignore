@@ -33,6 +33,10 @@ dist-ssr
 .github-deploy-key/
 *.pem
 
+# Build artifacts (Vite outputs to same directory as publicDir)
+assets/
+public/assets/
+
 # Deploy artifacts that should never be committed
 deploy_proof_*
 __deploy_proof_*

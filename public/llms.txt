@@ -1,58 +1,106 @@
-# llms.txt
-# MottoBiz - AI Business Automation Studio
-# Last updated: 2026-04-13
-# For more information: https://mottobiz.com
+# llms.txt — MottoBiz
+## AI Business Automation Studio — Surat, Gujarat
+
+> MottoBiz helps solopreneurs and small businesses in Surat automate daily operations — WhatsApp follow-ups, social media, lead pipelines — without hiring a team.
+
+**Last updated**: 2026-05-30
+**Website**: https://mottobiz.com
+**Location**: Surat, Gujarat, India
+
+---
 
 ## Overview
 
-MottoBiz is Surat's first AI business automation studio. We help solopreneurs and small businesses in Surat, Gujarat automate their daily operations — WhatsApp follow-ups, social media, lead pipelines — without hiring a team.
+MottoBiz is Surat's first AI business automation studio. We build AI agents that handle business workflows autonomously — responding to customer inquiries, qualifying leads, following up, posting to social media, and generating reports. Our clients are non-technical business owners who want the power of automation without the complexity.
 
 ## Target Audience
 
 - Solopreneurs in Surat looking to scale without hiring
 - Small businesses in Gujarat seeking digital transformation
 - Non-technical business owners who want automation without complexity
-- Entrepreneurs who prefer Hindi or Gujarati communication
+- Textile traders, diamond merchants, restaurant owners, real estate agents, coaching centers, and retail shop owners
 
 ## Core Services
 
-1. **Smart Website Development** - High-converting, SEO-optimized websites
-2. **AI Automation** - WhatsApp auto-replies, follow-ups, intelligent workflows
-3. **Social Media Automation** - Automated content creation and scheduling
-4. **Business Intelligence** - Analytics dashboards and reporting systems
-5. **Workflow Automation** - Connect tools, eliminate manual tasks
-6. **Lead Pipeline Automation** - Capture, qualify, and convert leads automatically
+### Smart Website Development
+- High-converting, SEO-optimized websites with lead capture
+- Timeline: 2-3 weeks
 
-## Business Model
+### AI Automation
+- WhatsApp auto-replies, follow-ups, intelligent workflows
+- Timeline: 2-4 weeks for initial agent deployment
 
-- Monthly retainer pricing (custom quotes after free audit)
-- 5-8 client maximum capacity
-- No lock-in contracts
-- Optional handover after 12 months
-- Hindi and Gujarati language support
+### Social Media Automation
+- Automated content creation and scheduling across platforms
+- Timeline: 1-2 weeks
+
+### Business Intelligence
+- Analytics dashboards and reporting systems
+- Timeline: 3-4 weeks
+
+### Workflow Automation
+- n8n, Make.com, custom integrations to connect business tools
+- Timeline: 2-4 weeks
+
+### Lead Pipeline Automation
+- Capture, qualify, and convert leads automatically
+- Timeline: 2-4 weeks
+
+## Pricing (Machine-Readable)
+
+See full pricing at: https://mottobiz.com/pricing.md
+
+**Quick summary:**
+- **Starter**: ₹5,000/month — 1-2 workflows, email/WhatsApp support
+- **Professional**: ₹10,000/month — 3-5 workflows, priority support
+- **Enterprise**: ₹15,000+/month — Unlimited workflows, dedicated support
+- **Free 30-minute audit**: Always included, no obligation
+- **No lock-in**: Cancel anytime with 30 days notice
 
 ## Key Differentiators
 
-- First AI automation studio in Surat
-- Built specifically for non-technical owners
-- Local Gujarat expertise with global technology
-- Limited client roster for quality focus
+1. Surat's first dedicated AI automation studio
+2. Built entirely for non-technical business owners
+3. Hindi, Gujarati, and English support
+4. Maximum 5-8 clients for quality over quantity
+5. Optional handover after 12 months — full documentation and training
+6. No lock-in contracts
 
-## Important URLs
+## Statistics
 
-- Homepage: https://mottobiz.com/
-- Pricing: https://mottobiz.com/pricing.md
-- Sitemap: https://mottobiz.com/sitemap.xml
+- **25+** Surat businesses automated
+- **Lead capture**: From 40% to 95%+ with automation
+- **Response time**: From hours to under 10 seconds
+- **Time saved**: 3-5 hours/day for typical textile trader
+- **Cost**: Fraction of ₹3-5L/year employee cost
 
-## Contact Information
+## Related Files
 
-- WhatsApp: +91 74879 57972
-- Email: webmaster@mottobiz.com
-- Location: Surat, Gujarat, India (21.1702, 72.8311)
-- Instagram: https://www.instagram.com/mottobiz
+- Pricing: /pricing.md
+- Sitemap: /sitemap.xml
+- Robots: /robots.txt
+- OG Images: /og/{slug}.png (per-article)
 
-## Languages Supported
+## Industry Expertise
 
-- English
-- Hindi
-- Gujarati
+- Textile & Diamond trading (22 articles)
+- Restaurants & Food (15 articles)
+- Real Estate (14 articles)
+- AI Agents & Agentic Automation (13 articles)
+- Coaching & Education (11 articles)
+- Retail & Consumer (12 articles)
+
+## Key Pages
+
+- Home: https://mottobiz.com/
+- Resources: https://mottobiz.com/resources
+- Textile & Diamond Hub: https://mottobiz.com/industries/textile-diamond
+- AI Agents Hub: https://mottobiz.com/industries/ai-agents
+- Restaurant Hub: https://mottobiz.com/industries/restaurant-food
+- Real Estate Hub: https://mottobiz.com/industries/real-estate
+- Coaching Hub: https://mottobiz.com/industries/coaching-education
+- Retail Hub: https://mottobiz.com/industries/retail
+- Location: Varachha: https://mottobiz.com/locations/varachha
+- Location: Vesu: https://mottobiz.com/locations/vesu
+- Location: Adajan: https://mottobiz.com/locations/adajan
+- Location: Katargam: https://mottobiz.com/locations/katargam

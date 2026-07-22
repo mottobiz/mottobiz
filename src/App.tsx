@@ -1,7 +1,10 @@
 import './index.css'
 import { lazy, Suspense } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import { SEOHead } from './components/SEOHead'
+// SEOHead is intentionally NOT rendered at the App level — every page renders
+// its own with a route-specific canonical. A top-level SEOHead would inject a
+// default canonical (https://mottobiz.com) into every route's DOM, which
+// duplicates and conflicts with each page's own canonical link.
 import { CustomCursor, AnimatedBackground } from './components/effects'
 import { Navbar } from './components/Navbar'
 import { CookieConsent } from './components/CookieConsent'
@@ -18,6 +21,7 @@ const CoachingEducationHub = lazy(() => import('./pages/industries/CoachingEduca
 const RealEstateHub = lazy(() => import('./pages/industries/RealEstateHubPage'))
 const RestaurantFoodHub = lazy(() => import('./pages/industries/RestaurantFoodHubPage'))
 const RetailConsumerHub = lazy(() => import('./pages/industries/RetailConsumerHubPage'))
+const AIAgentsHub = lazy(() => import('./pages/industries/AIAgentsHubPage'))
 const VarachhaHub = lazy(() => import('./pages/locations/VarachhaHubPage'))
 const KatargamHub = lazy(() => import('./pages/locations/KatargamHubPage'))
 const VesuHub = lazy(() => import('./pages/locations/VesuHubPage'))
@@ -38,7 +42,6 @@ function PageLoader() {
 function App() {
   return (
     <Router>
-      <SEOHead />
       <CustomCursor />
       <AnimatedBackground />
 
@@ -58,6 +61,7 @@ function App() {
               <Route path="/industries/real-estate" element={<RealEstateHub />} />
               <Route path="/industries/restaurant-food" element={<RestaurantFoodHub />} />
               <Route path="/industries/retail" element={<RetailConsumerHub />} />
+              <Route path="/industries/ai-agents" element={<AIAgentsHub />} />
               <Route path="/locations/varachha" element={<VarachhaHub />} />
               <Route path="/locations/katargam" element={<KatargamHub />} />
               <Route path="/locations/vesu" element={<VesuHub />} />

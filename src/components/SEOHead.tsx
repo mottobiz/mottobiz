@@ -65,6 +65,7 @@ const localBusinessSchema = {
   openingHours: ['Mo-Fr 09:00-18:00', 'Sa 10:00-14:00'],
   sameAs: [
     'https://www.instagram.com/mottobiz',
+    'https://www.linkedin.com/company/mottobiz',
     `https://wa.me/${WHATSAPP_NUMBER}`,
   ],
   hasOfferCatalog: {
@@ -236,6 +237,7 @@ const organizationSchema = {
   logo: `${SITE_URL}/logo-static.svg`,
   sameAs: [
     'https://www.instagram.com/mottobiz',
+    'https://www.linkedin.com/company/mottobiz',
     `https://wa.me/${WHATSAPP_NUMBER}`,
   ],
   contactPoint: {
@@ -346,9 +348,11 @@ export function SEOHead({
       <link rel="canonical" href={canonicalUrl} />
 
       {/* AI Search Optimization Meta Tags */}
+      {/* AI Search Optimization Meta Tags */}
       <meta name="AI-friendly" content="true" />
       <meta name="content-type" content="business-service" />
-      <meta name="last-modified" content="2026-05-30" />
+      <meta name="last-modified" content="2026-07-20" />
+      <meta name="keywords" content="business automation Surat, AI automation Gujarat, WhatsApp automation, small business automation, AI agents India, workflow automation Surat" />
       
       {/* Open Graph */}
       <meta property="og:type" content={isHomePage ? 'business.business' : 'article'} />
@@ -395,6 +399,19 @@ export function SEOHead({
       {/* Language and Locale */}
       <meta name="language" content="English, Hindi, Gujarati" />
       <meta name="coverage" content="Surat, Gujarat, India" />
+
+      {/* SpeakableSpecification for AI/voice extraction */}
+      <script type="application/ld+json">{JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'WebPage',
+        name: title,
+        description: description,
+        url: canonicalUrl,
+        speakable: {
+          '@type': 'SpeakableSpecification',
+          cssSelector: ['h1', '.hero-description', '.faq-answer', '.key-takeaways'],
+        },
+      })}</script>
 
       {/* Schema Markup */}
       <script type="application/ld+json">{JSON.stringify(localBusinessSchema)}</script>

@@ -318,11 +318,13 @@ export function ArticlePage() {
       logo: { '@type': 'ImageObject', url: `${SITE_URL}/logo-static.svg` },
     },
     keywords: article.seo ? [article.seo.primaryKeyword, ...article.seo.secondaryKeywords].join(', ') : article.title,
+    wordCount: content ? Math.max(content.split(/\s+/).length, 300) : 500,
     about: {
       '@type': 'Thing',
       name: article.category,
     },
     image: `${SITE_URL}/og/${article.slug}.png`,
+    articleSection: article.pillar || article.category,
     mainEntityOfPage: {
       '@type': 'WebPage',
       '@id': `${SITE_URL}/resources/${article.slug}`,
@@ -365,6 +367,11 @@ export function ArticlePage() {
       />
       {/* Schema markup */}
       <Helmet>
+        <meta name="keywords" content={article.seo ? [article.seo.primaryKeyword, ...article.seo.secondaryKeywords].join(', ') : article.title} />
+        <meta property="article:published_time" content={article.publishDate} />
+        {article.lastUpdated && <meta property="article:modified_time" content={article.lastUpdated} />}
+        <meta property="article:author" content={article.author?.name || 'MottoBiz Team'} />
+        <meta property="article:section" content={article.pillar || article.category} />
         {faqSchema && (
           <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
         )}

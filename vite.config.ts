@@ -106,6 +106,24 @@ function copyBuildArtifacts() {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#0A0A0B" />
     <title>AI Business Automation in Surat | MottoBiz — Free Audit</title>
+    <!-- Pre-hydration canonical rewrite for crawlers (React-Helmet takes over after hydration) -->
+    <link rel="canonical" href="https://mottobiz.com/" />
+    <script>
+      // Rewrite the static-fallback canonical to match the actual request URL
+      // BEFORE crawlers parse the document. The React Helmet then writes its
+      // own canonical which agrees with this one. This eliminates the
+      // "Alternate page with proper canonical tag" issue caused by SPA shells
+      // where every route served an identical static HTML head.
+      (function() {
+        try {
+          var path = window.location.pathname;
+          var query = window.location.search;
+          var canonical = 'https://mottobiz.com' + (path || '/') + (query || '');
+          var link = document.querySelector('link[rel="canonical"]');
+          if (link) link.setAttribute('href', canonical);
+        } catch (e) {}
+      })();
+    </script>
     <!-- Static fallback meta tags for crawlers & social bots -->
     <meta name="description" content="MottoBiz helps solopreneurs and small businesses in Surat automate WhatsApp follow-ups, lead pipelines, and social media — without hiring a team. Book a free 30-min audit." />
     <meta name="robots" content="index, follow" />

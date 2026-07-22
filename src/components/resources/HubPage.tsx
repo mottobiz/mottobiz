@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
+import { Helmet } from 'react-helmet-async'
 import type { ArticleCard } from '@/types/article'
-import { WHATSAPP_LINK } from '@/lib/config'
+import { WHATSAPP_LINK, SITE_URL } from '@/lib/config'
 
 interface HubArticleCardProps {
   article: ArticleCard
@@ -74,8 +75,51 @@ export function HubPage({
 }: HubPageProps) {
   const colors = { primary: color, secondary: secondaryColor }
 
+  // WebPage schema with SpeakableSpecification for AI extraction
+  const webPageSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: metaTitle,
+    description: metaDescription,
+    url: canonicalUrl,
+    speakable: {
+      '@type': 'SpeakableSpecification',
+      cssSelector: ['h1', '.hero-description'],
+    },
+    isPartOf: {
+      '@type': 'WebSite',
+      name: 'MottoBiz',
+      url: SITE_URL,
+    },
+  }
+
+  // BreadcrumbList schema for rich results
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: SITE_URL,
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: name,
+        item: canonicalUrl,
+      },
+    ],
+  }
+
   return (
     <main className="min-h-screen bg-base">
+      <Helmet>
+        <meta name="keywords" content={`${name} automation Surat, ${name} business automation, ${name} Surat Gujarat, ${pillar || name} automation guide`} />
+        <script type="application/ld+json">{JSON.stringify(webPageSchema)}</script>
+        <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
+      </Helmet>
       {/* Hero */}
       <section className="relative py-16 sm:py-24 px-6 overflow-hidden">
         <div className="absolute inset-0 pointer-events-none">
