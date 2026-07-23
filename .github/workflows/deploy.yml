@@ -70,11 +70,13 @@ jobs:
           echo "Will deploy to: $DEPLOY_PATH"
           echo "$DEPLOY_PATH" > /tmp/deploy_path
 
+          # Ensure the deploy directory exists on the server. Hostinger's
+          # hPanel UI sometimes deletes it, and rsync won't auto-create it.
           ATTEMPTS=0
           until [ $ATTEMPTS -ge 3 ]; do
             ATTEMPTS=$((ATTEMPTS+1))
             echo "SSH attempt $ATTEMPTS..."
-            if ssh -o ConnectTimeout=20 hostinger 'echo SSH_OK'; then
+            if ssh -o ConnectTimeout=20 hostinger "mkdir -p '$DEPLOY_PATH' && echo SSH_OK"; then
               echo "✅ SSH verified"
               exit 0
             fi
