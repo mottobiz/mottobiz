@@ -32,9 +32,25 @@ jobs:
         run: |
           set -e
           mkdir -p ~/.ssh
-          printf '%s' "${{ secrets.HOSTINGER_SSH_KEY }}" > ~/.ssh/mottobiz_deploy
+          chmod 700 ~/.ssh
+          # Use heredoc with explicit marker so any trailing newline in the
+          # secret is preserved correctly. Strip any CR characters that
+          # Windows-based uploads sometimes inject.
+          cat > ~/.ssh/mottobiz_deploy <<'KEYEOF'
+          ${{ secrets.HOSTINGER_SSH_KEY }}
+          KEYEOF
+          # Strip any trailing whitespace lines GitHub may have added, then
+          # ensure the file ends with a single newline (OpenSSH parser is
+          # picky about trailing bytes).
+          sed -i -e '$ { /^$/d; }' ~/.ssh/mottobiz_deploy
+          # Convert any stray CRLF or lone CR to LF
+          tr -d '\r' < ~/.ssh/mottobiz_deploy > ~/.ssh/mottobiz_deploy.tmp
+          mv ~/.ssh/mottobiz_deploy.tmp ~/.ssh/mottobiz_deploy
           chmod 600 ~/.ssh/mottobiz_deploy
+          # Verify the key parses before we use it
           ssh-keygen -y -f ~/.ssh/mottobiz_deploy > /dev/null
+          echo "✅ SSH key installed and verified"
+
           cat > ~/.ssh/config <<EOF
           Host hostinger
             HostName ${{ secrets.HOSTINGER_SSH_HOST }}
