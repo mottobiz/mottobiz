@@ -96,10 +96,24 @@ export function Footer() {
 
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/50 border-t border-white/5">
           <p>&copy; {new Date().getFullYear()} MottoBiz. Surat, Gujarat, India.</p>
+          <p className="text-white/30" title="Last successful auto-deploy">
+            Build {import.meta.env.VITE_BUILD_TIME ?? 'dev'}
+          </p>
           <div className="flex items-center gap-4">
             <a href="/privacy" className="hover:text-white/60 transition-colors">Privacy Policy</a>
             <span aria-hidden="true">|</span>
             <a href="/terms" className="hover:text-white/60 transition-colors">Terms of Service</a>
+            <span aria-hidden="true">|</span>
+            <a
+              href="https://github.com/mottobiz/mottobiz/actions/workflows/deploy.yml"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-white/60 transition-colors inline-flex items-center gap-1"
+              title="GitHub Actions deploy workflow runs"
+            >
+              <span className="inline-block w-2 h-2 rounded-full bg-emerald-400"></span>
+              deploy
+            </a>
           </div>
         </div>
       </div>

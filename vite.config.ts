@@ -182,5 +182,10 @@ export default defineConfig(({ command }) => {
         '@': path.resolve(__dirname, './src'),
       },
     },
+    define: {
+      'import.meta.env.VITE_BUILD_TIME': JSON.stringify(
+        new Date().toISOString().slice(0, 19).replace('T', ' ') + ' UTC'
+      ),
+    },
   }
 })
