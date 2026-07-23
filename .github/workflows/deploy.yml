@@ -1,11 +1,15 @@
-name: Deploy to Hostinger (SSH pull)
+name: Deploy to Hostinger
 
-# Fully automated: push to main → GitHub Actions SSHes into Hostinger →
-# invalidates hPanel's stale cached ref → git reset --hard origin/main → live.
+# Fully automated: push to main → GitHub Actions runner builds the site,
+# then rsyncs the deployable output to Hostinger via SSH.
 #
-# Last updated: 2026-07-22
-# Tested on: mottobiz.com on Hostinger (hPanel), shared plan, repo mottobiz/mottobiz
+# Last updated: 2026-07-23
+# Architecture shift: build artifacts are no longer tracked in git (added to
+# .gitignore in 2026-07-23). The workflow MUST run `npm run build:full` before
+# shipping anything, otherwise the live site will reference missing JS bundles.
 #
+# Repo: mottobiz/mottobiz
+# Domain: mottobiz.com
 # Companion doc: ../DEPLOYMENT.md
 
 on:
@@ -13,55 +17,154 @@ on:
     branches: [ main ]
   workflow_dispatch:
 
+# Cancel any in-flight run for the same branch. Two pushes within 30s would
+# otherwise race and could overwrite each other's files mid-upload.
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 15
+    env:
+      DEPLOY_HOST: ${{ secrets.HOSTINGER_SSH_HOST }}
+      DEPLOY_PORT: ${{ secrets.HOSTINGER_SSH_PORT }}
+      DEPLOY_USER: ${{ secrets.HOSTINGER_SSH_USER }}
+      DEPLOY_PATH: /home/${{ secrets.HOSTINGER_SSH_USER }}/domains/mottobiz.com/public_html
+      WEBHOOK_TOKEN: ${{ secrets.HOSTINGER_DEPLOY_TOKEN }}
+
     steps:
-      # --- Webhook first (free, may silently no-op for transferred repos) ---
+      # --- 1. Webhook first (free, may silently no-op) ---
       - name: Trigger Hostinger deploy webhook
+        if: env.WEBHOOK_TOKEN != ''
         continue-on-error: true
         run: |
           HTTP_CODE=$(curl -sS -o /dev/null -w "%{http_code}" \
-            -X POST "https://webhooks.hostinger.com/deploy/${{ secrets.HOSTINGER_DEPLOY_TOKEN }}" \
+            -X POST "https://webhooks.hostinger.com/deploy/${{ env.WEBHOOK_TOKEN }}" \
             -H "Content-Type: application/json" \
             -d '{"event":"push","branch":"main"}')
-          echo "Hostinger webhook: HTTP=$HTTP_CODE (non-200 is fine; SSH step is the real deploy)"
+          echo "Hostinger webhook: HTTP=$HTTP_CODE (non-200 is fine; rsync step is the real deploy)"
 
-      # --- Real deploy: SSH pull on Hostinger public_html ---
-      - name: SSH pull to Hostinger public_html
+      # --- 2. Checkout source ---
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # --- 3. Set up Node.js ---
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      # --- 4. Install dependencies (with sharp + puppeteer caches) ---
+      - name: Install dependencies
+        run: npm ci
+
+      # --- 5. Build + prerender all routes ---
+      - name: Build and prerender
+        run: npm run build:full
+        env:
+          CI: true
+
+      # --- 6. Verify build output looks sane ---
+      - name: Verify build output
+        run: |
+          set -e
+          echo "=== Build output sanity checks ==="
+          test -f index.html          || { echo "FAIL: index.html missing"; exit 1; }
+          test -f .htaccess           || { echo "FAIL: .htaccess missing"; exit 1; }
+          test -f sitemap.xml         || { echo "FAIL: sitemap.xml missing"; exit 1; }
+          test -f robots.txt          || { echo "FAIL: robots.txt missing"; exit 1; }
+          test -d assets              || { echo "FAIL: assets/ dir missing"; exit 1; }
+          test -d public/assets       || { echo "FAIL: public/assets/ dir missing"; exit 1; }
+          test -d resources           || { echo "FAIL: resources/ prerendered dir missing"; exit 1; }
+          test -d industries          || { echo "FAIL: industries/ prerendered dir missing"; exit 1; }
+          test -d locations           || { echo "FAIL: locations/ prerendered dir missing"; exit 1; }
+          JS_COUNT=$(ls assets/*.js 2>/dev/null | wc -l)
+          CSS_COUNT=$(ls assets/*.css 2>/dev/null | wc -l)
+          echo "Build output: $JS_COUNT JS bundles, $CSS_COUNT CSS files"
+          if [ "$JS_COUNT" -lt 1 ] || [ "$CSS_COUNT" -lt 1 ]; then
+            echo "FAIL: no JS or CSS bundles produced"; exit 1
+          fi
+          echo "✅ Build output looks good"
+
+      # --- 7. Ensure SSH target dir exists ---
+      - name: Ensure deploy directory exists
         uses: appleboy/ssh-action@v1
         with:
-          host: ${{ secrets.HOSTINGER_SSH_HOST }}
-          port: ${{ secrets.HOSTINGER_SSH_PORT }}
-          username: ${{ secrets.HOSTINGER_SSH_USER }}
+          host: ${{ env.DEPLOY_HOST }}
+          port: ${{ env.DEPLOY_PORT }}
+          username: ${{ env.DEPLOY_USER }}
           key: ${{ secrets.HOSTINGER_SSH_KEY }}
-          command_timeout: 5m
+          command_timeout: 2m
           script: |
             set -e
-            DOCROOT=/home/${{ secrets.HOSTINGER_SSH_USER }}/domains/mottobiz.com/public_html
-            cd "$DOCROOT"
+            mkdir -p "$DEPLOY_PATH"
+            # Verify it really is writable (catches sandboxed/shared-host restrictions)
+            touch "$DEPLOY_PATH/.deploy_write_test" && rm "$DEPLOY_PATH/.deploy_write_test"
+            echo "Deploy path $DEPLOY_PATH is writable"
 
-            # Make sure origin is reachable via SSH (HTTPS path is flaky on hPanel).
-            git remote set-url origin git@github.com:mottobiz/mottobiz.git || true
+      # --- 8. Rsync deployable output to Hostinger ---
+      # We upload EVERYTHING in the repo root except the source/build dirs and
+      # the original git metadata. The double slash in `e/` ensures rsync
+      # copies the *contents* of the repo into DEPLOY_PATH rather than nesting
+      # the repo inside itself.
+      - name: Rsync to Hostinger
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ env.DEPLOY_HOST }}
+          port: ${{ env.DEPLOY_PORT }}
+          username: ${{ env.DEPLOY_USER }}
+          key: ${{ secrets.HOSTINGER_SSH_KEY }}
+          source: "."
+          target: "${{ env.DEPLOY_PATH }}/"
+          strip_components: 0
+          command_timeout: 10m
+          # rsync flags:
+          #   -a  archive (recursive, preserve perms/times)
+          #   -v  verbose (so logs show what shipped)
+          #   -z  compress during transfer
+          #   --delete  remove files on the server that no longer exist locally
+          #   --exclude-from= list of dirs/files to skip
+          #   --chmod  set sane defaults for Hostinger Apache (755 dirs / 644 files)
+          flags: >
+            -avz
+            --delete
+            --exclude=node_modules
+            --exclude=.git
+            --exclude=src
+            --exclude=scripts
+            --exclude=dist
+            --exclude=public
+            --exclude=.github
+            --exclude=mottobiz
+            --exclude=screenshots
+            --exclude=content
+            --exclude=.ssh-key
+            --exclude=*.md
+            --exclude=*.ps1
+            --exclude=*.bat
+            --exclude=deploy*.ps1
+            --exclude=deploy*.bat
+            --exclude=package.json
+            --exclude=package-lock.json
+            --exclude=tsconfig.json
+            --exclude=vite.config.ts
+            --exclude=.gitignore
+            --exclude=temp_b64.txt
+            --exclude=test.txt
+            --chmod=Du+rx,go+r,Fa-x
 
-            # Invalidate cached remote ref so the next fetch hits the network.
-            rm -f .git/refs/remotes/origin/main
-
-            # Preserve any FTP/File Manager edits on the server.
-            git stash push -u -m "deploy-pre-pull $(date +%s)" || true
-
-            git fetch origin main
-            LOCAL=$(git rev-parse HEAD)
-            REMOTE=$(git rev-parse origin/main)
-            echo "local=$LOCAL remote=$REMOTE"
-            if [ "$LOCAL" != "$REMOTE" ]; then
-              git reset --hard origin/main
-              git log -1 --oneline
-            else
-              echo "already at origin/main; nothing to do"
-            fi
-
-            # Hostinger's Apache needs 755 dirs / 644 files outside .git.
-            find "$DOCROOT" -type d -not -path '*/.git*' -exec chmod 755 {} \; 2>/dev/null
-            find "$DOCROOT" -type f -not -path '*/.git*' -exec chmod 644 {} \; 2>/dev/null
+      # --- 9. Final verification: live site responds with new content ---
+      - name: Verify live deploy
+        if: success()
+        run: |
+          echo "=== Checking live site ==="
+          sleep 5  # Allow Hostinger's edge cache to pick up the new files
+          HTTP_CODE=$(curl -sS -o /dev/null -w "%{http_code}" "https://mottobiz.com/?v=$GITHUB_SHA" || echo "000")
+          if [ "$HTTP_CODE" = "200" ]; then
+            echo "✅ https://mottobiz.com/ responds 200"
+          else
+            echo "⚠️ https://mottobiz.com/ responded $HTTP_CODE (live verification soft-failed; ssh deploy still succeeded)"
+          fi

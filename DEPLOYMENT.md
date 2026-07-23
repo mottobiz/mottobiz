@@ -12,34 +12,36 @@ Hostinger's built-in "Git panel + webhook" path is **broken for repos that have 
 
 The reliable replacement is **GitHub Actions SSHing into Hostinger** on every push and forcing the pull. Four Actions secrets, one workflow file. We also fire Hostinger's own webhook first as a free belt-and-braces — when it works, it's zero-minute-cost; when it doesn't, the SSH step still ships the deploy.
 
-> **2026-07-22 status for mottobiz.com:** Hostinger's auto-deploy is currently broken — pushing to `main` does not update `Last-Modified` headers on the live site. We are moving to the GitHub Actions SSH-pull workflow documented below.
+> **2026-07-23 status for mottobiz.com:** Hostinger's auto-deploy is currently broken — pushing to `main` does not update `Last-Modified` headers on the live site. We replaced the local-deploy + manual-upload path with a GitHub Actions workflow that builds on the runner and rsyncs the deployable output to Hostinger over SSH.
 
 ---
 
 ## Architecture
 
 ```
-┌─────────────────────┐    push     ┌────────────────────┐    SSH      ┌──────────────────────┐
-│  Local git repo     │────────────▶│  GitHub Actions    │────────────▶│  Hostinger hPanel    │
-│  (any clone)        │             │  runner (ubuntu)   │             │  sshd :65002         │
-└─────────────────────┘             │  appleboy/ssh-     │             │  ~/domains/<d>/      │
-                                    │   action@v1 runs   │             │   public_html/       │
-                                    │   script           │             │  (production files)  │
-                                    └────────────────────┘             └──────────────────────┘
+┌─────────────────────┐    push     ┌────────────────────┐    SSH/SCP    ┌──────────────────────┐
+│  Local git repo     │────────────▶│  GitHub Actions    │─────────────▶│  Hostinger hPanel    │
+│  (any clone)        │             │  runner (ubuntu)   │  rsync over  │  sshd :65002         │
+└─────────────────────┘             │  appleboy/scp-     │  SSH (65002) │  ~/domains/<d>/      │
+                                    │   action@v0.1.7    │              │   public_html/       │
+                                    │  builds first,     │              │  (production files)  │
+                                    │  then ships        │              │                      │
+                                    └────────────────────┘              └──────────────────────┘
                                             │
                                             └─▶ also POSTs webhook to
                                                 webhooks.hostinger.com (free, may no-op)
-                                                                              │
-                                              ◀─────── frontend URLs ────────┘
+                                                                                  │
+                                                  ◀─────── frontend URLs ────────┘
 ```
 
 Why each piece:
 
-- **GitHub Actions SSH pull** — the working deploy path. Fires within seconds of every push to `main`. Costs GitHub-hosted runner minutes (free tier is 2,000 min/month — plenty for a static site).
-- **Hostinger webhook** — installed at `webhooks.hostinger.com/deploy/<token>`. Fires a server-side git pull on hPanel. **Reliability varies** — for this repo (transferred/renamed origin) it's been observed to no-op silently. Kept as a free secondary trigger; we mark it `continue-on-error: true` so a webhook miss doesn't block the SSH path.
+- **GitHub Actions builds + rsyncs** — the working deploy path. The runner checks out the repo, runs `npm run build:full` (Vite build + OG image generation + Puppeteer prerender of all 112 routes), then rsyncs the resulting `index.html` + `assets/` + prerendered `resources/`, `industries/`, `locations/`, `privacy/`, `terms/` directories into Hostinger's `public_html/`. Fires within seconds of every push to `main`.
+- **Why not `git pull` on Hostinger?** Because as of 2026-07-23 build artifacts are gitignored. Pushing `main` no longer ships the JS bundles — they're rebuilt on each deploy. Doing the build on the GitHub runner is more reliable than relying on the right Node version being installed on Hostinger.
+- **Hostinger webhook** — installed at `webhooks.hostinger.com/deploy/<token>`. Fires a server-side git pull on hPanel. **Reliability varies** — for this repo it's been observed to no-op silently. Kept as a free secondary trigger; we mark it `continue-on-error: true` so a webhook miss doesn't block the rsync step.
 - **Manual** `⋮ → Deploy` **in hPanel** — last-resort manual trigger. Still works; use it if both automated paths are down.
 
-We rely on **SSH + webhook** because hPanel's deploy-worker brittleness has burned us repeatedly.
+We rely on **GitHub Actions + webhook** because hPanel's deploy-worker brittleness has burned us repeatedly, and because the runner gives us reproducible builds regardless of what Node tooling Hostinger has available.
 
 ---
 
@@ -60,7 +62,7 @@ else:
 
 The "up to date" branch exits without ever running `git fetch` or `git pull`. The cached `refs/remotes/origin/main` value can stay stale forever; the worker trusts it. The deploy key registered on the GitHub repo shows "Never used" because `git fetch` is never invoked. Auto-deploy appears broken.
 
-**Fix in the script:** delete `.git/refs/remotes/origin/main` *before* fetching. Forces worker (and any subsequent pull) to hit GitHub for the real SHA.
+**The GitHub Actions rsync approach sidesteps this entirely.** The runner builds fresh artifacts from the current `main`, then ships them over SSH with rsync's `--delete` flag. No git interaction on Hostinger, no deploy-key state to manage, no cached refs to invalidate.
 
 ---
 
@@ -152,60 +154,128 @@ Key substitutions made for the Mottobiz repo:
 (Full workflow file at `.github/workflows/deploy.yml` — view it in the repo.)
 
 ```yaml
-name: Deploy to Hostinger (SSH pull)
+name: Deploy to Hostinger
 
 on:
   push:
     branches: [ main ]
   workflow_dispatch:
 
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 15
+    env:
+      DEPLOY_HOST: ${{ secrets.HOSTINGER_SSH_HOST }}
+      DEPLOY_PORT: ${{ secrets.HOSTINGER_SSH_PORT }}
+      DEPLOY_USER: ${{ secrets.HOSTINGER_SSH_USER }}
+      DEPLOY_PATH: /home/${{ secrets.HOSTINGER_SSH_USER }}/domains/mottobiz.com/public_html
+      WEBHOOK_TOKEN: ${{ secrets.HOSTINGER_DEPLOY_TOKEN }}
+
     steps:
       - name: Trigger Hostinger deploy webhook
+        if: env.WEBHOOK_TOKEN != ''
         continue-on-error: true
         run: |
           HTTP_CODE=$(curl -sS -o /dev/null -w "%{http_code}" \
-            -X POST "https://webhooks.hostinger.com/deploy/${{ secrets.HOSTINGER_DEPLOY_TOKEN }}" \
+            -X POST "https://webhooks.hostinger.com/deploy/${{ env.WEBHOOK_TOKEN }}" \
             -H "Content-Type: application/json" \
             -d '{"event":"push","branch":"main"}')
-          echo "Hostinger webhook: HTTP=$HTTP_CODE (non-200 is fine; SSH step is the real deploy)"
+          echo "Hostinger webhook: HTTP=$HTTP_CODE (non-200 is fine; rsync step is the real deploy)"
 
-      - name: SSH pull to Hostinger public_html
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build and prerender
+        run: npm run build:full
+
+      - name: Verify build output
+        run: |
+          set -e
+          test -f index.html && test -f .htaccess && test -f sitemap.xml
+          test -d assets && test -d public/assets
+          test -d resources && test -d industries && test -d locations
+          echo "✅ Build output looks good"
+
+      - name: Ensure deploy directory exists
         uses: appleboy/ssh-action@v1
         with:
-          host: ${{ secrets.HOSTINGER_SSH_HOST }}
-          port: ${{ secrets.HOSTINGER_SSH_PORT }}
-          username: ${{ secrets.HOSTINGER_SSH_USER }}
+          host: ${{ env.DEPLOY_HOST }}
+          port: ${{ env.DEPLOY_PORT }}
+          username: ${{ env.DEPLOY_USER }}
           key: ${{ secrets.HOSTINGER_SSH_KEY }}
-          command_timeout: 5m
+          command_timeout: 2m
           script: |
-            set -e
-            DOCROOT=/home/${{ secrets.HOSTINGER_SSH_USER }}/domains/mottobiz.com/public_html
-            cd "$DOCROOT"
-            git remote set-url origin git@github.com:mottobiz/mottobiz.git || true
-            rm -f .git/refs/remotes/origin/main
-            git stash push -u -m "deploy-pre-pull $(date +%s)" || true
-            git fetch origin main
-            LOCAL=$(git rev-parse HEAD)
-            REMOTE=$(git rev-parse origin/main)
-            echo "local=$LOCAL remote=$REMOTE"
-            if [ "$LOCAL" != "$REMOTE" ]; then
-              git reset --hard origin/main
-              git log -1 --oneline
-            else
-              echo "already at origin/main; nothing to do"
-            fi
-            find "$DOCROOT" -type d -not -path '*/.git*' -exec chmod 755 {} \; 2>/dev/null
-            find "$DOCROOT" -type f -not -path '*/.git*' -exec chmod 644 {} \; 2>/dev/null
+            mkdir -p "$DEPLOY_PATH"
+            touch "$DEPLOY_PATH/.deploy_write_test" && rm "$DEPLOY_PATH/.deploy_write_test"
+            echo "Deploy path $DEPLOY_PATH is writable"
+
+      - name: Rsync to Hostinger
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ env.DEPLOY_HOST }}
+          port: ${{ env.DEPLOY_PORT }}
+          username: ${{ env.DEPLOY_USER }}
+          key: ${{ secrets.HOSTINGER_SSH_KEY }}
+          source: "."
+          target: "${{ env.DEPLOY_PATH }}/"
+          command_timeout: 10m
+          flags: >
+            -avz
+            --delete
+            --exclude=node_modules
+            --exclude=.git
+            --exclude=src
+            --exclude=scripts
+            --exclude=dist
+            --exclude=public
+            --exclude=.github
+            --exclude=mottobiz
+            --exclude=screenshots
+            --exclude=content
+            --exclude=.ssh-key
+            --exclude=*.md
+            --exclude=*.ps1
+            --exclude=*.bat
+            --exclude=package.json
+            --exclude=package-lock.json
+            --exclude=tsconfig.json
+            --exclude=vite.config.ts
+            --exclude=.gitignore
+            --chmod=Du+rx,go+r,Fa-x
+
+      - name: Verify live deploy
+        if: success()
+        run: |
+          sleep 5
+          HTTP_CODE=$(curl -sS -o /dev/null -w "%{http_code}" "https://mottobiz.com/?v=$GITHUB_SHA" || echo "000")
+          if [ "$HTTP_CODE" = "200" ]; then
+            echo "✅ https://mottobiz.com/ responds 200"
+          else
+            echo "⚠️ live responded $HTTP_CODE (rsync still succeeded)"
+          fi
 ```
 
-**Required substitutions:**
+**Architecture notes:**
 
-- `DOCROOT` is built dynamically from `${{ secrets.HOSTINGER_SSH_USER }}/domains/mottobiz.com/public_html` so it always resolves to the right user even if Hostinger changes the username prefix.
-- The webhook token in the `curl POST` URL (`${{ secrets.HOSTINGER_DEPLOY_TOKEN }}`) is optional — if you don't have one, just leave the secret empty and the curl will 404 silently (the SSH step is the real deploy anyway).
+- Build runs on the GitHub runner (`ubuntu-latest`, Node 20), so Hostinger doesn't need Node installed.
+- `appleboy/scp-action@v0.1.7` does the rsync. The `source: "."` + `target: "$DEPLOY_PATH/"` pair ships the *contents* of the repo root directly into `public_html/`.
+- The `concurrency` block cancels any in-flight run when a new push arrives, so back-to-back pushes don't race on the rsync.
+- `--chmod=Du+rx,go+r,Fa-x` sets directories to `755` and files to `644` — what Hostinger's Apache expects.
+- `DEPLOY_PATH` is built dynamically from `${{ secrets.HOSTINGER_SSH_USER }}/domains/mottobiz.com/public_html`. No hardcoded user paths.
 
 ### 5. Verify with a marker commit
 
@@ -216,16 +286,20 @@ git add __deploy_proof_$TS.txt
 git commit -m "PROOF: auto-deploy test $TS"
 git push origin main
 
-# Poll live URL — file should appear within ~30s
+# Watch the Actions tab — green build+rsync should appear within ~30-60s.
+# Then poll live URL — file should appear within ~30s of the rsync completing.
 curl -sS -o /dev/null -w "HTTP=%{http_code}\n" "https://mottobiz.com/__deploy_proof_$TS.txt"
 ```
 
-Watch the Actions tab — green `Deploy to Hostinger (SSH pull)` run within seconds. SSH step log should show:
+Workflow log should show:
 
 ```
-Hostinger webhook: HTTP=<code>
-local=<old-sha> remote=<new-sha>
-HEAD is now at <new-sha> PROOF: ...
+✅ Build output looks good
+Deploy path /home/.../public_html is writable
+sending incremental file list
+...
+sent X bytes  received Y bytes  total size Z
+✅ https://mottobiz.com/ responds 200
 ```
 
 Then clean up: `git rm __deploy_proof_*.txt && git commit && git push`.
@@ -267,11 +341,13 @@ You can factor the workflow into a **reusable workflow** (`workflow_call`) once 
 | Actions run failed: `ssh.ParsePrivateKey: ssh: no key found`                                                 | `gh run view --log-failed`                                 | `HOSTINGER_SSH_KEY` secret is empty or malformed — re-upload from the `.ssh-key/` private file                                   |
 | Actions run failed: `ssh: handshake failed: ssh: unable to authenticate, attempted methods [none publickey]` | `gh run view --log-failed`                                 | Public key for that private key isn't in Hostinger's `~/.ssh/authorized_keys` — add it via File Manager (preferred) or hPanel UI |
 | Actions run failed: `dial tcp ***:***: i/o timeout`                                                          | `gh run view --log-failed`                                 | Runner can't reach `<host>:<port>`. Check `HOSTINGER_SSH_HOST`/`PORT` values and that SSH is enabled on the account              |
-| Actions run failed at `git fetch` step                                                                       | `gh run view --log-failed`                                 | `DOCROOT` path wrong, or origin URL not reachable from server                                                                    |
+| Actions run failed at rsync step (`No such file or directory`)                                                 | `gh run view --log-failed`                                 | `DEPLOY_PATH` path wrong — confirm `ls /home/$USER/domains/mottobiz.com/public_html/` works over SSH                          |
+| Actions run failed: `drone-scp transfer failed: Permission denied (publickey)`                                | `gh run view --log-failed`                                 | Authorized keys path mismatch on Hostinger; verify `~/.ssh/authorized_keys` exists with `0600` perms and the right public key   |
+| Actions run failed at `npm ci` or `npm run build:full`                                                       | `gh run view --log-failed`                                 | Likely a Node version mismatch or a transient npm registry error — re-run; if persistent, check `node-version` in the workflow  |
 | `Last deployment status: failed` in hPanel                                                                   | hPanel → Files → Git → ⋮ → View latest build output        | hPanel worker bailed — usually means composer.json/lock missing, but it's misleading for non-PHP projects                        |
-| Multiple `~/.logs/git_*` files with "Project directory is git repository / up to date with origin/main"      | SSH `ls -la ~/.logs/git_*`                                 | Worker is short-circuiting; the workflow's `rm .git/refs/remotes/origin/main` cures this                                         |
-| GitHub Actions tab shows red ❌ but no useful log line                                                        | Re-run with `ACTIONS_STEP_DEBUG: true` secret enabled      | Gets verbose drone-ssh output including key parse and TCP negotiation                                                            |
-| Last-Modified on live site doesn't update after successful Actions run                                       | `curl -sI https://mottobiz.com/...` and check the date     | Either DOCROOT is wrong (updating a directory not served) or Hostinger's Apache is serving from a stale cache                     |
+| GitHub Actions tab shows red ❌ but no useful log line                                                        | Re-run with `ACTIONS_STEP_DEBUG: true` secret enabled      | Gets verbose drone-ssh / drone-scp output including key parse and TCP negotiation                                                  |
+| Last-Modified on live site doesn't update after successful Actions run                                       | `curl -sI https://mottobiz.com/...` and check the date     | Either `DEPLOY_PATH` is wrong (updating a directory not served) or Hostinger's Apache is serving from a stale cache              |
+| Live site serves blank page or 404s on `/assets/*.js`                                                        | `curl -sI https://mottobiz.com/assets/ | grep HTTP`        | `npm run build:full` did not run on the runner — likely the workflow file wasn't picked up; re-push or run via workflow_dispatch |
 
 
 ---
@@ -288,7 +364,7 @@ GitHub Actions has the same end result (push → deploy) with:
 - Runnable logs you can read without elevated scope
 - Reproducibility — copy a workflow file, set 4 secrets, done
 
-We keep the GitHub-side webhook installed as belt-and-braces. If both fire, the second one exits cleanly with "nothing new to do" (idempotent `git reset --hard`).
+We keep the GitHub-side webhook installed as belt-and-braces. If it fires before our rsync completes, the rsync will overwrite any partial changes anyway (idempotent `--delete`).
 
 ---
 
@@ -307,7 +383,8 @@ We keep the GitHub-side webhook installed as belt-and-braces. If both fire, the 
 
 - **GitHub-side rate limit / minute cost:** This pattern runs a hosted ubuntu-latest runner for ~30-60s on each push. Free tier is 2,000 min/month — plenty for low-traffic repos. Avoid triggering it on every branch push if you have heavy dev.
 - **Concurrent pushes:** Two pushes within ~30s can race each other on the runner. The script's `set -e` won't protect you from two fetches interleaving; in practice this is rare for a portfolio site.
-- **Server-side state loss:** `git reset --hard` wipes server-side modifications. If you also edit files via FTP or File Manager, those changes get stashed as `deploy-pre-pull-<timestamp>` — auto-recoverable with `git stash pop` on the server.
+- **Server-side state loss:** `rsync --delete` removes any files on Hostinger that aren't in the new deploy. If you also edit files via FTP or File Manager, back them up before pushing to `main` — they'll be deleted on the next deploy.
+- **Build cost:** Each push runs `npm ci` + `npm run build:full` (Vite + OG images + Puppeteer prerender of 112 routes). That takes ~3-5 min on a hosted runner. Free tier covers this comfortably; if you deploy many times an hour, consider caching or self-hosted runners.
 - **SSH key expiry:** Hostinger doesn't expire SSH keys automatically. Rotate by generating a fresh pair, updating the GH secret, redeploying the new public key on hPanel.
 - **Shared-plan specifics:** hPanel SSH key UI on shared plans has known paste-mangling bugs. **File Manager edit of** `~/.ssh/authorized_keys` **is the more reliable path** — bypasses the UI entirely.
 - **Private repos:** GitHub Actions run on private repos and consume paid minutes after the free quota. For a portfolio site this is fine; if you deploy many times a day, consider self-hosting the runner on Hostinger itself.
@@ -325,8 +402,10 @@ After setting up a new project, in order:
 - [ ] `HOSTINGER_SSH_HOST/PORT/USER` set on the GitHub repo
 - [ ] Workflow file at `.github/workflows/deploy.yml`
 - [ ] Empty test commit pushed
-- [ ] Actions run shows green ✅ within ~30s of push
-- [ ] SSH step log shows `local=<old> remote=<new>` and `HEAD is now at <new-sha>`
+- [ ] Actions run shows green ✅ within ~3-5 min of push (build takes time)
+- [ ] Build step log shows `✅ Build output looks good`
+- [ ] Rsync step log shows file transfers (`sending incremental file list`) and no errors
+- [ ] Verify step log shows `✅ https://mottobiz.com/ responds 200`
 - [ ] `curl -sI https://mottobiz.com/__deploy_proof_<TS>.txt` returns HTTP=200
 
 If any item fails, work backward through the checklist and cross-reference the Troubleshooting table above.
@@ -335,7 +414,7 @@ If any item fails, work backward through the checklist and cross-reference the T
 
 ## File manifest for this deployment on mottobiz.com
 
-- `.github/workflows/deploy.yml` — Actions workflow (combined webhook + SSH pull)
+- `.github/workflows/deploy.yml` — Actions workflow (webhook trigger + build on runner + rsync to Hostinger via SSH)
 - `DEPLOYMENT.md` — this document
 - (private only) `.ssh-key/mottobiz_deploy` and `.ssh-key/mottobiz_deploy.pub` — active keypair, **git-ignored**, never committed
 - (legacy, can be deleted) `deploy.bat`, `deploy.ps1` — pre-GitHub-Actions local deploy scripts; superseded 2026-07-22 by `.github/workflows/deploy.yml`
