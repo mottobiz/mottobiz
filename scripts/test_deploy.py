@@ -119,15 +119,16 @@ def run_tests():
                 check("twitter:card present", tw_card is not None)
                 
                 # Check SpeakableSpecification (newly added)
-                has_speakable = False
-                for s in schemas:
-                    try:
-                        data = json.loads(s.get_attribute("innerHTML") or "{}")
-                        if data.get("speakable") or (isinstance(data.get("@graph"), list) and any(g.get("speakable") for g in data["@graph"])):
-                            has_speakable = True
-                            break
-                    except:
-                        pass
+                has_speakable = page.evaluate('''() => {
+                    var scripts = document.querySelectorAll('script[type="application/ld+json"]');
+                    for (var i = 0; i < scripts.length; i++) {
+                        try {
+                            var d = JSON.parse(scripts[i].textContent || scripts[i].innerHTML);
+                            if (d && typeof d === 'object' && d.speakable) return true;
+                        } catch(e) {}
+                    }
+                    return false;
+                }''')
                 check("SpeakableSpecification schema", has_speakable)
                 
                 # Check h1 exists
