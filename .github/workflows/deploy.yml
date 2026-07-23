@@ -90,8 +90,9 @@ jobs:
           DEPLOY_USER="${{ secrets.HOSTINGER_SSH_USER }}"
           DEPLOY_PATH="/home/${DEPLOY_USER}/domains/mottobiz.com/public_html"
           echo "Deploying to $DEPLOY_PATH"
+          # Use plain ssh -i (not -e) so the SSH config in ~/.ssh/config is honored.
+          # The config file already specifies User, Port, IdentityFile, and StrictHostKeyChecking.
           rsync -avz --delete \
-            -e "ssh -o ConnectTimeout=30" \
             --exclude='node_modules' --exclude='.git' --exclude='src' --exclude='scripts' \
             --exclude='dist' --exclude='public' --exclude='.github' --exclude='mottobiz' \
             --exclude='screenshots' --exclude='content' --exclude='.ssh-key' \
@@ -100,7 +101,8 @@ jobs:
             --exclude='.htaccess.backup' \
             --exclude='package.json' --exclude='package-lock.json' \
             --exclude='tsconfig.json' --exclude='vite.config.ts' --exclude='.gitignore' \
-            ./ "$DEPLOY_PATH/"
+            -e "ssh -o ConnectTimeout=30 -F $HOME/.ssh/config" \
+            ./ hostinger:"$DEPLOY_PATH/"
 
       - name: Fix permissions on Hostinger
         run: |
