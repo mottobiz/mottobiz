@@ -31,7 +31,7 @@ jobs:
       DEPLOY_HOST: ${{ secrets.HOSTINGER_SSH_HOST }}
       DEPLOY_PORT: ${{ secrets.HOSTINGER_SSH_PORT }}
       DEPLOY_USER: ${{ secrets.HOSTINGER_SSH_USER }}
-      DEPLOY_PATH: /home/${{ secrets.HOSTINGER_SSH_USER }}/domains/mottobiz.com/public_html
+      DEPLOY_DOMAIN: mottobiz.com
       WEBHOOK_TOKEN: ${{ secrets.HOSTINGER_DEPLOY_TOKEN }}
 
     steps:
@@ -92,6 +92,8 @@ jobs:
       # --- 7. Ensure SSH target dir exists ---
       - name: Ensure deploy directory exists
         uses: appleboy/ssh-action@v1
+        env:
+          DEPLOY_PATH: /home/${{ secrets.HOSTINGER_SSH_USER }}/domains/mottobiz.com/public_html
         with:
           host: ${{ env.DEPLOY_HOST }}
           port: ${{ env.DEPLOY_PORT }}
@@ -112,6 +114,8 @@ jobs:
       # the repo inside itself.
       - name: Rsync to Hostinger
         uses: appleboy/scp-action@v0.1.7
+        env:
+          DEPLOY_PATH: /home/${{ secrets.HOSTINGER_SSH_USER }}/domains/mottobiz.com/public_html
         with:
           host: ${{ env.DEPLOY_HOST }}
           port: ${{ env.DEPLOY_PORT }}
