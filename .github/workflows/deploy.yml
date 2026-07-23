@@ -17,11 +17,11 @@ on:
     branches: [ main ]
   workflow_dispatch:
 
-# Cancel any in-flight run for the same branch. Two pushes within 30s would
-# otherwise race and could overwrite each other's files mid-upload.
-concurrency:
-  group: deploy-${{ github.ref }}
-  cancel-in-progress: true
+# NOTE: do NOT use concurrency.cancel-in-progress for this workflow.
+# Because GitHub marks the previous run as "completed/failure" the instant
+# a new push arrives (instead of letting the older one run to completion),
+# the runner hits "no jobs" state and the workflow appears to fail in 0
+# seconds. Disable concurrency to let each deploy run finish.
 
 jobs:
   build-and-deploy:
