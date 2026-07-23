@@ -1,9 +1,95 @@
-name: Deploy
+name: Deploy to Hostinger
+
 on:
   push:
-    branches: [main]
+    branches: [ main ]
+  workflow_dispatch:
+
 jobs:
-  hello:
+  build-and-deploy:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
+
     steps:
-      - run: echo "hello from deploy workflow"
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build and prerender
+        run: npm run build:full
+        env:
+          CI: true
+
+      - name: Setup SSH key
+        run: |
+          set -e
+          mkdir -p ~/.ssh
+          printf '%s' "${{ secrets.HOSTINGER_SSH_KEY }}" > ~/.ssh/mottobiz_deploy
+          chmod 600 ~/.ssh/mottobiz_deploy
+          ssh-keygen -y -f ~/.ssh/mottobiz_deploy > /dev/null
+          cat > ~/.ssh/config <<EOF
+          Host hostinger
+            HostName ${{ secrets.HOSTINGER_SSH_HOST }}
+            Port ${{ secrets.HOSTINGER_SSH_PORT }}
+            User ${{ secrets.HOSTINGER_SSH_USER }}
+            IdentityFile ~/.ssh/mottobiz_deploy
+            StrictHostKeyChecking accept-new
+            UserKnownHostsFile ~/.ssh/known_hosts
+          EOF
+          chmod 600 ~/.ssh/config
+
+      - name: Verify SSH connection
+        run: |
+          set -e
+          DEPLOY_USER="${{ secrets.HOSTINGER_SSH_USER }}"
+          DEPLOY_PATH="/home/${DEPLOY_USER}/domains/mottobiz.com/public_html"
+          echo "Will deploy to: $DEPLOY_PATH"
+          echo "$DEPLOY_PATH" > /tmp/deploy_path
+
+          ATTEMPTS=0
+          until [ $ATTEMPTS -ge 3 ]; do
+            ATTEMPTS=$((ATTEMPTS+1))
+            echo "SSH attempt $ATTEMPTS..."
+            if ssh -o ConnectTimeout=20 hostinger 'echo SSH_OK'; then
+              echo "✅ SSH verified"
+              exit 0
+            fi
+            sleep $((ATTEMPTS*5))
+          done
+          echo "❌ SSH failed"
+          exit 1
+
+      - name: Rsync to Hostinger
+        run: |
+          set -e
+          DEPLOY_PATH=$(cat /tmp/deploy_path)
+          rsync -avz --delete \
+            -e "ssh -o ConnectTimeout=30" \
+            --exclude='node_modules' --exclude='.git' --exclude='src' --exclude='scripts' \
+            --exclude='dist' --exclude='public' --exclude='.github' --exclude='mottobiz' \
+            --exclude='screenshots' --exclude='content' --exclude='.ssh-key' \
+            --exclude='*.md' --exclude='*.ps1' --exclude='*.bat' \
+            --exclude='package.json' --exclude='package-lock.json' \
+            --exclude='tsconfig.json' --exclude='vite.config.ts' --exclude='.gitignore' \
+            --exclude='.htaccess.backup' \
+            ./ "$DEPLOY_PATH/"
+
+      - name: Fix permissions on Hostinger
+        run: |
+          DEPLOY_PATH=$(cat /tmp/deploy_path)
+          ssh hostinger "cd '$DEPLOY_PATH' && find . -type d -exec chmod 755 {} \; && find . -type f -exec chmod 644 {} \;"
+
+      - name: Verify live deploy
+        if: success()
+        run: |
+          sleep 5
+          HTTP_CODE=$(curl -sS -o /dev/null -w "%{http_code}" "https://mottobiz.com/?v=$GITHUB_SHA" || echo "000")
+          echo "Live HTTP: $HTTP_CODE"
