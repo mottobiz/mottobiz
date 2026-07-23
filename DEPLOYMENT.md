@@ -425,3 +425,6 @@ Do not commit any key file to the repo. If they were present in a previous push,
 ---
 
 *Process documented from real failures on 2026-07-20/21, rebuilt and verified end-to-end on 2026-07-22. Working pipeline: push → ~15-30s → live at* `mottobiz.com`*.*
+
+
+<!-- trigger deploy 1784804914 -->
