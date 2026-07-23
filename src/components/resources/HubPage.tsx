@@ -144,7 +144,7 @@ export function HubPage({
               {icon}
             </div>
             <h1 className="font-display text-4xl sm:text-5xl font-bold text-white mb-4">
-              {name} Automation Guide
+              {name}{name.toLowerCase().includes('automation') ? '' : ' Automation'} Guide
             </h1>
             <p className="text-white/55 text-lg max-w-2xl mx-auto mb-8">
               {description}
@@ -177,7 +177,7 @@ export function HubPage({
         <div className="max-w-6xl mx-auto">
           <div className="flex items-center justify-between mb-8">
             <h2 className="font-display text-2xl font-bold text-white">
-              All {name} Automation Guides
+              All {name}{name.toLowerCase().includes('automation') ? '' : ' Automation'} Guides
             </h2>
             <span className="text-white/55 text-sm">{articles.length} articles</span>
           </div>
