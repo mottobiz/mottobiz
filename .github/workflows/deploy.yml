@@ -92,8 +92,6 @@ jobs:
       # --- 7. Ensure SSH target dir exists ---
       - name: Ensure deploy directory exists
         uses: appleboy/ssh-action@v1
-        env:
-          DEPLOY_PATH: /home/${{ secrets.HOSTINGER_SSH_USER }}/domains/mottobiz.com/public_html
         with:
           host: ${{ env.DEPLOY_HOST }}
           port: ${{ env.DEPLOY_PORT }}
@@ -102,6 +100,7 @@ jobs:
           command_timeout: 2m
           script: |
             set -e
+            DEPLOY_PATH="/home/$DEPLOY_USER/domains/mottobiz.com/public_html"
             mkdir -p "$DEPLOY_PATH"
             # Verify it really is writable (catches sandboxed/shared-host restrictions)
             touch "$DEPLOY_PATH/.deploy_write_test" && rm "$DEPLOY_PATH/.deploy_write_test"
@@ -114,15 +113,13 @@ jobs:
       # the repo inside itself.
       - name: Rsync to Hostinger
         uses: appleboy/scp-action@v0.1.7
-        env:
-          DEPLOY_PATH: /home/${{ secrets.HOSTINGER_SSH_USER }}/domains/mottobiz.com/public_html
         with:
           host: ${{ env.DEPLOY_HOST }}
           port: ${{ env.DEPLOY_PORT }}
           username: ${{ env.DEPLOY_USER }}
           key: ${{ secrets.HOSTINGER_SSH_KEY }}
           source: "."
-          target: "${{ env.DEPLOY_PATH }}/"
+          target: "/home/${{ env.DEPLOY_USER }}/domains/mottobiz.com/public_html/"
           strip_components: 0
           command_timeout: 10m
           # rsync flags:
