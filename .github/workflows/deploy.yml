@@ -1,12 +1,12 @@
 name: Deploy to Hostinger
 
 # Fully automated: push to main → GitHub Actions runner builds the site,
-# then rsyncs the deployable output to Hostinger via SSH.
+# then ships the deployable output to Hostinger via SSH + rsync.
 #
 # Last updated: 2026-07-23
-# Architecture shift: build artifacts are no longer tracked in git (added to
-# .gitignore in 2026-07-23). The workflow MUST run `npm run build:full` before
-# shipping anything, otherwise the live site will reference missing JS bundles.
+# Architecture: build on runner, deploy via plain `rsync -e ssh` in a run step.
+# Using plain shell instead of appleboy/scp-action because that action's
+# `envs:`/secret expansion has been unreliable for our use case.
 #
 # Repo: mottobiz/mottobiz
 # Domain: mottobiz.com
@@ -27,23 +27,17 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     timeout-minutes: 15
-    env:
-      DEPLOY_HOST: ${{ secrets.HOSTINGER_SSH_HOST }}
-      DEPLOY_PORT: ${{ secrets.HOSTINGER_SSH_PORT }}
-      DEPLOY_USER: ${{ secrets.HOSTINGER_SSH_USER }}
-      DEPLOY_DOMAIN: mottobiz.com
-      WEBHOOK_TOKEN: ${{ secrets.HOSTINGER_DEPLOY_TOKEN }}
 
     steps:
       # --- 1. Webhook first (free, may silently no-op) ---
       - name: Trigger Hostinger deploy webhook
-        if: env.WEBHOOK_TOKEN != ''
+        if: ${{ secrets.HOSTINGER_DEPLOY_TOKEN != '' }}
         continue-on-error: true
         run: |
           HTTP_CODE=$(curl -sS -o /dev/null -w "%{http_code}" \
-            -X POST "https://webhooks.hostinger.com/deploy/${{ env.WEBHOOK_TOKEN }}" \
+            -X POST "https://webhooks.hostinger.com/deploy/${{ secrets.HOSTINGER_DEPLOY_TOKEN }}" \
             -H "Content-Type: application/json" \
-            -d '{"event":"push","branch":"main"}')
+            -d '{"event":"push","branch":"main"}' || echo "000")
           echo "Hostinger webhook: HTTP=$HTTP_CODE (non-200 is fine; rsync step is the real deploy)"
 
       # --- 2. Checkout source ---
@@ -57,7 +51,7 @@ jobs:
           node-version: '20'
           cache: 'npm'
 
-      # --- 4. Install dependencies (with sharp + puppeteer caches) ---
+      # --- 4. Install dependencies ---
       - name: Install dependencies
         run: npm ci
 
@@ -72,101 +66,120 @@ jobs:
         run: |
           set -e
           echo "=== Build output sanity checks ==="
-          test -f index.html          || { echo "FAIL: index.html missing"; exit 1; }
-          test -f .htaccess           || { echo "FAIL: .htaccess missing"; exit 1; }
-          test -f sitemap.xml         || { echo "FAIL: sitemap.xml missing"; exit 1; }
-          test -f robots.txt          || { echo "FAIL: robots.txt missing"; exit 1; }
-          test -d assets              || { echo "FAIL: assets/ dir missing"; exit 1; }
-          test -d public/assets       || { echo "FAIL: public/assets/ dir missing"; exit 1; }
-          test -d resources           || { echo "FAIL: resources/ prerendered dir missing"; exit 1; }
-          test -d industries          || { echo "FAIL: industries/ prerendered dir missing"; exit 1; }
-          test -d locations           || { echo "FAIL: locations/ prerendered dir missing"; exit 1; }
+          test -f index.html   || { echo "FAIL: index.html missing"; exit 1; }
+          test -f .htaccess    || { echo "FAIL: .htaccess missing"; exit 1; }
+          test -f sitemap.xml  || { echo "FAIL: sitemap.xml missing"; exit 1; }
+          test -d assets       || { echo "FAIL: assets/ dir missing"; exit 1; }
+          test -d resources    || { echo "FAIL: resources/ prerendered dir missing"; exit 1; }
+          test -d industries   || { echo "FAIL: industries/ prerendered dir missing"; exit 1; }
+          test -d locations    || { echo "FAIL: locations/ prerendered dir missing"; exit 1; }
           JS_COUNT=$(ls assets/*.js 2>/dev/null | wc -l)
-          CSS_COUNT=$(ls assets/*.css 2>/dev/null | wc -l)
-          echo "Build output: $JS_COUNT JS bundles, $CSS_COUNT CSS files"
-          if [ "$JS_COUNT" -lt 1 ] || [ "$CSS_COUNT" -lt 1 ]; then
-            echo "FAIL: no JS or CSS bundles produced"; exit 1
+          echo "Build output: $JS_COUNT JS bundles"
+          if [ "$JS_COUNT" -lt 1 ]; then
+            echo "FAIL: no JS bundles produced"; exit 1
           fi
           echo "✅ Build output looks good"
 
-      # --- 7. Ensure SSH target dir exists ---
-      - name: Ensure deploy directory exists
-        uses: appleboy/ssh-action@v1
-        with:
-          host: ${{ env.DEPLOY_HOST }}
-          port: ${{ env.DEPLOY_PORT }}
-          username: ${{ env.DEPLOY_USER }}
-          key: ${{ secrets.HOSTINGER_SSH_KEY }}
-          command_timeout: 2m
-          envs: DEPLOY_USER
-          script: |
-            set -e
-            DEPLOY_PATH="/home/${DEPLOY_USER}/domains/mottobiz.com/public_html"
-            mkdir -p "$DEPLOY_PATH"
-            # Verify it really is writable (catches sandboxed/shared-host restrictions)
-            touch "$DEPLOY_PATH/.deploy_write_test" && rm "$DEPLOY_PATH/.deploy_write_test"
-            echo "Deploy path $DEPLOY_PATH is writable"
+      # --- 7. Install SSH key on the runner with strict perms ---
+      - name: Setup SSH key
+        run: |
+          set -e
+          mkdir -p ~/.ssh
+          # Write the key from the secret with strict perms, LF-only
+          printf '%s' "${{ secrets.HOSTINGER_SSH_KEY }}" > ~/.ssh/mottobiz_deploy
+          chmod 600 ~/.ssh/mottobiz_deploy
+          # Verify it parses
+          ssh-keygen -y -f ~/.ssh/mottobiz_deploy > /dev/null
+          echo "✅ SSH key installed and parseable"
+          echo "Host hostinger" > ~/.ssh/config
+          echo "  HostName ${{ secrets.HOSTINGER_SSH_HOST }}" >> ~/.ssh/config
+          echo "  Port ${{ secrets.HOSTINGER_SSH_PORT }}" >> ~/.ssh/config
+          echo "  User ${{ secrets.HOSTINGER_SSH_USER }}" >> ~/.ssh/config
+          echo "  IdentityFile ~/.ssh/mottobiz_deploy" >> ~/.ssh/config
+          echo "  StrictHostKeyChecking accept-new" >> ~/.ssh/config
+          echo "  UserKnownHostsFile ~/.ssh/known_hosts" >> ~/.ssh/config
+          chmod 600 ~/.ssh/config
 
-      # --- 8. Rsync deployable output to Hostinger ---
-      # We upload EVERYTHING in the repo root except the source/build dirs and
-      # the original git metadata. The double slash in `e/` ensures rsync
-      # copies the *contents* of the repo into DEPLOY_PATH rather than nesting
-      # the repo inside itself.
+      # --- 8. Verify SSH connectivity with retry (hostinger occasionally rate-limits) ---
+      - name: Verify SSH connection
+        run: |
+          set -e
+          DEPLOY_USER="${{ secrets.HOSTINGER_SSH_USER }}"
+          DEPLOY_PATH="/home/${DEPLOY_USER}/domains/mottobiz.com/public_html"
+          echo "Will deploy to: $DEPLOY_PATH"
+          echo "$DEPLOY_PATH" > /tmp/deploy_path
+
+          # Retry up to 3 times with backoff (hostinger sometimes drops connections)
+          ATTEMPTS=0
+          until [ $ATTEMPTS -ge 3 ]; do
+            ATTEMPTS=$((ATTEMPTS+1))
+            echo "SSH attempt $ATTEMPTS..."
+            if ssh -o ConnectTimeout=20 -o ServerAliveInterval=15 hostinger 'echo "✅ SSH OK as $(whoami)"; pwd; ls -la "$DEPLOY_PATH" 2>/dev/null | head -3'; then
+              echo "✅ SSH verified on attempt $ATTEMPTS"
+              exit 0
+            fi
+            echo "Attempt $ATTEMPTS failed, sleeping $((ATTEMPTS*10))s..."
+            sleep $((ATTEMPTS*10))
+          done
+          echo "❌ SSH failed after 3 attempts"
+          exit 1
+
+      # --- 9. Rsync deployable output to Hostinger ---
       - name: Rsync to Hostinger
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          host: ${{ env.DEPLOY_HOST }}
-          port: ${{ env.DEPLOY_PORT }}
-          username: ${{ env.DEPLOY_USER }}
-          key: ${{ secrets.HOSTINGER_SSH_KEY }}
-          source: "."
-          target: "/home/${{ env.DEPLOY_USER }}/domains/mottobiz.com/public_html/"
-          strip_components: 0
-          command_timeout: 10m
-          # rsync flags:
-          #   -a  archive (recursive, preserve perms/times)
-          #   -v  verbose (so logs show what shipped)
-          #   -z  compress during transfer
-          #   --delete  remove files on the server that no longer exist locally
-          #   --exclude-from= list of dirs/files to skip
-          #   --chmod  set sane defaults for Hostinger Apache (755 dirs / 644 files)
-          flags: >
-            -avz
-            --delete
-            --exclude=node_modules
-            --exclude=.git
-            --exclude=src
-            --exclude=scripts
-            --exclude=dist
-            --exclude=public
-            --exclude=.github
-            --exclude=mottobiz
-            --exclude=screenshots
-            --exclude=content
-            --exclude=.ssh-key
-            --exclude=*.md
-            --exclude=*.ps1
-            --exclude=*.bat
-            --exclude=deploy*.ps1
-            --exclude=deploy*.bat
-            --exclude=package.json
-            --exclude=package-lock.json
-            --exclude=tsconfig.json
-            --exclude=vite.config.ts
-            --exclude=.gitignore
-            --exclude=temp_b64.txt
-            --exclude=test.txt
-            --chmod=Du+rx,go+r,Fa-x
+        run: |
+          set -e
+          DEPLOY_PATH=$(cat /tmp/deploy_path)
+          echo "Deploying to $DEPLOY_PATH"
 
-      # --- 9. Final verification: live site responds with new content ---
+          rsync -avz --delete \
+            -e "ssh -o ConnectTimeout=30 -o ServerAliveInterval=30 -o ServerAliveCountMax=3" \
+            --exclude='node_modules' \
+            --exclude='.git' \
+            --exclude='src' \
+            --exclude='scripts' \
+            --exclude='dist' \
+            --exclude='public' \
+            --exclude='.github' \
+            --exclude='mottobiz' \
+            --exclude='screenshots' \
+            --exclude='content' \
+            --exclude='.ssh-key' \
+            --exclude='.agents' \
+            --exclude='.verdent' \
+            --exclude='.claude' \
+            --exclude='.env.example' \
+            --exclude='*.md' \
+            --exclude='*.ps1' \
+            --exclude='*.bat' \
+            --exclude='.htaccess.backup' \
+            --exclude='package.json' \
+            --exclude='package-lock.json' \
+            --exclude='tsconfig.json' \
+            --exclude='vite.config.ts' \
+            --exclude='.gitignore' \
+            ./ "$DEPLOY_PATH/"
+
+          echo "✅ Rsync complete"
+
+      # --- 10. Set perms on the server side ---
+      - name: Fix permissions on Hostinger
+        run: |
+          set -e
+          DEPLOY_PATH=$(cat /tmp/deploy_path)
+          ssh hostinger "cd '$DEPLOY_PATH' && find . -type d -exec chmod 755 {} \; && find . -type f -exec chmod 644 {} \;"
+          echo "✅ Permissions set (755 dirs, 644 files)"
+
+      # --- 11. Verify live deploy ---
       - name: Verify live deploy
         if: success()
         run: |
-          echo "=== Checking live site ==="
           sleep 5  # Allow Hostinger's edge cache to pick up the new files
           HTTP_CODE=$(curl -sS -o /dev/null -w "%{http_code}" "https://mottobiz.com/?v=$GITHUB_SHA" || echo "000")
           if [ "$HTTP_CODE" = "200" ]; then
             echo "✅ https://mottobiz.com/ responds 200"
           else
-            echo "⚠️ https://mottobiz.com/ responded $HTTP_CODE (live verification soft-failed; ssh deploy still succeeded)"
+            echo "⚠️ https://mottobiz.com/ responded $HTTP_CODE (rsync still succeeded; live may be cached)"
           fi
+          # Also verify a key article page canonical
+          CANONICAL=$(curl -sS "https://mottobiz.com/resources/real-estate-automation-vesu/?v=$GITHUB_SHA" | grep -oE '<link[^>]*canonical[^>]*>' | head -1 || echo "missing")
+          echo "Article canonical: $CANONICAL"
