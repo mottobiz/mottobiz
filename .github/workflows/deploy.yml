@@ -68,7 +68,6 @@ jobs:
           DEPLOY_USER="${{ secrets.HOSTINGER_SSH_USER }}"
           DEPLOY_PATH="/home/${DEPLOY_USER}/domains/mottobiz.com/public_html"
           echo "Will deploy to: $DEPLOY_PATH"
-          echo "$DEPLOY_PATH" > /tmp/deploy_path
 
           # Ensure the deploy directory exists on the server. Hostinger's
           # hPanel UI sometimes deletes it, and rsync won't auto-create it.
@@ -88,21 +87,26 @@ jobs:
       - name: Rsync to Hostinger
         run: |
           set -e
-          DEPLOY_PATH=$(cat /tmp/deploy_path)
+          DEPLOY_USER="${{ secrets.HOSTINGER_SSH_USER }}"
+          DEPLOY_PATH="/home/${DEPLOY_USER}/domains/mottobiz.com/public_html"
+          echo "Deploying to $DEPLOY_PATH"
           rsync -avz --delete \
             -e "ssh -o ConnectTimeout=30" \
             --exclude='node_modules' --exclude='.git' --exclude='src' --exclude='scripts' \
             --exclude='dist' --exclude='public' --exclude='.github' --exclude='mottobiz' \
             --exclude='screenshots' --exclude='content' --exclude='.ssh-key' \
+            --exclude='.agents' --exclude='.verdent' --exclude='.claude' \
             --exclude='*.md' --exclude='*.ps1' --exclude='*.bat' \
+            --exclude='.htaccess.backup' \
             --exclude='package.json' --exclude='package-lock.json' \
             --exclude='tsconfig.json' --exclude='vite.config.ts' --exclude='.gitignore' \
-            --exclude='.htaccess.backup' \
             ./ "$DEPLOY_PATH/"
 
       - name: Fix permissions on Hostinger
         run: |
-          DEPLOY_PATH=$(cat /tmp/deploy_path)
+          set -e
+          DEPLOY_USER="${{ secrets.HOSTINGER_SSH_USER }}"
+          DEPLOY_PATH="/home/${DEPLOY_USER}/domains/mottobiz.com/public_html"
           ssh hostinger "cd '$DEPLOY_PATH' && find . -type d -exec chmod 755 {} \; && find . -type f -exec chmod 644 {} \;"
 
       - name: Verify live deploy
